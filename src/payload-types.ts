@@ -73,6 +73,7 @@ export interface Config {
     categories: Category;
     users: User;
     tags: Tag;
+    sketchbook: Sketchbook;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -90,6 +91,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
+    sketchbook: SketchbookSelect<false> | SketchbookSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -749,6 +751,45 @@ export interface Tag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sketchbook".
+ */
+export interface Sketchbook {
+  id: number;
+  title: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  cover: number | Media;
+  images: {
+    image: number | Media;
+    id?: string | null;
+  }[];
+  tags?: (number | Tag)[] | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  externalLinks?:
+    | {
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -943,6 +984,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tags';
         value: number | Tag;
+      } | null)
+    | ({
+        relationTo: 'sketchbook';
+        value: number | Sketchbook;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1315,6 +1360,32 @@ export interface UsersSelect<T extends boolean = true> {
 export interface TagsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sketchbook_select".
+ */
+export interface SketchbookSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  cover?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  tags?: T;
+  publishedAt?: T;
+  slug?: T;
+  externalLinks?:
+    | T
+    | {
+        url?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
