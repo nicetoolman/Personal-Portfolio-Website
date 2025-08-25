@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { formatSlugHook } from '@/fields/slug/formatSlug'
+import { slugField } from '@/fields/slug'
 import { authenticated } from '../access/authenticated'
 import { authenticatedOrPublished } from '../access/authenticatedOrPublished'
 
@@ -58,17 +58,7 @@ export const Sketchbook: CollectionConfig = {
       type: 'date',
       required: false,
     },
-    {
-      name: 'slug',
-      type: 'text',
-      index: true,
-      hooks: {
-        beforeValidate: [formatSlugHook('title')],
-      },
-      admin: {
-        position: 'sidebar',
-      },
-    },
+    ...slugField('title'),
     {
       name: 'externalLinks',
       type: 'array',

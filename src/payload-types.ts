@@ -779,6 +779,7 @@ export interface Sketchbook {
   tags?: (number | Tag)[] | null;
   publishedAt?: string | null;
   slug?: string | null;
+  slugLock?: boolean | null;
   externalLinks?:
     | {
         url?: string | null;
@@ -1380,6 +1381,7 @@ export interface SketchbookSelect<T extends boolean = true> {
   tags?: T;
   publishedAt?: T;
   slug?: T;
+  slugLock?: T;
   externalLinks?:
     | T
     | {
