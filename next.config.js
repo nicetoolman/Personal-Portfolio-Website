@@ -6,6 +6,13 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : undefined || process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
 
+const LOCAL_NETWORK_HOST =
+  process.env.LOCAL_NETWORK_HOST && process.env.NODE_ENV !== 'production'
+    ? process.env.LOCAL_NETWORK_HOST
+    : process.env.NODE_ENV !== 'production'
+      ? '192.168.0.208'
+      : undefined
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -18,6 +25,15 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      ...(LOCAL_NETWORK_HOST
+        ? [
+            {
+              hostname: LOCAL_NETWORK_HOST,
+              port: '3000',
+              protocol: 'http',
+            },
+          ]
+        : []),
     ],
   },
   webpack: (webpackConfig) => {
