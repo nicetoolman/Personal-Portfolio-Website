@@ -95,7 +95,8 @@ const config = {
       },
       fontFamily: {
         mono: ['var(--font-geist-mono)', 'monospace'],
-        sans: ['var(--font-roboto)', 'sans-serif'],
+        sans: ['var(--font-roboto)', 'var(--font-noto-sans-jp)', 'sans-serif'],
+        condensed: ['var(--font-roboto-condensed)', 'sans-serif'],
       },
       keyframes: {
         'accordion-down': {
