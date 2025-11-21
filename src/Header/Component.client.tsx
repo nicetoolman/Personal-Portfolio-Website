@@ -1,12 +1,10 @@
 'use client'
-import { useHeaderTheme } from '@/providers/HeaderTheme'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import type { Header } from '@/payload-types'
 
-import { Logo } from '@/components/Logo/Logo'
+import { Media } from '@/components/Media'
 import { HeaderNav } from './Nav'
 
 interface HeaderClientProps {
@@ -14,27 +12,23 @@ interface HeaderClientProps {
 }
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
-  /* Storing the value in a useState to avoid hydration errors */
-  const [theme, setTheme] = useState<string | null>(null)
-  const { headerTheme, setHeaderTheme } = useHeaderTheme()
-  const pathname = usePathname()
-
-  useEffect(() => {
-    setHeaderTheme(null)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname])
-
-  useEffect(() => {
-    if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [headerTheme])
+  const logo = data?.logo
+  const hasLogo = logo && typeof logo === 'object' && logo !== null && 'url' in logo && typeof logo.url === 'string'
 
   return (
-    <header className="container relative z-20   " {...(theme ? { 'data-theme': theme } : {})}>
-      <div className="py-8 flex justify-between">
-        <Link href="/">
-          <Logo loading="eager" priority="high" className="invert dark:invert-0" />
-        </Link>
+    <header className="fixed top-0 left-0 right-0 w-full z-30 bg-transparent">
+      <div className="h-[131px] px-4 py-[22px] flex gap-[24px] items-center">
+        {hasLogo && (
+          <Link href="/" className="h-[87px] w-[88px] relative overflow-hidden shrink-0">
+            <Media
+              resource={logo}
+              htmlElement="div"
+              className="absolute inset-0 opacity-60"
+              imgClassName="object-cover"
+              fill
+            />
+          </Link>
+        )}
         <HeaderNav data={data} />
       </div>
     </header>

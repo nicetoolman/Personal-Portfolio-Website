@@ -19,3 +19,6 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Temporary files with long names
+t This is a Payload database migration warning*
