@@ -153,7 +153,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'customHomepage';
     richText?: {
       root: {
         type: string;
@@ -194,6 +194,30 @@ export interface Page {
         }[]
       | null;
     media?: (number | null) | Media;
+    mainVisualGroup?: {
+      /**
+       * Main visual image (1024x1024, right-aligned)
+       */
+      mainVisual?: (number | null) | Media;
+    };
+    titleGroup?: {
+      /**
+       * Title image (full size overlay)
+       */
+      titleImage?: (number | null) | Media;
+    };
+    scrollBarGroup?: {
+      /**
+       * Scroll bar image (bottom aligned)
+       */
+      scrollBar?: (number | null) | Media;
+    };
+    decorationGroup?: {
+      /**
+       * Decoration image (full size overlay, top layer)
+       */
+      decorationImage?: (number | null) | Media;
+    };
   };
   layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
   meta?: {
@@ -1079,6 +1103,26 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         media?: T;
+        mainVisualGroup?:
+          | T
+          | {
+              mainVisual?: T;
+            };
+        titleGroup?:
+          | T
+          | {
+              titleImage?: T;
+            };
+        scrollBarGroup?:
+          | T
+          | {
+              scrollBar?: T;
+            };
+        decorationGroup?:
+          | T
+          | {
+              decorationImage?: T;
+            };
       };
   layout?:
     | T
