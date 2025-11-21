@@ -244,6 +244,26 @@ export const CustomHomepageHero: React.FC<Page['hero']> = (props) => {
 4. 在 `RenderHero` 中注册
 5. 测试和调整
 
+## 五.1、在 Payload Admin 中的使用方法
+
+### 如何选择 Custom Homepage Hero
+
+1. **进入 Pages collection**，编辑首页（或需要使用的页面）
+2. **找到 Hero 字段组**
+3. **在 Type 下拉菜单中选择 "Custom Homepage"**（对应 value: `customHomepage`）
+4. **选择后会自动显示 4 个图片上传字段组**：
+   - Main Visual Group (主视觉图片)
+   - Title Group (标题图片)
+   - Scroll Bar Group (滚动条图片)
+   - Decoration Group (装饰图片)
+5. **上传对应的图片**，每个组内有一个 upload 字段
+6. **保存页面**，前端会自动渲染 CustomHomepageHero 组件
+
+### 注意事项
+- Type 下拉菜单中会显示 "Custom Homepage" 选项（需要在 `src/heros/config.ts` 的 `options` 中添加）
+- 只有选择 `customHomepage` 时，4 个图片字段组才会显示（通过 `admin.condition` 控制）
+- 图片上传后会自动关联到 Media collection
+
 ## 六、关键设计决策
 
 1. **位置硬编码**: 移除 position 字段，在前端硬编码位置
