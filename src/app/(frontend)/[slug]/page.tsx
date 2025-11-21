@@ -10,6 +10,7 @@ import { homeStatic } from '@/endpoints/seed/home-static'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
+import { cn } from '@/utilities/ui'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
@@ -65,8 +66,11 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   const { hero, layout } = page
 
+  // Remove bottom padding for customHomepage hero to eliminate gap between hero and footer
+  const isCustomHomepage = hero?.type === 'customHomepage'
+
   return (
-    <article className="pb-24">
+    <article className={cn(!isCustomHomepage && 'pb-24')}>
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
