@@ -60,7 +60,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
   })
 
   return (
-    <div className="pt-24 pb-24">
+    <div className="pt-24 pb-16">
       <PageClient />
       <div className="container mb-16">
         <div className="prose max-w-none text-center">

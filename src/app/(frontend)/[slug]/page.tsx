@@ -70,7 +70,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   const isCustomHomepage = hero?.type === 'customHomepage'
 
   return (
-    <article className={cn(!isCustomHomepage && 'pb-24')}>
+    <article className={cn(!isCustomHomepage && 'pb-16')}>
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
