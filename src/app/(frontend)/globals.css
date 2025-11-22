@@ -65,6 +65,12 @@
     
     /* 间隔 */
     --navbar-gap: 24px;
+    
+    /* 移动端尺寸 */
+    --navbar-mobile-height: 64px;
+    --navbar-mobile-hamburger-width: 48px;
+    --navbar-mobile-font-size: 14px;
+    --navbar-mobile-link-padding: 16px;
   }
 
 }
