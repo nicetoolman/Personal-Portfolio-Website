@@ -61,33 +61,39 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             key={i}
             className="flex items-center justify-center relative"
             style={{
-              height: 'var(--navbar-link-height)',
+              height: 'auto',
               fontSize: 'var(--navbar-font-size)',
               width: 'auto',
+              paddingTop: '8px',
+              paddingBottom: '8px',
             }}
           >
-            <CMSLink
-              {...link}
-              appearance="inline"
-              className="whitespace-nowrap font-normal font-sans text-secondary"
+            <div
+              className="relative"
               style={{
                 paddingLeft: '12px',
                 paddingRight: '12px',
               }}
-            />
-            {/* 活跃链接下划线 */}
-            {isActive && (
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: '12px',
-                  right: '12px',
-                  height: '2px',
-                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                }}
+            >
+              <CMSLink
+                {...link}
+                appearance="inline"
+                className="whitespace-nowrap font-normal font-sans text-secondary"
               />
-            )}
+              {/* 活跃链接下划线：与文本宽度一致，无左右空白 */}
+              {isActive && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '-10px',
+                    left: '12px',
+                    right: '12px',
+                    height: '2px',
+                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                  }}
+                />
+              )}
+            </div>
           </div>
         )
       })}
