@@ -47,6 +47,24 @@
     --success: 196 52% 74%;
     --warning: 34 89% 85%;
     --error: 10 100% 86%;
+
+    /* Navbar 基础尺寸 */
+    --navbar-height: 80px;
+    --navbar-font-size: 16px;
+    --navbar-side-padding: 16px;
+    
+    /* Icon 尺寸 */
+    --navbar-icon-height: 80px;
+    --navbar-icon-aspect-ratio: 88/87;
+    
+    /* 链接容器 */
+    --navbar-link-height: 80px; /* 等于 Icon 高度 */
+    
+    /* Icon 和链接容器宽度 */
+    --navbar-content-width: calc(100vw * 550 / 1440);
+    
+    /* 间隔 */
+    --navbar-gap: 24px;
   }
 
 }

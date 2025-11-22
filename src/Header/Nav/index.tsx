@@ -10,17 +10,26 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const navItems = data?.navItems || []
 
   return (
-    <nav className="flex gap-[10px] items-center h-[87px]">
+    <nav className="flex items-center" style={{ gap: 'var(--navbar-gap)' }}>
       {navItems.map(({ link }, i) => {
         return (
           <div
             key={i}
-            className="flex gap-[10px] h-[87px] items-center justify-center overflow-clip rounded-[10px]"
+            className="flex items-center justify-center"
+            style={{
+              height: 'var(--navbar-link-height)',
+              fontSize: 'var(--navbar-font-size)',
+              width: 'auto',
+            }}
           >
             <CMSLink
               {...link}
               appearance="inline"
-              className="px-3 whitespace-nowrap text-[32px] font-normal font-sans text-secondary leading-[0]"
+              className="whitespace-nowrap font-normal font-sans text-secondary"
+              style={{
+                paddingLeft: '12px',
+                paddingRight: '12px',
+              }}
             />
           </div>
         )
