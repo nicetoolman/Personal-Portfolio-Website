@@ -53,19 +53,29 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           {hasLogo && (
             <Link
               href="/"
-              className="relative overflow-hidden shrink-0"
+              className="relative overflow-hidden shrink-0 flex items-center justify-center"
               style={{
                 height: 'var(--navbar-icon-height)',
-                aspectRatio: 'var(--navbar-icon-aspect-ratio)',
+                paddingTop: 'var(--navbar-icon-padding-y)',
+                paddingBottom: 'var(--navbar-icon-padding-y)',
               }}
             >
-              <Media
-                resource={logo}
-                htmlElement="div"
-                className="absolute inset-0 opacity-60"
-                imgClassName="object-cover"
-                fill
-              />
+              <div
+                className="relative"
+                style={{
+                  height: `calc((var(--navbar-icon-height) - var(--navbar-icon-padding-y) * 2) * var(--navbar-icon-scale))`,
+                  aspectRatio: 'var(--navbar-icon-aspect-ratio)',
+                  width: 'auto',
+                }}
+              >
+                <Media
+                  resource={logo}
+                  htmlElement="div"
+                  className="absolute inset-0 opacity-60"
+                  imgClassName="object-cover"
+                  fill
+                />
+              </div>
             </Link>
           )}
           <HeaderNav data={data} />
@@ -103,20 +113,30 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         {hasLogo && (
           <Link
             href="/"
-            className="relative overflow-hidden shrink-0"
+            className="relative overflow-hidden shrink-0 flex items-center justify-center"
             style={{
-              height: 'var(--navbar-icon-height)',
-              aspectRatio: 'var(--navbar-icon-aspect-ratio)',
+              height: 'var(--navbar-mobile-height)',
+              paddingTop: 'var(--navbar-mobile-icon-padding-y)',
+              paddingBottom: 'var(--navbar-mobile-icon-padding-y)',
             }}
             onClick={() => setMenuOpen(false)}
           >
-            <Media
-              resource={logo}
-              htmlElement="div"
-              className="absolute inset-0 opacity-60"
-              imgClassName="object-cover"
-              fill
-            />
+            <div
+              className="relative"
+              style={{
+                height: `calc((var(--navbar-mobile-height) - var(--navbar-mobile-icon-padding-y) * 2) * var(--navbar-icon-scale))`,
+                aspectRatio: 'var(--navbar-icon-aspect-ratio)',
+                width: 'auto',
+              }}
+            >
+              <Media
+                resource={logo}
+                htmlElement="div"
+                className="absolute inset-0 opacity-60"
+                imgClassName="object-cover"
+                fill
+              />
+            </div>
           </Link>
         )}
 

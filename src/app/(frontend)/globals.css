@@ -56,6 +56,8 @@
     /* Icon 尺寸 */
     --navbar-icon-height: 80px;
     --navbar-icon-aspect-ratio: 88/87;
+    --navbar-icon-scale: 0.85; /* Icon 缩小到 85%，留出安全边距 */
+    --navbar-icon-padding-y: 8px; /* 桌面端 Icon 上下 padding */
     
     /* 链接容器 */
     --navbar-link-height: 80px; /* 等于 Icon 高度 */
@@ -71,6 +73,8 @@
     --navbar-mobile-hamburger-width: 48px;
     --navbar-mobile-font-size: 14px;
     --navbar-mobile-link-padding: 16px;
+    --navbar-mobile-icon-height: 48px; /* 移动端 Icon 高度（64px * 0.75） */
+    --navbar-mobile-icon-padding-y: 4px; /* 移动端 Icon 上下 padding */
   }
 
 }
