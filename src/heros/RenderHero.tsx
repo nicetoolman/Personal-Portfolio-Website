@@ -1,4 +1,5 @@
 import React from 'react'
+import { cn } from '@/utilities/ui'
 
 import type { Page } from '@/payload-types'
 
@@ -23,5 +24,16 @@ export const RenderHero: React.FC<Page['hero']> = (props) => {
 
   if (!HeroToRender) return null
 
-  return <HeroToRender {...props} />
+  return (
+    <div
+      className={cn(
+        // 移动端：添加 margin-top，让 Hero 下移到 Navbar 下方
+        'mt-[var(--navbar-mobile-height)]',
+        // 桌面端：不需要 margin-top（Hero 与 Navbar 重合）
+        'md:mt-0'
+      )}
+    >
+      <HeroToRender {...props} />
+    </div>
+  )
 }
