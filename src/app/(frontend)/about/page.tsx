@@ -1,11 +1,9 @@
 import type { Metadata } from 'next'
 
-import AboutContent from '@/components/AboutContent'
-
 export default function AboutPage() {
   return (
-    <article>
-      <AboutContent />
+    <article className="pb-16">
+      {/* About 页面内容将从这里开始 */}
     </article>
   )
 }
