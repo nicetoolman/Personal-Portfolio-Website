@@ -1749,6 +1749,47 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  identitySection?: {
+    title?: string | null;
+    icon?: (number | null) | Media;
+    description?: string | null;
+  };
+  exploreSection?: {
+    title?: string | null;
+    links?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: number | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  contactSection?: {
+    title?: string | null;
+    socialLinks?:
+      | {
+          platform: 'rednote' | 'instagram' | 'x' | 'custom';
+          icon?: (number | null) | Media;
+          url: string;
+          label?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  copyright?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1795,6 +1836,47 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  identitySection?:
+    | T
+    | {
+        title?: T;
+        icon?: T;
+        description?: T;
+      };
+  exploreSection?:
+    | T
+    | {
+        title?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+      };
+  contactSection?:
+    | T
+    | {
+        title?: T;
+        socialLinks?:
+          | T
+          | {
+              platform?: T;
+              icon?: T;
+              url?: T;
+              label?: T;
+              id?: T;
+            };
+      };
+  copyright?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

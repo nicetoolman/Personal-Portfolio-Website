@@ -75,6 +75,29 @@
     --navbar-mobile-link-padding: 16px;
     --navbar-mobile-icon-height: 48px; /* 移动端 Icon 高度（64px * 0.75） */
     --navbar-mobile-icon-padding-y: 4px; /* 移动端 Icon 上下 padding */
+    
+    /* Footer 基础尺寸（参考 Header） */
+    --footer-padding-y: 8px;                  /* 与 Header icon padding-y 一致 */
+    --footer-padding-x: 16px;                 /* 与 Header side-padding 一致 */
+    --footer-gap: 16px;                       /* 元素之间的间隔（从 10px 增加） */
+    
+    /* Footer 字体大小（与 Header 一致） */
+    --footer-title-font-size: var(--navbar-font-size); /* 16px */
+    --footer-content-font-size: var(--navbar-font-size); /* 16px */
+    
+    /* Footer 区域尺寸 */
+    --footer-info-padding: 0px;               /* 移除 info 区域的 padding（从 10px 改为 0） */
+    --footer-column-gap: 24px;               /* 列之间的间隔（从 10px 增加到 24px，与 Header gap 一致） */
+    
+    /* Identity Section */
+    --footer-identity-icon-size: 100px;
+    
+    /* Explore Section */
+    --footer-link-list-indent: 48px;
+    
+    /* Contact Section */
+    --footer-social-icon-size: 38px;
+    --footer-social-gap: 10px;
   }
 
 }

@@ -76,9 +76,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                   fill
                 />
               </div>
-            </Link>
+        </Link>
           )}
-          <HeaderNav data={data} />
+        <HeaderNav data={data} />
         </div>
       </div>
 

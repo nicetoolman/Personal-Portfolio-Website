@@ -1,45 +1,243 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import React from 'react'
 import { cn } from '@/utilities/ui'
+import Link from 'next/link'
 
 import type { Footer } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 
 export async function Footer() {
-  const footerData: Footer = await getCachedGlobal('footer', 1)()
+  const footerData: Footer = await getCachedGlobal('footer', 2)()
 
-  const navItems = footerData?.navItems || []
+  const identitySection = footerData?.identitySection
+  const exploreSection = footerData?.exploreSection
+  const contactSection = footerData?.contactSection
+  const copyright = footerData?.copyright || '© 2025 Catbox Idea Factory. All rights reserved.'
+
+  // 检查 icon 是否有效（参考 Header 的检查逻辑）
+  const hasIdentityIcon = identitySection?.icon && 
+    typeof identitySection.icon === 'object' && 
+    identitySection.icon !== null && 
+    'url' in identitySection.icon && 
+    typeof identitySection.icon.url === 'string'
 
   return (
     <footer
       className={cn(
         'mt-auto',
-        // 透明背景
         'bg-transparent',
-        // 上边框：30% 不透明度的黑色分割线
         'border-t border-black/30',
-        // 减小高度：减少 padding（从 py-8 改为 py-4）
-        'py-4',
-        // 使用更淡的文字颜色
-        'text-secondary'
+        'flex flex-col',
+        'items-center',
+        'w-full'
       )}
+      style={{
+        paddingTop: 'var(--footer-padding-y)',
+        paddingBottom: 'var(--footer-padding-y)',
+        paddingLeft: 'var(--footer-padding-x)',
+        paddingRight: 'var(--footer-padding-x)',
+        gap: 'var(--footer-gap)',
+      }}
     >
-      <div className="container gap-4 flex flex-col md:flex-row md:justify-between md:items-center">
-        {/* 导航链接 */}
-        {navItems.length > 0 && (
-          <nav className="flex flex-col md:flex-row gap-4">
-            {navItems.map(({ link }, i) => {
-              return (
+      {/* info区：三列布局 */}
+      <div
+        className="w-full flex flex-row items-start justify-center"
+        style={{
+          gap: 'var(--footer-column-gap)',
+        }}
+      >
+        {/* 列 1：Identity */}
+        <div
+          className="flex-1 flex flex-col items-center"
+          style={{
+            gap: 'var(--footer-gap)',
+          }}
+        >
+          {/* 标题 */}
+          <div className="w-full">
+            <h3
+              className="font-normal font-sans text-accent text-center whitespace-nowrap"
+              style={{
+                fontSize: 'var(--footer-title-font-size)',
+              }}
+            >
+              {identitySection?.title || 'Identity'}
+            </h3>
+          </div>
+          
+          {/* Icon */}
+          {hasIdentityIcon && (
+            <div
+              className="relative shrink-0"
+              style={{
+                position: 'relative',
+                width: 'var(--footer-identity-icon-size)',
+                height: 'var(--footer-identity-icon-size)',
+              }}
+            >
+              <Media
+                resource={identitySection.icon}
+                htmlElement="div"
+                className="absolute inset-0"
+                imgClassName="object-cover w-full h-full pointer-events-none"
+                fill
+              />
+            </div>
+          )}
+          
+          {/* 描述文字 */}
+          <p
+            className="font-normal font-sans text-secondary text-center min-w-full"
+            style={{
+              fontSize: 'var(--footer-content-font-size)',
+            }}
+          >
+            {identitySection?.description || 'Sketches, stories, and visual experiments by Ming Zu'}
+          </p>
+        </div>
+
+        {/* 列 2：Explore */}
+        <div
+          className="flex-1 flex flex-col items-center"
+          style={{
+            gap: 'var(--footer-gap)',
+          }}
+        >
+          {/* 标题 */}
+          <div className="w-full">
+            <h3
+              className="font-normal font-sans text-accent text-center whitespace-nowrap"
+              style={{
+                fontSize: 'var(--footer-title-font-size)',
+              }}
+            >
+              {exploreSection?.title || 'Explore'}
+            </h3>
+          </div>
+
+          {/* 链接列表 */}
+          <div
+            className="w-full flex flex-col items-start justify-center"
+            style={{
+              gap: 'var(--footer-gap)',
+            }}
+          >
+            {exploreSection?.links?.map(({ link }, i) => (
+              <div key={i} className="w-full">
                 <CMSLink
-                  className="text-secondary hover:text-foreground transition-colors"
-                  key={i}
                   {...link}
+                  appearance="inline"
+                  className="font-normal font-sans text-secondary hover:text-foreground transition-colors"
+                  style={{
+                    fontSize: 'var(--footer-content-font-size)',
+                    marginLeft: 'var(--footer-link-list-indent)',
+                    listStyleType: 'disc',
+                    display: 'list-item',
+                  }}
                 />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 列 3：Contact */}
+        <div
+          className="flex-1 flex flex-col items-center"
+          style={{
+            gap: 'var(--footer-gap)',
+          }}
+        >
+          {/* 标题 */}
+          <div className="w-full">
+            <h3
+              className="font-normal font-sans text-accent text-center whitespace-nowrap"
+              style={{
+                fontSize: 'var(--footer-title-font-size)',
+              }}
+            >
+              {contactSection?.title || 'Contact'}
+            </h3>
+          </div>
+          
+          {/* 社交媒体链接 */}
+          <div
+            className="w-full flex flex-col items-start justify-center"
+            style={{
+              gap: 'var(--footer-gap)',
+            }}
+          >
+            {contactSection?.socialLinks?.map((social, i) => {
+              const label = social.platform === 'custom' ? social.label : social.platform
+              const icon = social.icon
+              
+              // 检查 icon 是否有效
+              const hasIcon = icon && 
+                typeof icon === 'object' && 
+                icon !== null && 
+                'url' in icon && 
+                typeof icon.url === 'string'
+              
+              return (
+                <Link
+                  key={i}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center hover:opacity-70 transition-opacity"
+                  style={{
+                    gap: 'var(--footer-social-gap)',
+                  }}
+                >
+                  {hasIcon && (
+                    <div
+                      className="relative shrink-0"
+                      style={{
+                        position: 'relative',
+                        width: 'var(--footer-social-icon-size)',
+                        height: 'var(--footer-social-icon-size)',
+                      }}
+                    >
+                      <Media
+                        resource={icon}
+                        htmlElement="div"
+                        className="absolute inset-0"
+                        imgClassName="object-cover w-full h-full pointer-events-none"
+                        fill
+                      />
+                    </div>
+                  )}
+                  <span
+                    className="flex-1 font-normal font-sans text-secondary"
+                    style={{
+                      fontSize: 'var(--footer-content-font-size)',
+                    }}
+                  >
+                    {label}
+                  </span>
+                </Link>
               )
             })}
-          </nav>
-        )}
+          </div>
+        </div>
+      </div>
+
+      {/* copyright区 */}
+      <div
+        className="w-full flex items-center justify-center"
+        style={{
+          gap: 'var(--footer-gap)',
+        }}
+      >
+        <p
+          className="font-normal font-sans text-secondary text-center whitespace-nowrap"
+          style={{
+            fontSize: 'var(--footer-content-font-size)',
+          }}
+        >
+          {copyright}
+        </p>
       </div>
     </footer>
   )
