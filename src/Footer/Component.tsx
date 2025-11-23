@@ -7,6 +7,7 @@ import type { Footer } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
+import { ExploreLinks } from './ExploreLinks'
 
 export async function Footer() {
   const footerData: Footer = await getCachedGlobal('footer', 2)()
@@ -67,35 +68,46 @@ export async function Footer() {
             </h3>
           </div>
           
-          {/* Icon */}
-          {hasIdentityIcon && (
-            <div
-              className="relative shrink-0"
-              style={{
-                position: 'relative',
-                width: 'var(--footer-identity-icon-size)',
-                height: 'var(--footer-identity-icon-size)',
-              }}
-            >
-              <Media
-                resource={identitySection.icon}
-                htmlElement="div"
-                className="absolute inset-0"
-                imgClassName="object-cover w-full h-full pointer-events-none"
-                fill
-              />
-            </div>
-          )}
-          
-          {/* 描述文字 */}
-          <p
-            className="font-normal font-sans text-secondary text-center min-w-full"
+          {/* Icon 和 Description 左右布局 */}
+          <div
+            className="w-full flex flex-row items-center"
             style={{
-              fontSize: 'var(--footer-content-font-size)',
+              gap: 'var(--footer-gap)',
             }}
           >
-            {identitySection?.description || 'Sketches, stories, and visual experiments by Ming Zu'}
-          </p>
+            {/* Icon */}
+            {hasIdentityIcon && (
+              <div
+                className="relative shrink-0"
+                style={{
+                  position: 'relative',
+                  width: 'var(--footer-identity-icon-size)',
+                  height: 'var(--footer-identity-icon-size)',
+                  aspectRatio: '1/1',
+                }}
+              >
+                <Media
+                  resource={identitySection.icon}
+                  htmlElement="div"
+                  className="absolute inset-0"
+                  imgClassName="object-contain w-full h-full pointer-events-none"
+                  fill
+                />
+              </div>
+            )}
+            
+            {/* 描述文字 */}
+            <p
+              className="flex-1 font-normal font-sans text-secondary text-left"
+              style={{
+                fontSize: 'var(--footer-content-font-size)',
+                height: 'auto',
+                lineHeight: '1.5',
+              }}
+            >
+              {identitySection?.description || 'Sketches, stories, and visual experiments by Ming Zu'}
+            </p>
+          </div>
         </div>
 
         {/* 列 2：Explore */}
@@ -118,28 +130,7 @@ export async function Footer() {
           </div>
 
           {/* 链接列表 */}
-          <div
-            className="w-full flex flex-col items-start justify-center"
-            style={{
-              gap: 'var(--footer-gap)',
-            }}
-          >
-            {exploreSection?.links?.map(({ link }, i) => (
-              <div key={i} className="w-full">
-                <CMSLink
-                  {...link}
-                  appearance="inline"
-                  className="font-normal font-sans text-secondary hover:text-foreground transition-colors"
-                  style={{
-                    fontSize: 'var(--footer-content-font-size)',
-                    marginLeft: 'var(--footer-link-list-indent)',
-                    listStyleType: 'disc',
-                    display: 'list-item',
-                  }}
-                />
-              </div>
-            ))}
-          </div>
+          <ExploreLinks links={exploreSection?.links} />
         </div>
 
         {/* 列 3：Contact */}

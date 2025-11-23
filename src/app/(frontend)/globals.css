@@ -90,7 +90,7 @@
     --footer-column-gap: 24px;               /* 列之间的间隔（从 10px 增加到 24px，与 Header gap 一致） */
     
     /* Identity Section */
-    --footer-identity-icon-size: 100px;
+    --footer-identity-icon-size: 60px; /* 从 100px 缩小到 60px */
     
     /* Explore Section */
     --footer-link-list-indent: 48px;
