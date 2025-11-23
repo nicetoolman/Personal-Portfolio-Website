@@ -42,9 +42,9 @@ export async function Footer() {
         gap: 'var(--footer-gap)',
       }}
     >
-      {/* info区：三列布局 */}
+      {/* info区：三列布局（移动端隐藏） */}
       <div
-        className="w-full flex flex-row items-start justify-center"
+        className="hidden md:flex w-full flex-row items-start justify-center"
         style={{
           gap: 'var(--footer-column-gap)',
         }}
