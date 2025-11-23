@@ -15,7 +15,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   return (
     <nav className="flex items-center" style={{ gap: 'var(--navbar-gap)' }}>
       {navItems.map(({ link }, i) => {
-        const isActive = isLinkActive(link, pathname)
+        const isActive = isLinkActive(link as Parameters<typeof isLinkActive>[0], pathname)
 
         return (
           <div
@@ -39,21 +39,10 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
               <CMSLink
                 {...link}
                 appearance="inline"
-                className="whitespace-nowrap font-normal font-sans text-secondary"
+                className={`whitespace-nowrap font-normal font-sans ${
+                  isActive ? 'text-foreground' : 'text-secondary'
+                }`}
               />
-              {/* 活跃链接下划线：与文本宽度一致，无左右空白 */}
-              {isActive && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    bottom: '-10px',
-                    left: '12px',
-                    right: '12px',
-                    height: '2px',
-                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                  }}
-                />
-              )}
             </div>
           </div>
         )

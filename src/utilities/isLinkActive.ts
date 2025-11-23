@@ -1,18 +1,16 @@
 /**
  * Payload Link 类型定义（从 payload-types 中提取）
+ * 使用更宽松的类型以兼容 Payload 的实际类型
  */
 type LinkType = {
   type?: ('reference' | 'custom') | null
   newTab?: boolean | null
   reference?:
     | ({
-        relationTo: 'pages'
-        value: number | { slug: string; [key: string]: unknown }
+        relationTo: 'pages' | 'posts'
+        value: number | { slug?: string | null; [key: string]: unknown } | unknown
       } | null)
-    | ({
-        relationTo: 'posts'
-        value: number | { slug: string; [key: string]: unknown }
-      } | null)
+    | null
   url?: string | null
   label: string
   appearance?: ('default' | 'outline') | null

@@ -33,26 +33,15 @@ export const ExploreLinks: React.FC<ExploreLinksProps> = ({ links }) => {
               <CMSLink
                 {...link}
                 appearance="inline"
-                className="font-normal font-sans text-secondary hover:text-foreground transition-colors"
+                className={`font-normal font-sans transition-colors ${
+                  isActive ? 'text-foreground' : 'text-secondary hover:text-foreground'
+                }`}
                 style={{
                   fontSize: 'var(--footer-content-font-size)',
                   listStyleType: 'disc',
                   display: 'list-item',
                 }}
               />
-              {/* 活跃链接下划线：与 Header 样式一致 */}
-              {isActive && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    bottom: '-10px',
-                    left: '0px',
-                    right: '0px',
-                    height: '2px',
-                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                  }}
-                />
-              )}
             </div>
           </div>
         )
