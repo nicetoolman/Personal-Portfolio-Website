@@ -44,6 +44,9 @@
 
     --radius: 0.2rem;
 
+    /* 内容区域边框样式（通用，方便以后取消） */
+    --border-width-content: 2px; /* 设置为 0px 即可取消边框 */
+
     --success: 196 52% 74%;
     --warning: 34 89% 85%;
     --error: 10 100% 86%;

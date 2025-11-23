@@ -50,6 +50,9 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      borderWidth: {
+        'content': 'var(--border-width-content)', // 2px - 内容区域边框（通用，可设置为 0px 取消）
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
