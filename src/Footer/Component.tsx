@@ -45,7 +45,7 @@ export async function Footer() {
         <div className="flex-1 flex flex-col items-center gap-[var(--footer-gap)]">
           {/* 标题 */}
           <div className="w-full">
-            <h3 className="font-normal font-sans text-center whitespace-nowrap text-[var(--footer-title-font-size)] text-[hsl(var(--accent))]">
+            <h3 className="font-normal font-sans text-center whitespace-nowrap text-[var(--footer-title-font-size)] text-accent">
               {identitySection?.title || 'Identity'}
             </h3>
           </div>
@@ -76,7 +76,7 @@ export async function Footer() {
         <div className="flex-1 flex flex-col items-center gap-[var(--footer-gap)]">
           {/* 标题 */}
           <div className="w-full">
-            <h3 className="font-normal font-sans text-center whitespace-nowrap text-[var(--footer-title-font-size)] text-[hsl(var(--accent))]">
+            <h3 className="font-normal font-sans text-center whitespace-nowrap text-[var(--footer-title-font-size)] text-accent">
               {exploreSection?.title || 'Explore'}
             </h3>
           </div>
@@ -89,7 +89,7 @@ export async function Footer() {
         <div className="flex-1 flex flex-col items-center gap-[var(--footer-gap)]">
           {/* 标题 */}
           <div className="w-full">
-            <h3 className="font-normal font-sans text-center whitespace-nowrap text-[var(--footer-title-font-size)] text-[hsl(var(--accent))]">
+            <h3 className="font-normal font-sans text-center whitespace-nowrap text-[var(--footer-title-font-size)] text-accent">
               {contactSection?.title || 'Contact'}
             </h3>
           </div>
