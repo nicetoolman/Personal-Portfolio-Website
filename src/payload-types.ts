@@ -107,10 +107,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    aboutPageDecorations: AboutPageDecoration;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    aboutPageDecorations: AboutPageDecorationsSelect<false> | AboutPageDecorationsSelect<true>;
   };
   locale: null;
   user: User & {
@@ -1795,6 +1797,41 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "aboutPageDecorations".
+ */
+export interface AboutPageDecoration {
+  id: number;
+  introSection?: {
+    /**
+     * CATBOX 标题区域的装饰图片
+     */
+    level3?: (number | null) | Media;
+    /**
+     * 主要内容区域的装饰图片
+     */
+    level1?: (number | null) | Media;
+    /**
+     * Created by 区域的装饰图片
+     */
+    level4?: (number | null) | Media;
+    /**
+     * 左侧插画区域的装饰图片
+     */
+    level2?: (number | null) | Media;
+    /**
+     * Visual sandbox 标签的装饰图片
+     */
+    level5_1?: (number | null) | Media;
+    /**
+     * clarity through design 标签的装饰图片
+     */
+    level5_2?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1877,6 +1914,25 @@ export interface FooterSelect<T extends boolean = true> {
             };
       };
   copyright?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "aboutPageDecorations_select".
+ */
+export interface AboutPageDecorationsSelect<T extends boolean = true> {
+  introSection?:
+    | T
+    | {
+        level3?: T;
+        level1?: T;
+        level4?: T;
+        level2?: T;
+        level5_1?: T;
+        level5_2?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

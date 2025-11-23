@@ -1,6 +1,15 @@
 import type { Metadata } from 'next'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+import { Media } from '@/components/Media'
+import type { AboutPageDecorations as AboutPageDecorationsType } from '@/payload-types'
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const decorationsData: AboutPageDecorationsType = await getCachedGlobal(
+    'aboutPageDecorations',
+    1,
+  )()
+
+  const introSection = decorationsData?.introSection
   return (
     <article>
       {/* 视窗容器：固定宽度 890px，比例 890/633 */}
@@ -35,7 +44,7 @@ export default function AboutPage() {
             >
               {/* 子容器 1：CATBOX 标题区域 (1, 1, 3, 3) */}
               <div 
-                className="grid overflow-hidden shrink-0"
+                className="grid overflow-hidden shrink-0 relative"
                 style={{
                   width: '197px',
                   height: '232.125px',
@@ -49,11 +58,15 @@ export default function AboutPage() {
                   justifySelf: 'start',
                 }}
               >
-                <img 
-                  src="/assets/decorations/about/三级内容.png" 
-                  alt="三级内容" 
-                  className="w-full h-full object-contain"
-                />
+                {introSection?.level3 && typeof introSection.level3 === 'object' && (
+                  <Media
+                    resource={introSection.level3}
+                    htmlElement="div"
+                    className="absolute inset-0"
+                    imgClassName="object-contain w-full h-full"
+                    fill
+                  />
+                )}
               </div>
 
               {/* 子容器 2：主要内容区域 (6, 1, 8, 8) */}
@@ -74,18 +87,22 @@ export default function AboutPage() {
                 }}
               >
                 {/* 图片容器：绝对定位填充整个容器（包括 padding 区域） */}
-                <div className="absolute inset-0">
-                  <img 
-                    src="/assets/decorations/about/一级内容.png" 
-                    alt="一级内容" 
-                    className="w-full h-full object-contain"
-                  />
-                </div>
+                {introSection?.level1 && typeof introSection.level1 === 'object' && (
+                  <div className="absolute inset-0">
+                    <Media
+                      resource={introSection.level1}
+                      htmlElement="div"
+                      className="absolute inset-0"
+                      imgClassName="object-contain w-full h-full"
+                      fill
+                    />
+                  </div>
+                )}
               </div>
 
               {/* 子容器 3：Created by 区域 (4, 1, 2, 2) */}
               <div 
-                className="grid overflow-hidden"
+                className="grid overflow-hidden relative"
                 style={{
                   rowGap: '10px',
                   columnGap: '10px',
@@ -97,16 +114,20 @@ export default function AboutPage() {
                   gridColumn: '4 / span 2',
                 }}
               >
-                <img 
-                  src="/assets/decorations/about/四级内容.png" 
-                  alt="四级内容" 
-                  className="w-full h-full object-contain"
-                />
+                {introSection?.level4 && typeof introSection.level4 === 'object' && (
+                  <Media
+                    resource={introSection.level4}
+                    htmlElement="div"
+                    className="absolute inset-0"
+                    imgClassName="object-contain w-full h-full"
+                    fill
+                  />
+                )}
               </div>
 
               {/* 子容器 4：左侧插画区域 (1, 4, 5, 5) */}
               <div 
-                className="grid overflow-hidden shrink-0"
+                className="grid overflow-hidden shrink-0 relative"
                 style={{
                   width: '332px',
                   height: '390.875px',
@@ -120,16 +141,20 @@ export default function AboutPage() {
                   justifySelf: 'start',
                 }}
               >
-                <img 
-                  src="/assets/decorations/about/二级内容.png" 
-                  alt="二级内容" 
-                  className="w-full h-full object-contain"
-                />
+                {introSection?.level2 && typeof introSection.level2 === 'object' && (
+                  <Media
+                    resource={introSection.level2}
+                    htmlElement="div"
+                    className="absolute inset-0"
+                    imgClassName="object-contain w-full h-full"
+                    fill
+                  />
+                )}
               </div>
 
               {/* 子容器 5：Visual sandbox 标签 (4, 3, 1, 1) */}
               <div 
-                className="flex flex-col justify-center overflow-hidden"
+                className="flex flex-col justify-center overflow-hidden relative"
                 style={{
                   flex: '1 0 0',
                   alignSelf: 'stretch',
@@ -137,16 +162,20 @@ export default function AboutPage() {
                   gridColumn: '4 / span 1',
                 }}
               >
-                <img 
-                  src="/assets/decorations/about/五级内容-1.png" 
-                  alt="五级内容-1" 
-                  className="w-full h-full object-contain"
-                />
+                {introSection?.level5_1 && typeof introSection.level5_1 === 'object' && (
+                  <Media
+                    resource={introSection.level5_1}
+                    htmlElement="div"
+                    className="absolute inset-0"
+                    imgClassName="object-contain w-full h-full"
+                    fill
+                  />
+                )}
               </div>
 
               {/* 子容器 6：clarity through design 标签 (5, 3, 1, 1) */}
               <div 
-                className="grid overflow-hidden shrink-0"
+                className="grid overflow-hidden shrink-0 relative"
                 style={{
                   width: '63px',
                   height: '73.375px',
@@ -159,11 +188,15 @@ export default function AboutPage() {
                   gridColumn: '5 / span 1',
                 }}
               >
-                <img 
-                  src="/assets/decorations/about/五级内容.png" 
-                  alt="五级内容" 
-                  className="w-full h-full object-contain"
-                />
+                {introSection?.level5_2 && typeof introSection.level5_2 === 'object' && (
+                  <Media
+                    resource={introSection.level5_2}
+                    htmlElement="div"
+                    className="absolute inset-0"
+                    imgClassName="object-contain w-full h-full"
+                    fill
+                  />
+                )}
               </div>
             </div>
           </div>
