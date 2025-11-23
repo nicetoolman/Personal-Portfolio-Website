@@ -99,6 +99,16 @@
     /* Contact Section */
     --footer-social-icon-size: 38px;
     --footer-social-gap: 10px;
+    
+    /* Footer 版权信息响应式字体大小 */
+    --footer-copyright-font-size: var(--navbar-mobile-font-size); /* 默认 14px（移动端） */
+  }
+
+  /* Footer 版权信息桌面端字体大小 */
+  @media (min-width: 768px) {
+    :root {
+      --footer-copyright-font-size: var(--footer-content-font-size); /* 桌面端 16px */
+    }
   }
 
 }

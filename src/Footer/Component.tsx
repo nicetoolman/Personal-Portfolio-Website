@@ -229,7 +229,7 @@ export async function Footer() {
         <p
           className="font-normal font-sans text-secondary text-center whitespace-nowrap"
           style={{
-            fontSize: 'var(--footer-content-font-size)',
+            fontSize: 'var(--footer-copyright-font-size)', // 响应式：移动端 14px，桌面端 16px
           }}
         >
           {copyright}
