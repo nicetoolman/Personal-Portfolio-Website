@@ -68,9 +68,9 @@ export async function Footer() {
             </h3>
           </div>
           
-          {/* Icon 和 Description 左右布局 */}
+          {/* Icon 和 Description 上下布局 */}
           <div
-            className="w-full flex flex-row items-center"
+            className="w-full flex flex-col items-center"
             style={{
               gap: 'var(--footer-gap)',
             }}
@@ -84,6 +84,7 @@ export async function Footer() {
                   width: 'var(--footer-identity-icon-size)',
                   height: 'var(--footer-identity-icon-size)',
                   aspectRatio: '1/1',
+                  opacity: 0.5,
                 }}
               >
                 <Media
@@ -98,11 +99,13 @@ export async function Footer() {
             
             {/* 描述文字 */}
             <p
-              className="flex-1 font-normal font-sans text-secondary text-left"
+              className="font-normal font-sans text-secondary text-center"
               style={{
                 fontSize: 'var(--footer-content-font-size)',
                 height: 'auto',
                 lineHeight: '1.5',
+                paddingLeft: 'var(--footer-identity-padding-x)',
+                paddingRight: 'var(--footer-identity-padding-x)',
               }}
             >
               {identitySection?.description || 'Sketches, stories, and visual experiments by Ming Zu'}
@@ -188,6 +191,7 @@ export async function Footer() {
                         position: 'relative',
                         width: 'var(--footer-social-icon-size)',
                         height: 'var(--footer-social-icon-size)',
+                        opacity: 0.5,
                       }}
                     >
                       <Media

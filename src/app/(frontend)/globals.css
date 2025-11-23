@@ -91,6 +91,7 @@
     
     /* Identity Section */
     --footer-identity-icon-size: 60px; /* 从 100px 缩小到 60px */
+    --footer-identity-padding-x: 40px; /* Slogan 左右的 padding（从 24px 增加到 40px，让 slogan 更短） */
     
     /* Explore Section */
     --footer-link-list-indent: 48px;
