@@ -86,6 +86,8 @@ const config = {
         },
         ring: 'hsl(var(--ring))',
         secondary: {
+          // ⚠️ 重要：必须引用 CSS 变量，不要直接写死颜色值
+          // 这样 text-secondary 类才能正确使用设计系统的 secondary 颜色（50% 不透明度黑色）
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
         },

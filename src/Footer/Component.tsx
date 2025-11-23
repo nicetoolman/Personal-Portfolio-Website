@@ -66,7 +66,7 @@ export async function Footer() {
             )}
             
             {/* 描述文字 */}
-            <p className="font-normal font-sans text-center text-[var(--footer-content-font-size)] h-auto leading-[1.5] px-[var(--footer-identity-padding-x)] text-[hsl(var(--secondary))]">
+            <p className="font-normal font-sans text-center text-[var(--footer-content-font-size)] h-auto leading-[1.5] px-[var(--footer-identity-padding-x)] text-secondary">
               {identitySection?.description || 'Sketches, stories, and visual experiments by Ming Zu'}
             </p>
           </div>
@@ -126,7 +126,7 @@ export async function Footer() {
                       />
                     </div>
                   )}
-                  <span className="flex-1 font-normal font-sans text-[var(--footer-content-font-size)] text-[hsl(var(--secondary))]">
+                  <span className="flex-1 font-normal font-sans text-[var(--footer-content-font-size)] text-secondary">
                     {label}
                   </span>
                 </Link>
@@ -138,7 +138,7 @@ export async function Footer() {
 
       {/* copyright区 */}
       <div className="w-full flex items-center justify-center gap-[var(--footer-gap)]">
-        <p className="font-normal font-sans text-center whitespace-nowrap text-[var(--footer-copyright-font-size)] text-[hsl(var(--secondary))]">
+        <p className="font-normal font-sans text-center whitespace-nowrap text-[var(--footer-copyright-font-size)] text-secondary">
           {copyright}
         </p>
       </div>
