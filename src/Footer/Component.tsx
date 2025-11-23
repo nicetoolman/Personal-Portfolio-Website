@@ -182,6 +182,7 @@ export async function Footer() {
                   className="w-full flex items-center justify-center hover:opacity-70 transition-opacity"
                   style={{
                     gap: 'var(--footer-social-gap)',
+                    marginLeft: 'var(--footer-link-list-indent)',
                   }}
                 >
                   {hasIcon && (
