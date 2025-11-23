@@ -12,7 +12,7 @@ export const CustomHomepageHero: React.FC<Page['hero']> = (props) => {
   const decorationImage = decorationGroup?.decorationImage
 
   return (
-    <div className="relative w-full" style={{ aspectRatio: '1440/1024' }}>
+    <div className="relative w-full aspect-[1440/1024]">
       {/* mainvisual - z=10: 容器居中，内部 main visual 右对齐，使用相对单位保持比例 */}
       {mainVisual && typeof mainVisual === 'object' && mainVisual !== null && (
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-full h-full flex flex-col items-end justify-center gap-[10px] overflow-clip">

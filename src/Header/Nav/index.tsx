@@ -13,29 +13,16 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const pathname = usePathname()
 
   return (
-    <nav className="flex items-center" style={{ gap: 'var(--navbar-gap)' }}>
+    <nav className="flex items-center gap-[var(--navbar-gap)]">
       {navItems.map(({ link }, i) => {
         const isActive = isLinkActive(link as Parameters<typeof isLinkActive>[0], pathname)
 
         return (
           <div
             key={i}
-            className="flex items-center justify-center relative"
-            style={{
-              height: 'auto',
-              fontSize: 'var(--navbar-font-size)',
-              width: 'auto',
-              paddingTop: '8px',
-              paddingBottom: '8px',
-            }}
+            className="flex items-center justify-center relative h-auto w-auto py-2 text-[var(--navbar-font-size)]"
           >
-            <div
-              className="relative"
-              style={{
-                paddingLeft: '12px',
-                paddingRight: '12px',
-              }}
-            >
+            <div className="relative px-3">
               <CMSLink
                 {...link}
                 appearance="inline"

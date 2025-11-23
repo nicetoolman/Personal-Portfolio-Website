@@ -43,34 +43,12 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ data, onClose }) => {
         {menuItems.map(({ link }, i) => (
           <React.Fragment key={i}>
             {i > 0 && (
-              <div
-                style={{
-                  height: '24px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <div
-                  style={{
-                    width: 'calc(100% - 32px)',
-                    height: '1px',
-                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                    marginLeft: '16px',
-                    marginRight: '16px',
-                  }}
-                />
+              <div className="h-6 flex items-center justify-center">
+                <div className="w-[calc(100%-32px)] h-px bg-black/30 mx-4" />
               </div>
             )}
             <div
-              className="hover:bg-muted/50 active:bg-muted/70 transition-colors"
-              style={{
-                paddingLeft: 'var(--navbar-mobile-link-padding)',
-                paddingRight: 'var(--navbar-mobile-link-padding)',
-                paddingTop: 'var(--navbar-mobile-link-padding)',
-                paddingBottom: 'var(--navbar-mobile-link-padding)',
-                fontSize: 'var(--navbar-mobile-font-size)',
-              }}
+              className="hover:bg-muted/50 active:bg-muted/70 transition-colors px-[var(--navbar-mobile-link-padding)] py-[var(--navbar-mobile-link-padding)] text-[var(--navbar-mobile-font-size)]"
               onClick={onClose}
             >
               <CMSLink

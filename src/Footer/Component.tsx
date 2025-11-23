@@ -32,61 +32,29 @@ export async function Footer() {
         'border-t border-black/30',
         'flex flex-col',
         'items-center',
-        'w-full'
+        'w-full',
+        'pt-[var(--footer-padding-y)]',
+        'pb-[var(--footer-padding-y)]',
+        'px-[var(--footer-padding-x)]',
+        'gap-[var(--footer-gap)]'
       )}
-      style={{
-        paddingTop: 'var(--footer-padding-y)',
-        paddingBottom: 'var(--footer-padding-y)',
-        paddingLeft: 'var(--footer-padding-x)',
-        paddingRight: 'var(--footer-padding-x)',
-        gap: 'var(--footer-gap)',
-      }}
     >
       {/* info区：三列布局（移动端隐藏） */}
-      <div
-        className="hidden md:flex w-full flex-row items-start justify-center"
-        style={{
-          gap: 'var(--footer-column-gap)',
-        }}
-      >
+      <div className="hidden md:flex w-full flex-row items-start justify-center gap-[var(--footer-column-gap)]">
         {/* 列 1：Identity */}
-        <div
-          className="flex-1 flex flex-col items-center"
-          style={{
-            gap: 'var(--footer-gap)',
-          }}
-        >
+        <div className="flex-1 flex flex-col items-center gap-[var(--footer-gap)]">
           {/* 标题 */}
           <div className="w-full">
-            <h3
-              className="font-normal font-sans text-accent text-center whitespace-nowrap"
-              style={{
-                fontSize: 'var(--footer-title-font-size)',
-              }}
-            >
+            <h3 className="font-normal font-sans text-center whitespace-nowrap text-[var(--footer-title-font-size)] text-[hsl(var(--accent))]">
               {identitySection?.title || 'Identity'}
             </h3>
           </div>
           
           {/* Icon 和 Description 上下布局 */}
-          <div
-            className="w-full flex flex-col items-center"
-            style={{
-              gap: 'var(--footer-gap)',
-            }}
-          >
+          <div className="w-full flex flex-col items-center gap-[var(--footer-gap)]">
             {/* Icon */}
             {hasIdentityIcon && (
-              <div
-                className="relative shrink-0"
-                style={{
-                  position: 'relative',
-                  width: 'var(--footer-identity-icon-size)',
-                  height: 'var(--footer-identity-icon-size)',
-                  aspectRatio: '1/1',
-                  opacity: 0.5,
-                }}
-              >
+              <div className="relative shrink-0 w-[var(--footer-identity-icon-size)] h-[var(--footer-identity-icon-size)] aspect-square opacity-50">
                 <Media
                   resource={identitySection.icon}
                   htmlElement="div"
@@ -98,36 +66,17 @@ export async function Footer() {
             )}
             
             {/* 描述文字 */}
-            <p
-              className="font-normal font-sans text-secondary text-center"
-              style={{
-                fontSize: 'var(--footer-content-font-size)',
-                height: 'auto',
-                lineHeight: '1.5',
-                paddingLeft: 'var(--footer-identity-padding-x)',
-                paddingRight: 'var(--footer-identity-padding-x)',
-              }}
-            >
+            <p className="font-normal font-sans text-center text-[var(--footer-content-font-size)] h-auto leading-[1.5] px-[var(--footer-identity-padding-x)] text-[hsl(var(--secondary))]">
               {identitySection?.description || 'Sketches, stories, and visual experiments by Ming Zu'}
             </p>
           </div>
         </div>
 
         {/* 列 2：Explore */}
-        <div
-          className="flex-1 flex flex-col items-center"
-          style={{
-            gap: 'var(--footer-gap)',
-          }}
-        >
+        <div className="flex-1 flex flex-col items-center gap-[var(--footer-gap)]">
           {/* 标题 */}
           <div className="w-full">
-            <h3
-              className="font-normal font-sans text-accent text-center whitespace-nowrap"
-              style={{
-                fontSize: 'var(--footer-title-font-size)',
-              }}
-            >
+            <h3 className="font-normal font-sans text-center whitespace-nowrap text-[var(--footer-title-font-size)] text-[hsl(var(--accent))]">
               {exploreSection?.title || 'Explore'}
             </h3>
           </div>
@@ -137,31 +86,16 @@ export async function Footer() {
         </div>
 
         {/* 列 3：Contact */}
-        <div
-          className="flex-1 flex flex-col items-center"
-          style={{
-            gap: 'var(--footer-gap)',
-          }}
-        >
+        <div className="flex-1 flex flex-col items-center gap-[var(--footer-gap)]">
           {/* 标题 */}
           <div className="w-full">
-            <h3
-              className="font-normal font-sans text-accent text-center whitespace-nowrap"
-              style={{
-                fontSize: 'var(--footer-title-font-size)',
-              }}
-            >
+            <h3 className="font-normal font-sans text-center whitespace-nowrap text-[var(--footer-title-font-size)] text-[hsl(var(--accent))]">
               {contactSection?.title || 'Contact'}
             </h3>
           </div>
           
           {/* 社交媒体链接 */}
-          <div
-            className="w-full flex flex-col items-start justify-center"
-            style={{
-              gap: 'var(--footer-gap)',
-            }}
-          >
+          <div className="w-full flex flex-col items-start justify-center gap-[var(--footer-gap)]">
             {contactSection?.socialLinks?.map((social, i) => {
               const label = social.platform === 'custom' ? social.label : social.platform
               const icon = social.icon
@@ -179,22 +113,10 @@ export async function Footer() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center hover:opacity-70 transition-opacity"
-                  style={{
-                    gap: 'var(--footer-social-gap)',
-                    marginLeft: 'var(--footer-link-list-indent)',
-                  }}
+                  className="w-full flex items-center justify-center hover:opacity-70 transition-opacity gap-[var(--footer-social-gap)] ml-[var(--footer-link-list-indent)]"
                 >
                   {hasIcon && (
-                    <div
-                      className="relative shrink-0"
-                      style={{
-                        position: 'relative',
-                        width: 'var(--footer-social-icon-size)',
-                        height: 'var(--footer-social-icon-size)',
-                        opacity: 0.5,
-                      }}
-                    >
+                    <div className="relative shrink-0 w-[var(--footer-social-icon-size)] h-[var(--footer-social-icon-size)] opacity-50">
                       <Media
                         resource={icon}
                         htmlElement="div"
@@ -204,12 +126,7 @@ export async function Footer() {
                       />
                     </div>
                   )}
-                  <span
-                    className="flex-1 font-normal font-sans text-secondary"
-                    style={{
-                      fontSize: 'var(--footer-content-font-size)',
-                    }}
-                  >
+                  <span className="flex-1 font-normal font-sans text-[var(--footer-content-font-size)] text-[hsl(var(--secondary))]">
                     {label}
                   </span>
                 </Link>
@@ -220,18 +137,8 @@ export async function Footer() {
       </div>
 
       {/* copyright区 */}
-      <div
-        className="w-full flex items-center justify-center"
-        style={{
-          gap: 'var(--footer-gap)',
-        }}
-      >
-        <p
-          className="font-normal font-sans text-secondary text-center whitespace-nowrap"
-          style={{
-            fontSize: 'var(--footer-copyright-font-size)', // 响应式：移动端 14px，桌面端 16px
-          }}
-        >
+      <div className="w-full flex items-center justify-center gap-[var(--footer-gap)]">
+        <p className="font-normal font-sans text-center whitespace-nowrap text-[var(--footer-copyright-font-size)] text-[hsl(var(--secondary))]">
           {copyright}
         </p>
       </div>

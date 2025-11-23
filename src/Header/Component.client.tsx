@@ -33,39 +33,20 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   return (
     <header className="fixed top-0 left-0 right-0 w-full z-50 bg-transparent">
       {/* 桌面端布局 */}
-      <div
-        className="hidden md:flex items-center"
-        style={{
-          height: 'var(--navbar-height)',
-          paddingLeft: 'var(--navbar-side-padding)',
-          paddingRight: 'var(--navbar-side-padding)',
-        }}
-      >
+      <div className="hidden md:flex items-center h-[var(--navbar-height)] px-[var(--navbar-side-padding)]">
         {/* Icon 和链接容器：限制宽度 */}
-        <div
-          className="flex items-center"
-          style={{
-            width: 'var(--navbar-content-width)',
-            gap: 'var(--navbar-gap)',
-          }}
-        >
+        <div className="flex items-center w-[var(--navbar-content-width)] gap-[var(--navbar-gap)]">
           {/* Icon */}
           {hasLogo && (
             <Link
               href="/"
-              className="relative overflow-hidden shrink-0 flex items-center justify-center"
-              style={{
-                height: 'var(--navbar-icon-height)',
-                paddingTop: 'var(--navbar-icon-padding-y)',
-                paddingBottom: 'var(--navbar-icon-padding-y)',
-              }}
+              className="relative overflow-hidden shrink-0 flex items-center justify-center h-[var(--navbar-icon-height)] py-[var(--navbar-icon-padding-y)]"
             >
               <div
-                className="relative"
+                className="relative w-auto"
                 style={{
                   height: `calc((var(--navbar-icon-height) - var(--navbar-icon-padding-y) * 2) * var(--navbar-icon-scale))`,
                   aspectRatio: 'var(--navbar-icon-aspect-ratio)',
-                  width: 'auto',
                 }}
               >
                 <Media
@@ -83,22 +64,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       </div>
 
       {/* 移动端布局 */}
-      <div
-        className="flex md:hidden items-center justify-between w-full relative"
-        style={{
-          height: 'var(--navbar-mobile-height)',
-          paddingLeft: 'var(--navbar-side-padding)',
-          paddingRight: 'var(--navbar-side-padding)',
-        }}
-      >
+      <div className="flex md:hidden items-center justify-between w-full relative h-[var(--navbar-mobile-height)] px-[var(--navbar-side-padding)]">
         {/* 左侧：汉堡按钮 */}
         <button
           onClick={() => setMenuOpen(!isMenuOpen)}
-          className="flex items-center justify-center shrink-0"
-          style={{
-            width: 'var(--navbar-mobile-hamburger-width)',
-            height: 'var(--navbar-mobile-hamburger-width)',
-          }}
+          className="flex items-center justify-center shrink-0 w-[var(--navbar-mobile-hamburger-width)] h-[var(--navbar-mobile-hamburger-width)]"
           aria-label="Toggle menu"
           aria-expanded={isMenuOpen}
         >
@@ -113,20 +83,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         {hasLogo && (
           <Link
             href="/"
-            className="relative overflow-hidden shrink-0 flex items-center justify-center"
-            style={{
-              height: 'var(--navbar-mobile-height)',
-              paddingTop: 'var(--navbar-mobile-icon-padding-y)',
-              paddingBottom: 'var(--navbar-mobile-icon-padding-y)',
-            }}
+            className="relative overflow-hidden shrink-0 flex items-center justify-center h-[var(--navbar-mobile-height)] py-[var(--navbar-mobile-icon-padding-y)]"
             onClick={() => setMenuOpen(false)}
           >
             <div
-              className="relative"
+              className="relative w-auto"
               style={{
                 height: `calc((var(--navbar-mobile-height) - var(--navbar-mobile-icon-padding-y) * 2) * var(--navbar-icon-scale))`,
                 aspectRatio: 'var(--navbar-icon-aspect-ratio)',
-                width: 'auto',
               }}
             >
               <Media
@@ -141,12 +105,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         )}
 
         {/* 右侧：预留空间（不可见，保持对称） */}
-        <div
-          style={{
-            width: 'var(--navbar-mobile-hamburger-width)',
-            visibility: 'hidden',
-          }}
-        />
+        <div className="w-[var(--navbar-mobile-hamburger-width)] invisible" />
 
         {/* 移动端下拉菜单 */}
         {isMenuOpen && <MobileMenu data={data} onClose={() => setMenuOpen(false)} />}
