@@ -35,7 +35,7 @@ export default function AboutPage() {
             >
               {/* 子容器 1：CATBOX 标题区域 (1, 1, 3, 3) */}
               <div 
-                className="grid border-content border-black border-solid overflow-hidden shrink-0"
+                className="grid overflow-hidden shrink-0"
                 style={{
                   width: '197px',
                   height: '232.125px',
@@ -49,12 +49,16 @@ export default function AboutPage() {
                   justifySelf: 'start',
                 }}
               >
-                {/* 子容器内容将从这里开始逐步添加 */}
+                <img 
+                  src="/assets/decorations/about/三级内容.png" 
+                  alt="三级内容" 
+                  className="w-full h-full object-contain"
+                />
               </div>
 
               {/* 子容器 2：主要内容区域 (6, 1, 8, 8) */}
               <div 
-                className="grid border-content border-black border-solid overflow-hidden shrink-0"
+                className="grid overflow-hidden shrink-0 relative"
                 style={{
                   width: '536px',
                   height: '629px',
@@ -69,12 +73,19 @@ export default function AboutPage() {
                   justifySelf: 'start',
                 }}
               >
-                {/* 子容器内容将从这里开始逐步添加 */}
+                {/* 图片容器：绝对定位填充整个容器（包括 padding 区域） */}
+                <div className="absolute inset-0">
+                  <img 
+                    src="/assets/decorations/about/一级内容.png" 
+                    alt="一级内容" 
+                    className="w-full h-full object-contain"
+                  />
+                </div>
               </div>
 
               {/* 子容器 3：Created by 区域 (4, 1, 2, 2) */}
               <div 
-                className="grid border-content border-black border-solid overflow-hidden"
+                className="grid overflow-hidden"
                 style={{
                   rowGap: '10px',
                   columnGap: '10px',
@@ -86,12 +97,16 @@ export default function AboutPage() {
                   gridColumn: '4 / span 2',
                 }}
               >
-                {/* 子容器内容将从这里开始逐步添加 */}
+                <img 
+                  src="/assets/decorations/about/四级内容.png" 
+                  alt="四级内容" 
+                  className="w-full h-full object-contain"
+                />
               </div>
 
               {/* 子容器 4：左侧插画区域 (1, 4, 5, 5) */}
               <div 
-                className="grid border-content border-black border-solid overflow-hidden shrink-0"
+                className="grid overflow-hidden shrink-0"
                 style={{
                   width: '332px',
                   height: '390.875px',
@@ -105,12 +120,16 @@ export default function AboutPage() {
                   justifySelf: 'start',
                 }}
               >
-                {/* 子容器内容将从这里开始逐步添加 */}
+                <img 
+                  src="/assets/decorations/about/二级内容.png" 
+                  alt="二级内容" 
+                  className="w-full h-full object-contain"
+                />
               </div>
 
               {/* 子容器 5：Visual sandbox 标签 (4, 3, 1, 1) */}
               <div 
-                className="flex flex-col justify-center border-content border-black border-solid overflow-hidden"
+                className="flex flex-col justify-center overflow-hidden"
                 style={{
                   flex: '1 0 0',
                   alignSelf: 'stretch',
@@ -118,12 +137,16 @@ export default function AboutPage() {
                   gridColumn: '4 / span 1',
                 }}
               >
-                {/* 子容器内容将从这里开始逐步添加 */}
+                <img 
+                  src="/assets/decorations/about/五级内容-1.png" 
+                  alt="五级内容-1" 
+                  className="w-full h-full object-contain"
+                />
               </div>
 
               {/* 子容器 6：clarity through design 标签 (5, 3, 1, 1) */}
               <div 
-                className="grid border-content border-black border-solid overflow-hidden shrink-0"
+                className="grid overflow-hidden shrink-0"
                 style={{
                   width: '63px',
                   height: '73.375px',
@@ -136,7 +159,11 @@ export default function AboutPage() {
                   gridColumn: '5 / span 1',
                 }}
               >
-                {/* 子容器内容将从这里开始逐步添加 */}
+                <img 
+                  src="/assets/decorations/about/五级内容.png" 
+                  alt="五级内容" 
+                  className="w-full h-full object-contain"
+                />
               </div>
             </div>
           </div>
