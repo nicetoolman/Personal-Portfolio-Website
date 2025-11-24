@@ -229,7 +229,14 @@ export default async function AboutPage() {
                 gridTemplateRows: 'repeat(31, minmax(0, 1fr))',
                 gridTemplateColumns: 'repeat(1, minmax(0, 1fr))',
               }}
-            />
+            >
+              <div className="relative overflow-hidden" style={{ gridRow: '1 / span 1' }} />
+              <div className="relative overflow-hidden" style={{ gridRow: '2 / span 3' }} />
+              <div className="relative overflow-hidden" style={{ gridRow: '5 / span 4' }} />
+              <div className="relative overflow-hidden" style={{ gridRow: '9 / span 6' }} />
+              <div className="relative overflow-hidden" style={{ gridRow: '15 / span 5' }} />
+              <div className="relative overflow-hidden" style={{ gridRow: '20 / span 12' }} />
+            </div>
           </div>
         </div>
       </div>
