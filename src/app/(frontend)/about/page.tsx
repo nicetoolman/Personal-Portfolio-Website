@@ -322,26 +322,67 @@ export default async function AboutPage() {
                     alignSelf: 'stretch',
                   }}
                 >
-                  {/* 左子容器：占据整个第一列 */}
+                  {/* 左子容器：占据整个第一列 - 图片容器 */}
                   <div
                     className="relative overflow-hidden"
                     style={{
                       gridRow: '1 / span 2',
                       gridColumn: '1',
                     }}
-                  />
-                  {/* 右子容器：占据第二行第二列 */}
+                  >
+                    {resumeSection?.resumeGridLeft &&
+                      typeof resumeSection.resumeGridLeft === 'object' && (
+                        <Media
+                          resource={resumeSection.resumeGridLeft}
+                          htmlElement="div"
+                          className="absolute inset-0"
+                          imgClassName="object-contain w-full h-full"
+                          fill
+                        />
+                      )}
+                  </div>
+                  {/* 右子容器：占据第二行第二列 - 交互组件 */}
                   <div
                     className="relative overflow-hidden"
                     style={{
                       gridRow: '2',
                       gridColumn: '2',
                     }}
-                  />
+                  >
+                    {resumeSection?.resumeGridRightClosed &&
+                      resumeSection?.resumeGridRightOpen &&
+                      typeof resumeSection.resumeGridRightClosed === 'object' &&
+                      typeof resumeSection.resumeGridRightOpen === 'object' && (
+                        <AboutPageInteractiveCard
+                          closedImage={resumeSection.resumeGridRightClosed}
+                          openImage={resumeSection.resumeGridRightOpen}
+                        />
+                      )}
+                  </div>
                 </div>
               </div>
-              <div className="relative overflow-hidden" style={{ gridRow: '15 / span 5' }} />
-              <div className="relative overflow-hidden" style={{ gridRow: '20 / span 12' }} />
+              <div className="relative overflow-hidden" style={{ gridRow: '15 / span 5' }}>
+                {resumeSection?.resumeSection5 && typeof resumeSection.resumeSection5 === 'object' && (
+                  <Media
+                    resource={resumeSection.resumeSection5}
+                    htmlElement="div"
+                    className="absolute inset-0"
+                    imgClassName="object-contain w-full h-full"
+                    fill
+                  />
+                )}
+              </div>
+              <div className="relative overflow-hidden" style={{ gridRow: '20 / span 12' }}>
+                {resumeSection?.resumeSection6 && typeof resumeSection.resumeSection6 === 'object' && (
+                  <Media
+                    resource={resumeSection.resumeSection6}
+                    htmlElement="div"
+                    className="absolute inset-0"
+                    imgClassName="object-contain w-full h-full"
+                    fill
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>

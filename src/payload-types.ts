@@ -1864,6 +1864,26 @@ export interface AboutPageDecoration {
      * 第四个 Grid 容器的背景图片，覆盖整个容器
      */
     resumeGridBackground?: (number | null) | Media;
+    /**
+     * 第四个 Grid 容器中左子容器的图片内容
+     */
+    resumeGridLeft?: (number | null) | Media;
+    /**
+     * 第四个 Grid 容器中右子容器的关闭状态图片，默认 20% 不透明度，hover 时 50%
+     */
+    resumeGridRightClosed?: (number | null) | Media;
+    /**
+     * 第四个 Grid 容器中右子容器的打开状态图片，点击后显示，100% 不透明度
+     */
+    resumeGridRightOpen?: (number | null) | Media;
+    /**
+     * 第五个子容器的图片内容（gridRow: 15 / span 5）
+     */
+    resumeSection5?: (number | null) | Media;
+    /**
+     * 第六个子容器的图片内容（gridRow: 20 / span 12）
+     */
+    resumeSection6?: (number | null) | Media;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1983,6 +2003,11 @@ export interface AboutPageDecorationsSelect<T extends boolean = true> {
         basicInfoRightOpen?: T;
         resumeIntro?: T;
         resumeGridBackground?: T;
+        resumeGridLeft?: T;
+        resumeGridRightClosed?: T;
+        resumeGridRightOpen?: T;
+        resumeSection5?: T;
+        resumeSection6?: T;
       };
   updatedAt?: T;
   createdAt?: T;

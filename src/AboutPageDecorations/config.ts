@@ -155,6 +155,51 @@ export const AboutPageDecorations: GlobalConfig = {
             description: '第四个 Grid 容器的背景图片，覆盖整个容器',
           },
         },
+        {
+          name: 'resumeGridLeft',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Resume Grid 左子容器（图片）',
+          admin: {
+            description: '第四个 Grid 容器中左子容器的图片内容',
+          },
+        },
+        {
+          name: 'resumeGridRightClosed',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Resume Grid 右子容器（关闭状态）',
+          admin: {
+            description: '第四个 Grid 容器中右子容器的关闭状态图片，默认 20% 不透明度，hover 时 50%',
+          },
+        },
+        {
+          name: 'resumeGridRightOpen',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Resume Grid 右子容器（打开状态）',
+          admin: {
+            description: '第四个 Grid 容器中右子容器的打开状态图片，点击后显示，100% 不透明度',
+          },
+        },
+        {
+          name: 'resumeSection5',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Resume 子容器 5（图片）',
+          admin: {
+            description: '第五个子容器的图片内容（gridRow: 15 / span 5）',
+          },
+        },
+        {
+          name: 'resumeSection6',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Resume 子容器 6（图片）',
+          admin: {
+            description: '第六个子容器的图片内容（gridRow: 20 / span 12）',
+          },
+        },
       ],
     },
   ],
