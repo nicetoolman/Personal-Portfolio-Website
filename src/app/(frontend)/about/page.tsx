@@ -217,6 +217,19 @@ export default async function AboutPage() {
                 </div>
               </div>
             )}
+
+            {/* Resume 容器：与简介区相同结构（31 行 × 1 列） */}
+            <div 
+              className="grid overflow-hidden relative shrink-0 w-full"
+              style={{
+                width: '100%',
+                aspectRatio: '890/1496.687',
+                padding: 'calc(100% * 3 / 890) calc(100% * 8 / 890)',
+                rowGap: 'calc(100% * 6 / 890)',
+                gridTemplateRows: 'repeat(31, minmax(0, 1fr))',
+                gridTemplateColumns: 'repeat(1, minmax(0, 1fr))',
+              }}
+            />
           </div>
         </div>
       </div>
