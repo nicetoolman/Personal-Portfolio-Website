@@ -14,7 +14,7 @@ export default async function AboutPage() {
     <article>
       {/* 视窗容器：视口宽度 > 890px 时固定 890px，≤ 890px 时按比例缩放 */}
       <div 
-        className="mx-auto border-content border-black border-solid relative overflow-hidden"
+        className="mx-auto relative overflow-hidden"
         style={{ 
           maxWidth: '890px',
           width: '100%',
