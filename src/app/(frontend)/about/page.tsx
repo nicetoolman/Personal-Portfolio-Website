@@ -12,32 +12,33 @@ export default async function AboutPage() {
   const introSection = decorationsData?.introSection
   return (
     <article>
-      {/* 视窗容器：固定宽度 890px，比例 890/633 */}
+      {/* 视窗容器：视口宽度 > 890px 时固定 890px，≤ 890px 时按比例缩放 */}
       <div 
         className="mx-auto border-content border-black border-solid relative overflow-hidden"
         style={{ 
-          width: '890px',
-          height: '633px', // 890 * 633 / 890 = 633px
+          maxWidth: '890px',
+          width: '100%',
+          aspectRatio: '890/633',
           marginTop: 'calc(64px + var(--navbar-height))',
           marginBottom: '64px',
         }}
       >
         {/* 滚动容器 */}
         <div className="absolute inset-0 overflow-y-auto overflow-x-hidden">
-          {/* About 内容容器：宽度与视窗一致，高度适应内容，无 padding */}
+          {/* About 内容容器：宽度与视窗容器一致，高度适应内容 */}
           <div 
             className="w-full h-auto flex flex-col items-center"
-            style={{ width: '890px' }}
+            style={{ width: '100%' }}
           >
-            {/* 第一个 Grid 容器：网站简介内容 */}
+            {/* Grid 容器：宽度与 About 内容容器一致，比例 890/635，所有属性按比例变化 */}
             <div 
-              className="grid overflow-hidden relative shrink-0"
+              className="grid overflow-hidden relative shrink-0 w-full"
               style={{
-                width: '890px',
-                height: '635px',
-                padding: '3px 8px',
-                rowGap: '6px',
-                columnGap: '6px',
+                width: '100%', // 与 About 内容容器宽度一致
+                aspectRatio: '890/635', // 保持 Grid 容器的宽高比
+                padding: 'calc(3px * 100% / 890) calc(8px * 100% / 890)', // 按比例变化
+                rowGap: 'calc(6px * 100% / 890)', // 按比例变化
+                columnGap: 'calc(6px * 100% / 890)', // 按比例变化
                 gridTemplateRows: 'repeat(8, minmax(0, 1fr))',
                 gridTemplateColumns: 'repeat(13, minmax(0, 1fr))',
               }}
@@ -46,10 +47,10 @@ export default async function AboutPage() {
               <div 
                 className="grid overflow-hidden shrink-0 relative"
                 style={{
-                  width: '197px',
-                  height: '232.125px',
-                  rowGap: '10px',
-                  columnGap: '10px',
+                  width: 'calc(197px * 100% / 890)', // 基于 Grid 容器宽度按比例
+                  aspectRatio: '197/232.125',
+                  rowGap: 'calc(10px * 100% / 890)', // 基于 Grid 容器宽度按比例
+                  columnGap: 'calc(10px * 100% / 890)', // 基于 Grid 容器宽度按比例
                   flexShrink: 0,
                   gridTemplateRows: 'repeat(1, minmax(0, 1fr))',
                   gridTemplateColumns: 'repeat(1, minmax(0, 1fr))',
@@ -73,11 +74,11 @@ export default async function AboutPage() {
               <div 
                 className="grid overflow-hidden shrink-0 relative"
                 style={{
-                  width: '536px',
-                  height: '629px',
-                  padding: '8px',
-                  rowGap: '8px',
-                  columnGap: '8px',
+                  width: 'calc(536px * 100% / 890)', // 基于 Grid 容器宽度按比例
+                  aspectRatio: '536/629',
+                  padding: 'calc(8px * 100% / 890)', // 基于 Grid 容器宽度按比例
+                  rowGap: 'calc(8px * 100% / 890)', // 基于 Grid 容器宽度按比例
+                  columnGap: 'calc(8px * 100% / 890)', // 基于 Grid 容器宽度按比例
                   flexShrink: 0,
                   gridTemplateRows: 'repeat(13, minmax(0, 1fr))',
                   gridTemplateColumns: 'repeat(13, minmax(0, 1fr))',
@@ -104,8 +105,8 @@ export default async function AboutPage() {
               <div 
                 className="grid overflow-hidden relative"
                 style={{
-                  rowGap: '10px',
-                  columnGap: '10px',
+                  rowGap: 'calc(10px * 100% / 890)', // 基于 Grid 容器宽度按比例
+                  columnGap: 'calc(10px * 100% / 890)', // 基于 Grid 容器宽度按比例
                   flex: '1 0 0',
                   alignSelf: 'stretch',
                   gridTemplateRows: 'repeat(1, minmax(0, 1fr))',
@@ -129,10 +130,10 @@ export default async function AboutPage() {
               <div 
                 className="grid overflow-hidden shrink-0 relative"
                 style={{
-                  width: '332px',
-                  height: '390.875px',
-                  rowGap: '10px',
-                  columnGap: '10px',
+                  width: 'calc(332px * 100% / 890)', // 基于 Grid 容器宽度按比例
+                  aspectRatio: '332/390.875',
+                  rowGap: 'calc(10px * 100% / 890)', // 基于 Grid 容器宽度按比例
+                  columnGap: 'calc(10px * 100% / 890)', // 基于 Grid 容器宽度按比例
                   flexShrink: 0,
                   gridTemplateRows: 'repeat(1, minmax(0, 1fr))',
                   gridTemplateColumns: 'repeat(1, minmax(0, 1fr))',
@@ -177,10 +178,10 @@ export default async function AboutPage() {
               <div 
                 className="grid overflow-hidden shrink-0 relative"
                 style={{
-                  width: '63px',
-                  height: '73.375px',
-                  rowGap: '10px',
-                  columnGap: '10px',
+                  width: 'calc(63px * 100% / 890)', // 基于 Grid 容器宽度按比例
+                  aspectRatio: '63/73.375',
+                  rowGap: 'calc(10px * 100% / 890)', // 基于 Grid 容器宽度按比例
+                  columnGap: 'calc(10px * 100% / 890)', // 基于 Grid 容器宽度按比例
                   flexShrink: 0,
                   gridTemplateRows: 'repeat(1, minmax(0, 1fr))',
                   gridTemplateColumns: 'repeat(1, minmax(0, 1fr))',

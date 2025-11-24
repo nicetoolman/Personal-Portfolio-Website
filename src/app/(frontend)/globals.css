@@ -47,6 +47,9 @@
     /* 内容区域边框样式（通用，方便以后取消） */
     --border-width-content: 2px; /* 设置为 0px 即可取消边框 */
 
+    /* About 页面设计基准宽度 */
+    --about-base-width: 890px;
+
     --success: 196 52% 74%;
     --warning: 34 89% 85%;
     --error: 10 100% 86%;
@@ -127,4 +130,11 @@
 
 html {
   opacity: 1;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
 }
