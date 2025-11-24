@@ -12,6 +12,8 @@ export default async function AboutPage() {
 
   const introSection = decorationsData?.introSection
   const decorationSection1 = decorationsData?.decorationSection1
+  const decorationSection2 = decorationsData?.decorationSection2
+  const decorationSection3 = decorationsData?.decorationSection3
   const resumeSection = decorationsData?.resumeSection
   return (
     <article>
@@ -384,6 +386,46 @@ export default async function AboutPage() {
                 )}
               </div>
             </div>
+
+            {/* About 装饰区 2：890 × 788.667 图片容器 */}
+            {decorationSection2 && typeof decorationSection2 === 'object' && (
+              <div
+                className="w-full"
+                style={{
+                  aspectRatio: '890/788.667',
+                }}
+              >
+                <div className="relative w-full h-full overflow-hidden">
+                  <Media
+                    resource={decorationSection2}
+                    htmlElement="div"
+                    className="absolute inset-0"
+                    imgClassName="object-contain w-full h-full"
+                    fill
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* About 装饰区 3：890 × 633 图片容器 */}
+            {decorationSection3 && typeof decorationSection3 === 'object' && (
+              <div
+                className="w-full"
+                style={{
+                  aspectRatio: '890/633',
+                }}
+              >
+                <div className="relative w-full h-full overflow-hidden">
+                  <Media
+                    resource={decorationSection3}
+                    htmlElement="div"
+                    className="absolute inset-0"
+                    imgClassName="object-contain w-full h-full"
+                    fill
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

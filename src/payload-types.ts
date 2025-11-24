@@ -1831,6 +1831,14 @@ export interface AboutPageDecoration {
    * 对应 Figma 中 890×168 的装饰条，将渲染在网站简介内容下方
    */
   decorationSection1?: (number | null) | Media;
+  /**
+   * 对应 Figma 中 890×788.667 的装饰区，将渲染在 Resume 容器之后
+   */
+  decorationSection2?: (number | null) | Media;
+  /**
+   * 对应 Figma 中 890×633 的装饰区，将渲染在装饰区 2 之后
+   */
+  decorationSection3?: (number | null) | Media;
   resumeSection?: {
     /**
      * 位于 Resume 模块顶部的大标题图像，尺寸参考 Figma
@@ -1992,6 +2000,8 @@ export interface AboutPageDecorationsSelect<T extends boolean = true> {
         level5_2?: T;
       };
   decorationSection1?: T;
+  decorationSection2?: T;
+  decorationSection3?: T;
   resumeSection?:
     | T
     | {

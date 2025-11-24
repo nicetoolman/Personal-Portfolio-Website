@@ -79,6 +79,24 @@ export const AboutPageDecorations: GlobalConfig = {
       },
     },
     {
+      name: 'decorationSection2',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'About 装饰区 2',
+      admin: {
+        description: '对应 Figma 中 890×788.667 的装饰区，将渲染在 Resume 容器之后',
+      },
+    },
+    {
+      name: 'decorationSection3',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'About 装饰区 3',
+      admin: {
+        description: '对应 Figma 中 890×633 的装饰区，将渲染在装饰区 2 之后',
+      },
+    },
+    {
       name: 'resumeSection',
       type: 'group',
       label: 'Resume 装饰区',
