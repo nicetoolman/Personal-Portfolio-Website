@@ -101,6 +101,24 @@ export const AboutPageDecorations: GlobalConfig = {
             description: '紧接标题的纯图片容器内容',
           },
         },
+        {
+          name: 'basicInfoLeft',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Resume 基本信息（左列图片）',
+          admin: {
+            description: '第二个子容器中左侧图片内容',
+          },
+        },
+        {
+          name: 'basicInfoBackground',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Resume 基本信息（背景图片）',
+          admin: {
+            description: '覆盖整个第二子容器的背景图',
+          },
+        },
       ],
     },
   ],

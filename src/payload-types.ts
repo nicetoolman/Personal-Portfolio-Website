@@ -1840,6 +1840,14 @@ export interface AboutPageDecoration {
      * 紧接标题的纯图片容器内容
      */
     headline?: (number | null) | Media;
+    /**
+     * 第二个子容器中左侧图片内容
+     */
+    basicInfoLeft?: (number | null) | Media;
+    /**
+     * 覆盖整个第二子容器的背景图
+     */
+    basicInfoBackground?: (number | null) | Media;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1953,6 +1961,8 @@ export interface AboutPageDecorationsSelect<T extends boolean = true> {
     | {
         title?: T;
         headline?: T;
+        basicInfoLeft?: T;
+        basicInfoBackground?: T;
       };
   updatedAt?: T;
   createdAt?: T;

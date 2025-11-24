@@ -242,7 +242,39 @@ export default async function AboutPage() {
                   />
                 )}
               </div>
-              <div className="relative overflow-hidden" style={{ gridRow: '2 / span 3' }} />
+              <div className="relative overflow-hidden" style={{ gridRow: '2 / span 3' }}>
+                {resumeSection?.basicInfoBackground &&
+                  typeof resumeSection.basicInfoBackground === 'object' && (
+                    <Media
+                      resource={resumeSection.basicInfoBackground}
+                      htmlElement="div"
+                      className="absolute inset-0"
+                      imgClassName="object-cover w-full h-full"
+                      fill
+                    />
+                  )}
+                <div
+                  className="grid h-full w-full relative z-10"
+                  style={{
+                    padding: 'calc(100% * 8 / 890)',
+                    columnGap: '6px',
+                    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+                  }}
+                >
+                  <div className="relative w-full h-full overflow-hidden">
+                    {resumeSection?.basicInfoLeft && typeof resumeSection.basicInfoLeft === 'object' && (
+                      <Media
+                        resource={resumeSection.basicInfoLeft}
+                        htmlElement="div"
+                        className="absolute inset-0"
+                        imgClassName="object-contain w-full h-full"
+                        fill
+                      />
+                    )}
+                  </div>
+                  <div className="relative w-full h-full overflow-hidden" />
+                </div>
+              </div>
               <div className="relative overflow-hidden" style={{ gridRow: '5 / span 4' }} />
               <div className="relative overflow-hidden" style={{ gridRow: '9 / span 6' }} />
               <div className="relative overflow-hidden" style={{ gridRow: '15 / span 5' }} />
