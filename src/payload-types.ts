@@ -1856,6 +1856,10 @@ export interface AboutPageDecoration {
      * 右列交互组件的打开状态图片，点击后显示，100% 不透明度
      */
     basicInfoRightOpen?: (number | null) | Media;
+    /**
+     * Resume 简介区域的图片内容
+     */
+    resumeIntro?: (number | null) | Media;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1973,6 +1977,7 @@ export interface AboutPageDecorationsSelect<T extends boolean = true> {
         basicInfoBackground?: T;
         basicInfoRightClosed?: T;
         basicInfoRightOpen?: T;
+        resumeIntro?: T;
       };
   updatedAt?: T;
   createdAt?: T;

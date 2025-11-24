@@ -137,6 +137,15 @@ export const AboutPageDecorations: GlobalConfig = {
             description: '右列交互组件的打开状态图片，点击后显示，100% 不透明度',
           },
         },
+        {
+          name: 'resumeIntro',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Resume 简介图片',
+          admin: {
+            description: 'Resume 简介区域的图片内容',
+          },
+        },
       ],
     },
   ],

@@ -286,7 +286,17 @@ export default async function AboutPage() {
                   </div>
                 </div>
               </div>
-              <div className="relative overflow-hidden" style={{ gridRow: '5 / span 4' }} />
+              <div className="relative overflow-hidden" style={{ gridRow: '5 / span 4' }}>
+                {resumeSection?.resumeIntro && typeof resumeSection.resumeIntro === 'object' && (
+                  <Media
+                    resource={resumeSection.resumeIntro}
+                    htmlElement="div"
+                    className="absolute inset-0"
+                    imgClassName="object-contain w-full h-full"
+                    fill
+                  />
+                )}
+              </div>
               <div className="relative overflow-hidden" style={{ gridRow: '9 / span 6' }} />
               <div className="relative overflow-hidden" style={{ gridRow: '15 / span 5' }} />
               <div className="relative overflow-hidden" style={{ gridRow: '20 / span 12' }} />
