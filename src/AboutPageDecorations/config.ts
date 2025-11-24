@@ -119,6 +119,24 @@ export const AboutPageDecorations: GlobalConfig = {
             description: '覆盖整个第二子容器的背景图',
           },
         },
+        {
+          name: 'basicInfoRightClosed',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Resume 基本信息（右列-关闭状态）',
+          admin: {
+            description: '右列交互组件的关闭状态图片，默认 20% 不透明度，hover 时 50%',
+          },
+        },
+        {
+          name: 'basicInfoRightOpen',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Resume 基本信息（右列-打开状态）',
+          admin: {
+            description: '右列交互组件的打开状态图片，点击后显示，100% 不透明度',
+          },
+        },
       ],
     },
   ],

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { Media } from '@/components/Media'
+import { AboutPageInteractiveCard } from '@/components/AboutPageInteractiveCard'
 import type { AboutPageDecoration as AboutPageDecorationType } from '@/payload-types'
 
 export default async function AboutPage() {
@@ -272,7 +273,17 @@ export default async function AboutPage() {
                       />
                     )}
                   </div>
-                  <div className="relative w-full h-full overflow-hidden" />
+                  <div className="relative w-full h-full overflow-hidden">
+                    {resumeSection?.basicInfoRightClosed &&
+                      resumeSection?.basicInfoRightOpen &&
+                      typeof resumeSection.basicInfoRightClosed === 'object' &&
+                      typeof resumeSection.basicInfoRightOpen === 'object' && (
+                        <AboutPageInteractiveCard
+                          closedImage={resumeSection.basicInfoRightClosed}
+                          openImage={resumeSection.basicInfoRightOpen}
+                        />
+                      )}
+                  </div>
                 </div>
               </div>
               <div className="relative overflow-hidden" style={{ gridRow: '5 / span 4' }} />

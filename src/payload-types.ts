@@ -1848,6 +1848,14 @@ export interface AboutPageDecoration {
      * 覆盖整个第二子容器的背景图
      */
     basicInfoBackground?: (number | null) | Media;
+    /**
+     * 右列交互组件的关闭状态图片，默认 20% 不透明度，hover 时 50%
+     */
+    basicInfoRightClosed?: (number | null) | Media;
+    /**
+     * 右列交互组件的打开状态图片，点击后显示，100% 不透明度
+     */
+    basicInfoRightOpen?: (number | null) | Media;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1963,6 +1971,8 @@ export interface AboutPageDecorationsSelect<T extends boolean = true> {
         headline?: T;
         basicInfoLeft?: T;
         basicInfoBackground?: T;
+        basicInfoRightClosed?: T;
+        basicInfoRightOpen?: T;
       };
   updatedAt?: T;
   createdAt?: T;
