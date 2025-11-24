@@ -78,6 +78,31 @@ export const AboutPageDecorations: GlobalConfig = {
         description: '对应 Figma 中 890×168 的装饰条，将渲染在网站简介内容下方',
       },
     },
+    {
+      name: 'resumeSection',
+      type: 'group',
+      label: 'Resume 装饰区',
+      fields: [
+        {
+          name: 'title',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Resume 标题图片',
+          admin: {
+            description: '位于 Resume 模块顶部的大标题图像，尺寸参考 Figma',
+          },
+        },
+        {
+          name: 'headline',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Resume 子容器 1（纯图片）',
+          admin: {
+            description: '紧接标题的纯图片容器内容',
+          },
+        },
+      ],
+    },
   ],
   hooks: {
     afterChange: [revalidateAboutPageDecorations],
