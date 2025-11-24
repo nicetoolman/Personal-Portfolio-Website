@@ -23,8 +23,8 @@ export default async function AboutPage() {
           marginBottom: '64px',
         }}
       >
-        {/* 滚动容器 */}
-        <div className="absolute inset-0 overflow-y-auto overflow-x-hidden">
+        {/* 滚动容器：使用 about-scroll-container 控制滚动条样式 */}
+        <div className="absolute inset-0 overflow-y-auto overflow-x-hidden about-scroll-container">
           {/* About 内容容器：宽度与视窗容器一致，高度适应内容 */}
           <div 
             className="w-full h-auto flex flex-col items-center"
