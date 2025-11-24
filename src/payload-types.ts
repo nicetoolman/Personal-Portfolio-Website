@@ -1827,6 +1827,10 @@ export interface AboutPageDecoration {
      */
     level5_2?: (number | null) | Media;
   };
+  /**
+   * 对应 Figma 中 890×168 的装饰条，将渲染在网站简介内容下方
+   */
+  decorationSection1?: (number | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1933,6 +1937,7 @@ export interface AboutPageDecorationsSelect<T extends boolean = true> {
         level5_1?: T;
         level5_2?: T;
       };
+  decorationSection1?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

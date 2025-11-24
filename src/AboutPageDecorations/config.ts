@@ -69,6 +69,15 @@ export const AboutPageDecorations: GlobalConfig = {
         },
       ],
     },
+    {
+      name: 'decorationSection1',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'About 装饰区 1',
+      admin: {
+        description: '对应 Figma 中 890×168 的装饰条，将渲染在网站简介内容下方',
+      },
+    },
   ],
   hooks: {
     afterChange: [revalidateAboutPageDecorations],

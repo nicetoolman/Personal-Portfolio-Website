@@ -10,6 +10,7 @@ export default async function AboutPage() {
   )()
 
   const introSection = decorationsData?.introSection
+  const decorationSection1 = decorationsData?.decorationSection1
   return (
     <article>
       {/* 视窗容器：视口宽度 > 890px 时固定 890px，≤ 890px 时按比例缩放 */}
@@ -196,6 +197,26 @@ export default async function AboutPage() {
                 )}
               </div>
             </div>
+
+            {/* About 装饰区 1：890 × 168 图片容器 */}
+            {decorationSection1 && typeof decorationSection1 === 'object' && (
+              <div
+                className="w-full"
+                style={{
+                  aspectRatio: '890/168',
+                }}
+              >
+                <div className="relative w-full h-full overflow-hidden">
+                  <Media
+                    resource={decorationSection1}
+                    htmlElement="div"
+                    className="absolute inset-0"
+                    imgClassName="object-contain w-full h-full"
+                    fill
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
