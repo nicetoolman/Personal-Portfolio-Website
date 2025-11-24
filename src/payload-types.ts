@@ -1860,6 +1860,10 @@ export interface AboutPageDecoration {
      * Resume 简介区域的图片内容
      */
     resumeIntro?: (number | null) | Media;
+    /**
+     * 第四个 Grid 容器的背景图片，覆盖整个容器
+     */
+    resumeGridBackground?: (number | null) | Media;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1978,6 +1982,7 @@ export interface AboutPageDecorationsSelect<T extends boolean = true> {
         basicInfoRightClosed?: T;
         basicInfoRightOpen?: T;
         resumeIntro?: T;
+        resumeGridBackground?: T;
       };
   updatedAt?: T;
   createdAt?: T;

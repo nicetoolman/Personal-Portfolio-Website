@@ -146,6 +146,15 @@ export const AboutPageDecorations: GlobalConfig = {
             description: 'Resume 简介区域的图片内容',
           },
         },
+        {
+          name: 'resumeGridBackground',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Resume Grid 容器（背景图片）',
+          admin: {
+            description: '第四个 Grid 容器的背景图片，覆盖整个容器',
+          },
+        },
       ],
     },
   ],

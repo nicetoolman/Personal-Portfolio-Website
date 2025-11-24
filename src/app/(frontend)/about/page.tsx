@@ -297,7 +297,49 @@ export default async function AboutPage() {
                   />
                 )}
               </div>
-              <div className="relative overflow-hidden" style={{ gridRow: '9 / span 6' }} />
+              <div className="relative overflow-hidden" style={{ gridRow: '9 / span 6' }}>
+                {/* 背景图片 */}
+                {resumeSection?.resumeGridBackground &&
+                  typeof resumeSection.resumeGridBackground === 'object' && (
+                    <Media
+                      resource={resumeSection.resumeGridBackground}
+                      htmlElement="div"
+                      className="absolute inset-0"
+                      imgClassName="object-cover w-full h-full"
+                      fill
+                    />
+                  )}
+                {/* 内部 Grid 容器：确保内容在背景之上 */}
+                <div
+                  className="grid h-full w-full relative z-10"
+                  style={{
+                    padding: 'calc(100% * 8 / 890)',
+                    rowGap: '6px',
+                    columnGap: '6px',
+                    gridTemplateRows: '28px minmax(0, 1fr)',
+                    gridTemplateColumns: 'calc(100% * 576 / 890) minmax(0, 1fr)',
+                    flex: '1 0 0',
+                    alignSelf: 'stretch',
+                  }}
+                >
+                  {/* 左子容器：占据整个第一列 */}
+                  <div
+                    className="relative overflow-hidden"
+                    style={{
+                      gridRow: '1 / span 2',
+                      gridColumn: '1',
+                    }}
+                  />
+                  {/* 右子容器：占据第二行第二列 */}
+                  <div
+                    className="relative overflow-hidden"
+                    style={{
+                      gridRow: '2',
+                      gridColumn: '2',
+                    }}
+                  />
+                </div>
+              </div>
               <div className="relative overflow-hidden" style={{ gridRow: '15 / span 5' }} />
               <div className="relative overflow-hidden" style={{ gridRow: '20 / span 12' }} />
             </div>
