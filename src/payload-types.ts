@@ -1912,6 +1912,95 @@ export interface ProjectPageIntro {
   placeholder4?: (number | null) | Media;
   textLine2?: (number | null) | Media;
   scrollHint?: (number | null) | Media;
+  /**
+   * 六个流程卡片的 hover/静态图配置，用于项目列表首屏
+   */
+  flowCards?: {
+    flow1?: {
+      /**
+       * Flow 上半区的默认图（hover 前）
+       */
+      image?: (number | null) | Media;
+      /**
+       * Flow 上半区 hover 时切换的文本图
+       */
+      textImage?: (number | null) | Media;
+      /**
+       * Flow 卡片下半区的静态图片
+       */
+      bottomImage?: (number | null) | Media;
+    };
+    flow2?: {
+      /**
+       * Flow 上半区的默认图（hover 前）
+       */
+      image?: (number | null) | Media;
+      /**
+       * Flow 上半区 hover 时切换的文本图
+       */
+      textImage?: (number | null) | Media;
+      /**
+       * Flow 卡片下半区的静态图片
+       */
+      bottomImage?: (number | null) | Media;
+    };
+    flow3?: {
+      /**
+       * Flow 上半区的默认图（hover 前）
+       */
+      image?: (number | null) | Media;
+      /**
+       * Flow 上半区 hover 时切换的文本图
+       */
+      textImage?: (number | null) | Media;
+      /**
+       * Flow 卡片下半区的静态图片
+       */
+      bottomImage?: (number | null) | Media;
+    };
+    flow4?: {
+      /**
+       * Flow 上半区的默认图（hover 前）
+       */
+      image?: (number | null) | Media;
+      /**
+       * Flow 上半区 hover 时切换的文本图
+       */
+      textImage?: (number | null) | Media;
+      /**
+       * Flow 卡片下半区的静态图片
+       */
+      bottomImage?: (number | null) | Media;
+    };
+    flow5?: {
+      /**
+       * Flow 上半区的默认图（hover 前）
+       */
+      image?: (number | null) | Media;
+      /**
+       * Flow 上半区 hover 时切换的文本图
+       */
+      textImage?: (number | null) | Media;
+      /**
+       * Flow 卡片下半区的静态图片
+       */
+      bottomImage?: (number | null) | Media;
+    };
+    flow6?: {
+      /**
+       * Flow 上半区的默认图（hover 前）
+       */
+      image?: (number | null) | Media;
+      /**
+       * Flow 上半区 hover 时切换的文本图
+       */
+      textImage?: (number | null) | Media;
+      /**
+       * Flow 卡片下半区的静态图片
+       */
+      bottomImage?: (number | null) | Media;
+    };
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2055,6 +2144,52 @@ export interface ProjectPageIntroSelect<T extends boolean = true> {
   placeholder4?: T;
   textLine2?: T;
   scrollHint?: T;
+  flowCards?:
+    | T
+    | {
+        flow1?:
+          | T
+          | {
+              image?: T;
+              textImage?: T;
+              bottomImage?: T;
+            };
+        flow2?:
+          | T
+          | {
+              image?: T;
+              textImage?: T;
+              bottomImage?: T;
+            };
+        flow3?:
+          | T
+          | {
+              image?: T;
+              textImage?: T;
+              bottomImage?: T;
+            };
+        flow4?:
+          | T
+          | {
+              image?: T;
+              textImage?: T;
+              bottomImage?: T;
+            };
+        flow5?:
+          | T
+          | {
+              image?: T;
+              textImage?: T;
+              bottomImage?: T;
+            };
+        flow6?:
+          | T
+          | {
+              image?: T;
+              textImage?: T;
+              bottomImage?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

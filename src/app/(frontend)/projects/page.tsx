@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 
 import { LayoutViewport } from '@/components/LayoutViewport'
 import { Media } from '@/components/Media'
+import { ProcessPhaseCard } from '@/components/ProcessPhaseCard'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import type { Media as MediaType, ProjectPageIntro as ProjectPageIntroType } from '@/payload-types'
 
@@ -26,8 +27,18 @@ export default async function ProjectsPage() {
     )
   }
 
+  type IntroImageKey =
+    | 'titleImage'
+    | 'textLine1'
+    | 'placeholder1'
+    | 'placeholder2'
+    | 'placeholder3'
+    | 'placeholder4'
+    | 'textLine2'
+    | 'scrollHint'
+
   const imageSlots: Array<{
-    key: keyof ProjectPageIntroType
+    key: IntroImageKey
     gridRow: string
     gridColumn: string
   }> = [
@@ -41,14 +52,31 @@ export default async function ProjectsPage() {
     { key: 'scrollHint', gridRow: '10 / span 1', gridColumn: '1 / span 13' },
   ]
 
-  const flowSlots = [
-    { gridRow: '3 / span 3', gridColumn: '2 / span 3' },
-    { gridRow: '3 / span 3', gridColumn: '6 / span 3' },
-    { gridRow: '3 / span 3', gridColumn: '10 / span 3' },
-    { gridRow: '6 / span 3', gridColumn: '2 / span 3' },
-    { gridRow: '6 / span 3', gridColumn: '6 / span 3' },
-    { gridRow: '6 / span 3', gridColumn: '10 / span 3' },
+  type FlowCardKey = 'flow1' | 'flow2' | 'flow3' | 'flow4' | 'flow5' | 'flow6'
+
+  type FlowCardContent = {
+    image?: MediaType | number | string | null
+    textImage?: MediaType | number | string | null
+    bottomImage?: MediaType | number | string | null
+  }
+
+  const flowSlots: Array<{
+    flowKey: FlowCardKey
+    gridRow: string
+    gridColumn: string
+  }> = [
+    { flowKey: 'flow1', gridRow: '3 / span 3', gridColumn: '2 / span 3' },
+    { flowKey: 'flow2', gridRow: '3 / span 3', gridColumn: '6 / span 3' },
+    { flowKey: 'flow3', gridRow: '3 / span 3', gridColumn: '10 / span 3' },
+    { flowKey: 'flow4', gridRow: '6 / span 3', gridColumn: '2 / span 3' },
+    { flowKey: 'flow5', gridRow: '6 / span 3', gridColumn: '6 / span 3' },
+    { flowKey: 'flow6', gridRow: '6 / span 3', gridColumn: '10 / span 3' },
   ]
+
+  const flowCards =
+    ((introData as ProjectPageIntroType & {
+      flowCards?: Partial<Record<FlowCardKey, FlowCardContent>>
+    }).flowCards as Partial<Record<FlowCardKey, FlowCardContent>>) || {}
 
   return (
     <article>
@@ -60,8 +88,8 @@ export default async function ProjectsPage() {
               width: '100%',
               aspectRatio: '890/633',
               padding: 'calc(100% * 3 / 890) calc(100% * 8 / 890)',
-              rowGap: '6px',
-              columnGap: '6px',
+              rowGap: 'calc(100% * 6 / 890)',
+              columnGap: 'calc(100% * 6 / 890)',
               gridTemplateRows: 'repeat(10, minmax(0, 1fr))',
               gridTemplateColumns: 'repeat(13, minmax(0, 1fr))',
             }}
@@ -76,13 +104,26 @@ export default async function ProjectsPage() {
               </div>
             ))}
 
-            {flowSlots.map((slot, index) => (
-              <div
-                key={`flow-slot-${index}`}
-                className="relative border border-black/30 bg-[var(--background)]/60"
-                style={{ gridRow: slot.gridRow, gridColumn: slot.gridColumn }}
-              />
-            ))}
+            {flowSlots.map((slot) => {
+              const flowCard = flowCards[slot.flowKey]
+              return (
+                <div
+                  key={slot.flowKey}
+                  className="relative overflow-hidden"
+                  style={{ gridRow: slot.gridRow, gridColumn: slot.gridColumn }}
+                >
+                  {flowCard ? (
+                    <ProcessPhaseCard
+                      image={flowCard.image ?? null}
+                      textImage={flowCard.textImage ?? null}
+                      bottomImage={flowCard.bottomImage ?? null}
+                    />
+                  ) : (
+                    <div className="h-full w-full border border-dashed border-black/20 bg-[var(--background)]/40" />
+                  )}
+                </div>
+              )
+            })}
           </div>
         </div>
       </LayoutViewport>
