@@ -11,8 +11,21 @@ export default function ProjectsPage() {
   return (
     <article>
       <LayoutViewport variant="narrow" scrollable={false}>
-        <div className="w-full h-full flex items-center justify-center bg-[var(--background)] text-secondary">
-          <p className="text-center text-lg">Project 列表页建设中</p>
+        <div className="w-full h-auto flex flex-col items-center">
+          <div
+            className="grid overflow-hidden relative shrink-0 w-full"
+            style={{
+              width: '100%',
+              aspectRatio: '890/633',
+              padding: 'calc(100% * 3 / 890) calc(100% * 8 / 890)',
+              rowGap: '6px',
+              columnGap: '6px',
+              gridTemplateRows: 'repeat(10, minmax(0, 1fr))',
+              gridTemplateColumns: 'repeat(13, minmax(0, 1fr))',
+            }}
+          >
+            {/* TODO: Project Intro Grid content */}
+          </div>
         </div>
       </LayoutViewport>
     </article>
