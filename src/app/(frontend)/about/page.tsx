@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { Media } from '@/components/Media'
 import { AboutPageInteractiveCard } from '@/components/AboutPageInteractiveCard'
+import { LayoutViewport } from '@/components/LayoutViewport'
 import type { AboutPageDecoration as AboutPageDecorationType } from '@/payload-types'
 
 export default async function AboutPage() {
@@ -17,24 +18,12 @@ export default async function AboutPage() {
   const resumeSection = decorationsData?.resumeSection
   return (
     <article>
-      {/* 视窗容器：视口宽度 > 890px 时固定 890px，≤ 890px 时按比例缩放 */}
-      <div 
-        className="mx-auto relative overflow-hidden"
-        style={{ 
-          maxWidth: '890px',
-          width: '100%',
-          aspectRatio: '890/633',
-          marginTop: 'calc(64px + var(--navbar-height))',
-          marginBottom: '64px',
-        }}
+      <LayoutViewport
+        variant="narrow"
+        className="mt-[calc(64px+var(--navbar-height))] mb-16"
       >
-        {/* 滚动容器：使用 about-scroll-container 控制滚动条样式 */}
-        <div className="absolute inset-0 overflow-y-auto overflow-x-hidden about-scroll-container">
-          {/* About 内容容器：宽度与视窗容器一致，高度适应内容 */}
-          <div 
-            className="w-full h-auto flex flex-col items-center"
-            style={{ width: '100%' }}
-          >
+        {/* About 内容容器：宽度与视窗容器一致，高度适应内容 */}
+        <div className="w-full h-auto flex flex-col items-center">
             {/* Grid 容器：宽度与 About 内容容器一致，比例 890/635，所有属性按比例变化 */}
             <div
               className="grid overflow-hidden relative shrink-0 w-full"
@@ -427,8 +416,7 @@ export default async function AboutPage() {
               </div>
             )}
           </div>
-        </div>
-      </div>
+      </LayoutViewport>
     </article>
   )
 }
