@@ -16,12 +16,7 @@ interface ProcessPhaseCardProps {
  */
 export function ProcessPhaseCard({ image, textImage, bottomImage, className }: ProcessPhaseCardProps) {
   return (
-    <div
-      className={cn(
-        'flex h-full w-full flex-col border border-black/30 bg-[var(--background)]/80 backdrop-blur-sm',
-        className,
-      )}
-    >
+    <div className={cn('flex h-full w-full flex-col bg-[var(--background)]/80 backdrop-blur-sm', className)}>
       <div
         className="relative w-full"
         style={{

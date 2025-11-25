@@ -106,21 +106,19 @@ export default async function ProjectsPage() {
 
             {flowSlots.map((slot) => {
               const flowCard = flowCards[slot.flowKey]
+              if (!flowCard) return null
+
               return (
                 <div
                   key={slot.flowKey}
                   className="relative overflow-hidden"
                   style={{ gridRow: slot.gridRow, gridColumn: slot.gridColumn }}
                 >
-                  {flowCard ? (
-                    <ProcessPhaseCard
-                      image={flowCard.image ?? null}
-                      textImage={flowCard.textImage ?? null}
-                      bottomImage={flowCard.bottomImage ?? null}
-                    />
-                  ) : (
-                    <div className="h-full w-full border border-dashed border-black/20 bg-[var(--background)]/40" />
-                  )}
+                  <ProcessPhaseCard
+                    image={flowCard.image ?? null}
+                    textImage={flowCard.textImage ?? null}
+                    bottomImage={flowCard.bottomImage ?? null}
+                  />
                 </div>
               )
             })}
