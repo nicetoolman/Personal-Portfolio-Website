@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import type { Header as HeaderType } from '@/payload-types'
+import type { Header as HeaderType, Page } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 
@@ -11,8 +11,41 @@ interface MobileMenuProps {
   onClose: () => void
 }
 
+const ensureProjectsLink = (items: NonNullable<HeaderType['navItems']>) => {
+  const hasProjects = items.some(({ link }) => {
+    if (!link) return false
+    if (link.type === 'custom') {
+      return link.url === '/projects' || link.url === 'projects'
+    }
+    if (link.type === 'reference' && link.reference?.relationTo === 'pages') {
+      const value = link.reference.value
+      if (typeof value === 'object' && value !== null && 'slug' in value) {
+        return (value as Page).slug === 'projects'
+      }
+      if (typeof value === 'string') {
+        return value === 'projects'
+      }
+    }
+    return false
+  })
+
+  if (hasProjects) return items
+
+  return [
+    ...items,
+    {
+      link: {
+        type: 'custom' as const,
+        url: '/projects',
+        label: 'Project',
+      },
+    },
+  ]
+}
+
 export const MobileMenu: React.FC<MobileMenuProps> = ({ data, onClose }) => {
-  const navItems = data?.navItems || []
+  const rawNavItems = data?.navItems || []
+  const navItems = ensureProjectsLink(rawNavItems)
 
   // 构建菜单项：Home + 其他链接
   const menuItems = [
