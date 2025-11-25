@@ -18,10 +18,7 @@ export default async function AboutPage() {
   const resumeSection = decorationsData?.resumeSection
   return (
     <article>
-      <LayoutViewport
-        variant="narrow"
-        className="mt-[calc(64px+var(--navbar-height))] mb-16"
-      >
+      <LayoutViewport variant="narrow">
         {/* About 内容容器：宽度与视窗容器一致，高度适应内容 */}
         <div className="w-full h-auto flex flex-col items-center">
             {/* Grid 容器：宽度与 About 内容容器一致，比例 890/635，所有属性按比例变化 */}

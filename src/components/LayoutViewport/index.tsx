@@ -33,7 +33,10 @@ export function LayoutViewport({
 
   return (
     <div
-      className={cn('relative mx-auto overflow-hidden', className)}
+      className={cn(
+        'relative mx-auto overflow-hidden mt-[calc(64px+var(--navbar-height))] mb-16',
+        className,
+      )}
       style={{
         maxWidth: `${config.width}px`,
         width: '100%',

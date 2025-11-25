@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <article className="pt-[calc(var(--navbar-height)+64px)] pb-16">
-      <LayoutViewport variant="narrow" className="mb-8 px-4 md:px-0" scrollable={false}>
+    <article>
+      <LayoutViewport variant="narrow" scrollable={false}>
         <div className="w-full h-full flex items-center justify-center bg-[var(--background)] text-secondary">
           <p className="text-center text-lg">Project 列表页建设中</p>
         </div>
