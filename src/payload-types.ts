@@ -108,11 +108,13 @@ export interface Config {
     header: Header;
     footer: Footer;
     aboutPageDecorations: AboutPageDecoration;
+    projectPageIntro: ProjectPageIntro;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     aboutPageDecorations: AboutPageDecorationsSelect<false> | AboutPageDecorationsSelect<true>;
+    projectPageIntro: ProjectPageIntroSelect<false> | ProjectPageIntroSelect<true>;
   };
   locale: null;
   user: User & {
@@ -1898,6 +1900,23 @@ export interface AboutPageDecoration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projectPageIntro".
+ */
+export interface ProjectPageIntro {
+  id: number;
+  titleImage?: (number | null) | Media;
+  textLine1?: (number | null) | Media;
+  placeholder1?: (number | null) | Media;
+  placeholder2?: (number | null) | Media;
+  placeholder3?: (number | null) | Media;
+  placeholder4?: (number | null) | Media;
+  textLine2?: (number | null) | Media;
+  scrollHint?: (number | null) | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2019,6 +2038,23 @@ export interface AboutPageDecorationsSelect<T extends boolean = true> {
         resumeSection5?: T;
         resumeSection6?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projectPageIntro_select".
+ */
+export interface ProjectPageIntroSelect<T extends boolean = true> {
+  titleImage?: T;
+  textLine1?: T;
+  placeholder1?: T;
+  placeholder2?: T;
+  placeholder3?: T;
+  placeholder4?: T;
+  textLine2?: T;
+  scrollHint?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

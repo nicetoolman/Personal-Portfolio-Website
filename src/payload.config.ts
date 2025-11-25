@@ -16,6 +16,7 @@ import { Sketchbook } from './collections/Sketchbook'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { AboutPageDecorations } from './AboutPageDecorations/config'
+import { ProjectPageIntro } from './ProjectPageIntro/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -69,7 +70,7 @@ export default buildConfig({
   }),
   collections: [Pages, Posts, Media, Categories, Users, Tags, Sketchbook],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, AboutPageDecorations],
+  globals: [Header, Footer, AboutPageDecorations, ProjectPageIntro],
   plugins: [
     ...plugins,
     vercelBlobStorage({
