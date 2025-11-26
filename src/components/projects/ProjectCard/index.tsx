@@ -69,8 +69,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <Link
       href={`/projects/${slug}`}
       className={cn(
-        'group relative flex flex-col w-full overflow-hidden border-2 border-black transition-all duration-200',
-        'hover:border-[4px]',
+        'group relative flex flex-col w-full overflow-hidden border border-black transition-all duration-500 ease-in-out',
+        'hover:border-[2px]',
       )}
       style={{
         aspectRatio: '874/260',
