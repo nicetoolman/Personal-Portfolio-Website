@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { LayoutViewport } from '@/components/LayoutViewport'
 import { Media } from '@/components/Media'
 import { ProcessPhaseCard } from '@/components/ProcessPhaseCard'
+import { ProjectCardsContainer } from '@/components/projects/ProjectCardsContainer'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import type { Media as MediaType, ProjectPageIntro as ProjectPageIntroType } from '@/payload-types'
 
@@ -80,8 +81,9 @@ export default async function ProjectsPage() {
 
   return (
     <article>
-      <LayoutViewport variant="narrow" scrollable={false}>
+      <LayoutViewport variant="narrow" scrollable={true}>
         <div className="w-full h-auto flex flex-col items-center">
+          {/* Intro Grid */}
           <div
             className="grid overflow-hidden relative shrink-0 w-full"
             style={{
@@ -123,6 +125,9 @@ export default async function ProjectsPage() {
               )
             })}
           </div>
+
+          {/* Project Cards Container */}
+          <ProjectCardsContainer />
         </div>
       </LayoutViewport>
     </article>
