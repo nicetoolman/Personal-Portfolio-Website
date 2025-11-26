@@ -833,10 +833,66 @@ export interface Project {
     };
     heroImage?: (number | null) | Media;
     content: {
-      overview: string;
-      goal?: string | null;
-      process?: string | null;
-      outcome?: string | null;
+      overview: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+      goal?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      process?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      outcome?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
     };
     showcaseImages?:
       | {
@@ -889,14 +945,70 @@ export interface Project {
   };
   steps?:
     | {
-        variant: 'layout1' | 'layout2' | 'layout3';
+        variant: 'standard' | 'imageRight' | 'imageLeft';
         title?: string | null;
         subtitle?: string | null;
-        text1: string;
+        text1: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
         text1Divider?: boolean | null;
-        text2?: string | null;
-        text3?: string | null;
-        text4?: string | null;
+        text2?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        text3?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        text4?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         images?:
           | {
               image: number | Media;
@@ -905,7 +1017,7 @@ export interface Project {
           | null;
         enableSidebarLeft?: boolean | null;
         sidebarLeft?: {
-          variant?: ('variantA' | 'variantB' | 'variantC' | 'variantD' | 'variantE') | null;
+          variant?: ('think' | 'idea' | 'explain' | 'reference' | 'relax') | null;
           content: {
             root: {
               type: string;
@@ -930,7 +1042,7 @@ export interface Project {
         };
         enableSidebarRight?: boolean | null;
         sidebarRight?: {
-          variant?: ('variantA' | 'variantB' | 'variantC' | 'variantD' | 'variantE') | null;
+          variant?: ('think' | 'idea' | 'explain' | 'reference' | 'relax') | null;
           content: {
             root: {
               type: string;
