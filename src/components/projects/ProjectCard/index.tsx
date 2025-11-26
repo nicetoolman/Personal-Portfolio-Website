@@ -137,7 +137,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
           {/* Overview：524×118 */}
           <div
-            className="flex items-center px-2 flex-1 overflow-hidden"
+            className="flex items-start px-2 flex-1 overflow-hidden"
             style={{ height: 'calc(100% * 118 / 197)' }}
           >
             {overview && (
