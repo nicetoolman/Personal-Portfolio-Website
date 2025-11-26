@@ -69,8 +69,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <Link
       href={`/projects/${slug}`}
       className={cn(
-        'group relative flex flex-col w-full overflow-hidden border border-black transition-all duration-500 ease-in-out',
-        'hover:border-[2px]',
+        'group relative flex flex-col w-full overflow-hidden border-2 border-black transition-all duration-300',
+        'hover:border-[3px]',
       )}
       style={{
         aspectRatio: '874/260',
@@ -78,9 +78,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
     >
       {/* Main 容器：874×197，水平布局 */}
       <div className="flex shrink-0 w-full" style={{ height: 'calc(100% * 197 / 260)' }}>
-        {/* 图片区：350×197，2px border */}
+        {/* 图片区：350×197，1px border */}
         <div
-          className="relative shrink-0 border-2 border-black overflow-hidden"
+          className="relative shrink-0 border border-black overflow-hidden"
           style={{
             width: 'calc(100% * 350 / 874)',
             height: '100%',
@@ -99,9 +99,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
           )}
         </div>
 
-        {/* 信息区：524×197，垂直布局，2px border */}
+        {/* 信息区：524×197，垂直布局，1px border */}
         <div
-          className="flex flex-col flex-1 border-2 border-black overflow-hidden"
+          className="flex flex-col flex-1 border border-black overflow-hidden"
           style={{
             width: 'calc(100% * 524 / 874)',
             height: '100%',
@@ -149,9 +149,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
       </div>
 
-      {/* Tags/keywords 区：874×63，垂直布局，2px border */}
+      {/* Tags/keywords 区：874×63，垂直布局，1px border */}
       <div
-        className="flex flex-col shrink-0 w-full border-2 border-black overflow-hidden"
+        className="flex flex-col shrink-0 w-full border border-black overflow-hidden"
         style={{ height: 'calc(100% * 63 / 260)' }}
       >
         {/* Tags 栏：874×31 */}
