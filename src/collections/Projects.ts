@@ -81,12 +81,12 @@ const introFields: Field[] = [
     fields: [
       {
         name: 'title',
-        type: 'text',
+        type: 'richText',
         required: true,
       },
       {
         name: 'subtitle',
-        type: 'text',
+        type: 'richText',
       },
     ],
   },
