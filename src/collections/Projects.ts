@@ -248,6 +248,7 @@ export const Projects: CollectionConfig = {
   slug: 'projects',
   admin: {
     useAsTitle: 'title',
+    defaultColumns: ['title', 'createdAt', 'updatedAt'],
   },
   access: {
     read: () => true,
