@@ -74,6 +74,7 @@ export interface Config {
     users: User;
     tags: Tag;
     sketchbook: Sketchbook;
+    projects: Project;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -92,6 +93,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     sketchbook: SketchbookSelect<false> | SketchbookSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -819,6 +821,173 @@ export interface Sketchbook {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  intro: {
+    titleGroup: {
+      title: string;
+      subtitle?: string | null;
+    };
+    heroImage?: (number | null) | Media;
+    content: {
+      overview: string;
+      goal?: string | null;
+      process?: string | null;
+      outcome?: string | null;
+    };
+    showcaseImages?:
+      | {
+          image: number | Media;
+          caption?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    meta?: {
+      year?: string | null;
+      roles?:
+        | {
+            role: string;
+            id?: string | null;
+          }[]
+        | null;
+      keywords?:
+        | {
+            keyword: string;
+            id?: string | null;
+          }[]
+        | null;
+      links?:
+        | {
+            link: {
+              type?: ('reference' | 'custom') | null;
+              newTab?: boolean | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: number | Page;
+                  } | null)
+                | ({
+                    relationTo: 'posts';
+                    value: number | Post;
+                  } | null);
+              url?: string | null;
+              label: string;
+            };
+            id?: string | null;
+          }[]
+        | null;
+      tags?:
+        | {
+            tag: number | Tag;
+            id?: string | null;
+          }[]
+        | null;
+    };
+  };
+  steps?:
+    | {
+        variant: 'layout1' | 'layout2' | 'layout3';
+        title?: string | null;
+        subtitle?: string | null;
+        text1: string;
+        text1Divider?: boolean | null;
+        text2?: string | null;
+        text3?: string | null;
+        text4?: string | null;
+        images?:
+          | {
+              image: number | Media;
+              id?: string | null;
+            }[]
+          | null;
+        enableSidebarLeft?: boolean | null;
+        sidebarLeft?: {
+          variant?: ('variantA' | 'variantB' | 'variantC' | 'variantD' | 'variantE') | null;
+          content: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          images?:
+            | {
+                image: number | Media;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        enableSidebarRight?: boolean | null;
+        sidebarRight?: {
+          variant?: ('variantA' | 'variantB' | 'variantC' | 'variantD' | 'variantE') | null;
+          content: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          images?:
+            | {
+                image: number | Media;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  navFooter: {
+    closingImage?: (number | null) | Media;
+    previousProject?: (number | null) | Project;
+    nextProject?: (number | null) | Project;
+    backToList: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline') | null;
+    };
+  };
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1017,6 +1186,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'sketchbook';
         value: number | Sketchbook;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: number | Project;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1438,6 +1611,143 @@ export interface SketchbookSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  title?: T;
+  intro?:
+    | T
+    | {
+        titleGroup?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+            };
+        heroImage?: T;
+        content?:
+          | T
+          | {
+              overview?: T;
+              goal?: T;
+              process?: T;
+              outcome?: T;
+            };
+        showcaseImages?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              id?: T;
+            };
+        meta?:
+          | T
+          | {
+              year?: T;
+              roles?:
+                | T
+                | {
+                    role?: T;
+                    id?: T;
+                  };
+              keywords?:
+                | T
+                | {
+                    keyword?: T;
+                    id?: T;
+                  };
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              tags?:
+                | T
+                | {
+                    tag?: T;
+                    id?: T;
+                  };
+            };
+      };
+  steps?:
+    | T
+    | {
+        variant?: T;
+        title?: T;
+        subtitle?: T;
+        text1?: T;
+        text1Divider?: T;
+        text2?: T;
+        text3?: T;
+        text4?: T;
+        images?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+        enableSidebarLeft?: T;
+        sidebarLeft?:
+          | T
+          | {
+              variant?: T;
+              content?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+            };
+        enableSidebarRight?: T;
+        sidebarRight?:
+          | T
+          | {
+              variant?: T;
+              content?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+            };
+        id?: T;
+      };
+  navFooter?:
+    | T
+    | {
+        closingImage?: T;
+        previousProject?: T;
+        nextProject?: T;
+        backToList?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+      };
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

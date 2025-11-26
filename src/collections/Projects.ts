@@ -1,0 +1,275 @@
+import type { CollectionConfig, Field } from 'payload'
+
+import { link } from '@/fields/link'
+import { slugField } from '@/fields/slug'
+
+const showcaseImageField: Field = {
+  name: 'showcaseImages',
+  type: 'array',
+  minRows: 1,
+  maxRows: 4,
+  label: 'Showcase Images',
+  fields: [
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+    },
+    {
+      name: 'caption',
+      type: 'text',
+      label: 'Caption',
+    },
+  ],
+}
+
+const metaFields: Field = {
+  name: 'meta',
+  type: 'group',
+  label: 'Meta',
+  fields: [
+    { name: 'year', type: 'text', label: 'Year' },
+    {
+      name: 'roles',
+      type: 'array',
+      label: 'Roles (max 3)',
+      maxRows: 3,
+      fields: [{ name: 'role', type: 'text', required: true }],
+    },
+    {
+      name: 'keywords',
+      type: 'array',
+      label: 'Keywords',
+      fields: [{ name: 'keyword', type: 'text', required: true }],
+    },
+    {
+      name: 'links',
+      type: 'array',
+      label: 'Links',
+      fields: [
+        link({
+          appearances: false,
+          overrides: {
+            name: 'link',
+            label: 'Link',
+          },
+        }),
+      ],
+    },
+    {
+      name: 'tags',
+      type: 'array',
+      label: 'Tags (for project cards)',
+      fields: [
+        {
+          name: 'tag',
+          type: 'relationship',
+          relationTo: 'tags',
+          required: true,
+        },
+      ],
+    },
+  ],
+}
+
+const introFields: Field[] = [
+  {
+    name: 'titleGroup',
+    type: 'group',
+    label: 'Title Group',
+    fields: [
+      {
+        name: 'title',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'subtitle',
+        type: 'text',
+      },
+    ],
+  },
+  {
+    name: 'heroImage',
+    type: 'upload',
+    relationTo: 'media',
+    label: 'Hero Viewport Image (890×633)',
+  },
+  {
+    name: 'content',
+    type: 'group',
+    label: 'Intro Content Blocks',
+    fields: [
+      { name: 'overview', type: 'textarea', required: true },
+      { name: 'goal', type: 'textarea' },
+      { name: 'process', type: 'textarea' },
+      { name: 'outcome', type: 'textarea' },
+    ],
+  },
+  showcaseImageField,
+  metaFields,
+]
+
+const sidebarFields = (name: string, toggleName: string): Field[] => [
+  {
+    name: toggleName,
+    type: 'checkbox',
+    label: `Enable ${name === 'sidebarLeft' ? 'Left' : 'Right'} Sidebar`,
+  },
+  {
+    name,
+    type: 'group',
+    label: `${name === 'sidebarLeft' ? 'Left' : 'Right'} Sidebar`,
+    admin: {
+      condition: (_, siblingData) => Boolean(siblingData?.[toggleName]),
+    },
+    fields: [
+      {
+        name: 'variant',
+        type: 'select',
+        label: 'Variant',
+        options: [
+          { label: 'Species A', value: 'variantA' },
+          { label: 'Species B', value: 'variantB' },
+          { label: 'Species C', value: 'variantC' },
+          { label: 'Species D', value: 'variantD' },
+          { label: 'Species E', value: 'variantE' },
+        ],
+      },
+      {
+        name: 'content',
+        type: 'richText',
+        label: 'Sidebar Content',
+        required: true,
+      },
+      {
+        name: 'images',
+        type: 'array',
+        maxRows: 2,
+        label: 'Sidebar Images',
+        fields: [
+          {
+            name: 'image',
+            type: 'upload',
+            relationTo: 'media',
+            required: true,
+          },
+        ],
+      },
+    ],
+  },
+]
+
+const stepsField: Field = {
+  name: 'steps',
+  type: 'array',
+  label: 'Step Blocks',
+  minRows: 1,
+  fields: [
+    {
+      name: 'variant',
+      type: 'select',
+      required: true,
+      options: [
+        { label: 'Layout 1', value: 'layout1' },
+        { label: 'Layout 2', value: 'layout2' },
+        { label: 'Layout 3', value: 'layout3' },
+      ],
+    },
+    { name: 'title', type: 'text' },
+    { name: 'subtitle', type: 'text' },
+    {
+      name: 'text1',
+      type: 'textarea',
+      required: true,
+      label: 'Text 1',
+    },
+    {
+      name: 'text1Divider',
+      type: 'checkbox',
+      label: 'Add Divider around Text 1',
+    },
+    { name: 'text2', type: 'textarea' },
+    { name: 'text3', type: 'textarea' },
+    { name: 'text4', type: 'textarea' },
+    {
+      name: 'images',
+      type: 'array',
+      maxRows: 3,
+      label: 'Step Images (0-3)',
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+      ],
+    },
+    ...sidebarFields('sidebarLeft', 'enableSidebarLeft'),
+    ...sidebarFields('sidebarRight', 'enableSidebarRight'),
+  ],
+}
+
+const navFooterField: Field = {
+  name: 'navFooter',
+  type: 'group',
+  label: 'Navigation Footer',
+  fields: [
+    {
+      name: 'closingImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Closing Image',
+    },
+    {
+      name: 'previousProject',
+      type: 'relationship',
+      relationTo: 'projects',
+      label: 'Previous Project',
+    },
+    {
+      name: 'nextProject',
+      type: 'relationship',
+      relationTo: 'projects',
+      label: 'Next Project',
+    },
+    link({
+      overrides: {
+        name: 'backToList',
+        label: 'Back To List Link',
+      },
+    }),
+  ],
+}
+
+export const Projects: CollectionConfig = {
+  slug: 'projects',
+  admin: {
+    useAsTitle: 'title',
+  },
+  access: {
+    read: () => true,
+  },
+  versions: {
+    drafts: true,
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'intro',
+      type: 'group',
+      label: 'Intro',
+      fields: introFields,
+    },
+    stepsField,
+    navFooterField,
+    ...slugField(),
+  ],
+}
+
