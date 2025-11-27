@@ -147,7 +147,7 @@ function renderImagePanel(image?: StepImage) {
 
   return (
     <div className="flex h-full min-h-[280px] w-full flex-col">
-      <div className="relative flex-1 overflow-hidden border-2 border-black">
+      <div className="relative flex-1 overflow-hidden">
         {image ? (
           <Media
             resource={image.image}
@@ -178,7 +178,7 @@ function renderImageGallery(images?: Step['images']) {
 
           return (
             <div key={entry.id ?? index} className="flex h-full min-h-[280px] flex-col">
-              <div className="relative flex-1 overflow-hidden border-2 border-black">
+              <div className="relative flex-1 overflow-hidden">
                 <Media
                   resource={entry.image}
                   htmlElement="div"

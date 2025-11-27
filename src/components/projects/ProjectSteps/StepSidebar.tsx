@@ -86,7 +86,7 @@ function renderImagesStrip(images?: SidebarImage | null) {
   return (
     <div className="grid h-[120px] w-full gap-[6px]" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
       {validImages.map((item, index) => (
-        <div key={item?.id ?? index} className="relative flex-1 border-2 border-black">
+        <div key={item?.id ?? index} className="relative flex-1">
           <Media
             resource={item!.image}
             htmlElement="div"
