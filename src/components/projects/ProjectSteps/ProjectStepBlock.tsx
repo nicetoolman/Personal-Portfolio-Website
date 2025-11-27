@@ -148,8 +148,8 @@ function renderImagePanel(image?: StepImage) {
   const caption = getImageEntryCaption(image)
 
   return (
-    <div className="flex h-full min-h-[280px] w-full flex-col border-2 border-black">
-      <div className="relative flex-1 overflow-hidden border-b border-black">
+    <div className="flex h-full min-h-[280px] w-full flex-col">
+      <div className="relative flex-1 overflow-hidden border-2 border-black">
         {image ? (
           <Media
             resource={image.image}
@@ -162,7 +162,7 @@ function renderImagePanel(image?: StepImage) {
           <div className="absolute inset-0 flex items-center justify-center text-sm text-black/40">Image placeholder</div>
         )}
       </div>
-      {caption && <div className="px-2 py-1 text-center font-['Roboto'] text-[16px] font-black leading-tight">{caption}</div>}
+      {renderCaption(caption)}
     </div>
   )
 }
@@ -179,20 +179,18 @@ function renderImageGallery(images?: Step['images']) {
           const caption = getImageEntryCaption(entry)
 
           return (
-            <div key={entry.id ?? index} className="flex h-full min-h-[280px] flex-col border-2 border-black">
-            <div className="relative flex-1 overflow-hidden border-b border-black">
-              <Media
-                resource={entry.image}
-                htmlElement="div"
-                className="absolute inset-0"
-                imgClassName="object-contain w-full h-full"
-                fill
-              />
+            <div key={entry.id ?? index} className="flex h-full min-h-[280px] flex-col">
+              <div className="relative flex-1 overflow-hidden border-2 border-black">
+                <Media
+                  resource={entry.image}
+                  htmlElement="div"
+                  className="absolute inset-0"
+                  imgClassName="object-contain w-full h-full"
+                  fill
+                />
+              </div>
+              {renderCaption(caption)}
             </div>
-            {caption && (
-              <div className="px-2 py-1 text-center font-['Roboto'] text-[16px] font-black leading-tight">{caption}</div>
-            )}
-          </div>
           )
         })}
       </div>
@@ -212,6 +210,14 @@ function getMediaCaption(resource?: number | MediaType | null) {
   }
 
   return null
+}
+
+function renderCaption(text?: string | null) {
+  return (
+    <div className="min-h-[28px] px-2 py-1 text-center font-['Roboto'] text-[16px] font-black leading-tight">
+      {text || '\u00A0'}
+    </div>
+  )
 }
 
 function CenterColumn({ children }: { children: React.ReactNode }) {
