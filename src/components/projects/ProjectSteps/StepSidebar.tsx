@@ -57,7 +57,7 @@ function renderIconSlot(variant?: string | null) {
   const variantDoc = typeof variant === 'object' ? (variant as SidebarVariants) : null
 
   return (
-    <div className="relative h-[78px] w-full overflow-hidden rounded-[10px] border-2 border-black">
+    <div className="relative h-[78px] w-full overflow-hidden">
       {variantDoc?.icon ? (
         <Media
           resource={variantDoc.icon as MediaType | number}
