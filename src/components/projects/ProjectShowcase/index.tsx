@@ -2,6 +2,8 @@
 
 import React, { useMemo, useState } from 'react'
 
+import { AnimatePresence, motion } from 'framer-motion'
+
 import { Media } from '@/components/Media'
 import { cn } from '@/utilities/ui'
 import type { Media as MediaType } from '@/payload-types'
@@ -58,13 +60,24 @@ export function ProjectShowcase({ items }: ProjectShowcaseProps) {
     >
       <div className="absolute inset-0 flex">
         <div className="relative flex-1 overflow-hidden border border-black">
-          <Media
-            resource={slides[safeIndex]}
-            htmlElement="div"
-            className="absolute inset-0"
-            imgClassName="object-contain w-full h-full"
-            fill
-          />
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={safeIndex}
+              className="absolute inset-0"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.02 }}
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
+            >
+              <Media
+                resource={slides[safeIndex]}
+                htmlElement="div"
+                className="absolute inset-0"
+                imgClassName="object-contain w-full h-full"
+                fill
+              />
+            </motion.div>
+          </AnimatePresence>
 
           {total > 1 && (
             <>
