@@ -18,8 +18,8 @@ const Divider = () => <div className="w-full h-px bg-black/30" />
 
 const MetaSection: React.FC<MetaSectionProps> = ({ title, children }) => {
   return (
-    <div className="flex flex-col gap-2">
-      <p className="text-sm font-semibold uppercase tracking-wide text-black/60">{title}</p>
+    <div className="flex flex-col gap-0.5">
+      <p className="text-[20px] font-medium font-['Roboto_Condensed'] text-black">{`${title}:`}</p>
       <div className="text-base leading-relaxed text-black">{children}</div>
     </div>
   )
@@ -134,7 +134,7 @@ export function ProjectIntro({ intro }: ProjectIntroProps) {
 
         {/* Meta Grid */}
         <div className="w-full flex flex-col gap-6 md:flex-row md:gap-10">
-          <div className="flex-1 flex flex-col gap-4">
+          <div className="flex-1 flex flex-col gap-2">
             <MetaSection title="Year">
               {intro.meta?.year ? intro.meta.year : <span className="text-black/40">—</span>}
             </MetaSection>
