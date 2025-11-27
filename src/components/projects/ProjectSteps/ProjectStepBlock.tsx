@@ -39,18 +39,25 @@ function renderHeader(step: Step, index: number) {
   if (!step.title && !step.subtitle) return null
 
   return (
-    <header className="flex flex-col gap-[6px]" data-step-index={index}>
-      {step.title && (
-        <div className="px-2">
+    <div
+      className="grid w-full"
+      style={{
+        gap: BODY_GAP,
+        gridTemplateColumns: GRID_TEMPLATE,
+      }}
+      data-step-index={index}
+    >
+      <div />
+      <header className="flex flex-col gap-[6px] px-[8px]">
+        {step.title && (
           <p className="font-['Roboto_Condensed'] text-[32px] font-bold leading-[38px] tracking-tight">{step.title}</p>
-        </div>
-      )}
-      {step.subtitle && (
-        <div className="px-2">
+        )}
+        {step.subtitle && (
           <p className="font-['Roboto_Condensed'] text-[24px] font-medium leading-[30px] tracking-tight">{step.subtitle}</p>
-        </div>
-      )}
-    </header>
+        )}
+      </header>
+      <div />
+    </div>
   )
 }
 
