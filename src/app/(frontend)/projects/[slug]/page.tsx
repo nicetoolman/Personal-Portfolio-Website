@@ -10,6 +10,7 @@ import React, { cache } from 'react'
 import type { Project } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { ProjectIntro } from '@/components/projects/ProjectIntro'
 
 export async function generateStaticParams() {
   try {
@@ -61,7 +62,7 @@ export default async function ProjectDetail({ params: paramsPromise }: Args) {
 
       <LayoutViewport variant="wide" scrollable={true}>
         <div className="w-full h-auto flex flex-col items-center">
-          {/* TODO: 渲染 Project Intro Grid */}
+          <ProjectIntro intro={project.intro} />
           {/* TODO: 渲染 Step Blocks */}
           {/* TODO: 渲染 Navigation Footer */}
           
