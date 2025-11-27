@@ -2,15 +2,14 @@ import type { Metadata } from 'next'
 
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import { LayoutViewport } from '@/components/LayoutViewport'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
-import React, { cache } from 'react'
+import React from 'react'
 
 import type { Project } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { ProjectIntro } from '@/components/projects/ProjectIntro'
+import { fetchProjectPage } from '@/lib/projects/fetchProjectPage'
 
 export async function generateStaticParams() {
   try {
@@ -46,12 +45,14 @@ type Args = {
 }
 
 export default async function ProjectDetail({ params: paramsPromise }: Args) {
-  const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
+  const { isEnabled: draft } = await draftMode()
   const url = '/projects/' + slug
-  const project = await queryProjectBySlug({ slug, draft })
+  const { project, redirects } = await fetchProjectPage(slug)
 
-  if (!project) return <PayloadRedirects url={url} />
+  if (!project) {
+    return <PayloadRedirects url={url} prefetchedRedirects={redirects ?? undefined} />
+  }
 
   return (
     <article>
@@ -79,7 +80,7 @@ export default async function ProjectDetail({ params: paramsPromise }: Args) {
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { slug = '' } = await paramsPromise
-  const project = await queryProjectBySlug({ slug, draft: false })
+  const { project } = await fetchProjectPage(slug)
 
   if (!project) {
     return {
@@ -95,30 +96,4 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   }
 }
 
-const queryProjectBySlug = cache(async ({ slug, draft }: { slug: string; draft: boolean }) => {
-  const payload = await getPayload({ config: configPromise })
-
-  const result = await payload.find({
-    collection: 'projects',
-    draft,
-    limit: 1,
-    overrideAccess: draft,
-    pagination: false,
-    depth: 2, // 需要展开 media 关系
-    where: {
-      slug: {
-        equals: slug,
-      },
-      ...(draft
-        ? {}
-        : {
-            _status: {
-              equals: 'published',
-            },
-          }),
-    },
-  })
-
-  return (result.docs?.[0] as Project | undefined) || null
-})
 
