@@ -23,7 +23,7 @@ export function ProjectStepBlock({ step, index }: ProjectStepBlockProps) {
   return (
     <article className="flex w-full justify-center">
       <div
-        className="flex w-full max-w-[1440px] flex-col border-2 border-black bg-[hsl(var(--background))] px-2 py-1 md:px-[8px] md:py-[3px]"
+        className="flex w-full max-w-[1440px] flex-col bg-[hsl(var(--background))] px-2 py-1 md:px-[8px] md:py-[3px]"
         style={{ rowGap: BODY_GAP }}
       >
         {renderHeader(step, index)}
