@@ -147,7 +147,7 @@ function renderTextStack(
 function renderImagePanel(image?: StepImage) {
   return (
     <div className="flex h-full min-h-[280px] w-full flex-col border-2 border-black">
-      <div className="relative flex-1 overflow-hidden border-b border-black bg-white/60">
+      <div className="relative flex-1 overflow-hidden border-b border-black">
         {image ? (
           <Media
             resource={image.image}
@@ -179,7 +179,7 @@ function renderImageGallery(images?: Step['images']) {
       <div className="grid w-full gap-[6px]" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
         {images.map((image, index) => (
           <div key={image.id ?? index} className="flex h-full min-h-[280px] flex-col border-2 border-black">
-            <div className="relative flex-1 overflow-hidden border-b border-black bg-white/60">
+            <div className="relative flex-1 overflow-hidden border-b border-black">
               <Media
                 resource={image.image}
                 htmlElement="div"

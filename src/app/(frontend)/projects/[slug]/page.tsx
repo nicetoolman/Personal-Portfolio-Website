@@ -66,11 +66,6 @@ export default async function ProjectDetail({ params: paramsPromise }: Args) {
         <div className="flex h-auto w-full flex-col items-center">
           <ProjectIntro intro={project.intro} />
           <ProjectStepsSection steps={project.steps} />
-
-          <div className="w-full max-w-[890px] py-16 text-center text-secondary">
-            <p>Project Detail Page - {project.title}</p>
-            <p className="mt-2 text-sm">Slug: {slug}</p>
-          </div>
         </div>
       </LayoutViewport>
     </article>
