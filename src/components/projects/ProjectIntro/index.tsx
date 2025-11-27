@@ -61,12 +61,22 @@ export function ProjectIntro({ intro }: ProjectIntroProps) {
       >
         {/* Title Group */}
         {(intro.titleGroup?.title || intro.titleGroup?.subtitle) && (
-          <div className="w-full max-w-[874px] flex flex-col gap-2">
+          <div className="w-full max-w-[874px] flex flex-col items-center gap-2 text-center">
             {intro.titleGroup?.title && (
-              <RichText data={intro.titleGroup.title} enableProse={false} enableGutter={false} />
+              <RichText
+                data={intro.titleGroup.title}
+                enableProse={false}
+                enableGutter={false}
+                className="text-[40px] font-black leading-tight tracking-tight font-['Roboto_Condensed']"
+              />
             )}
             {intro.titleGroup?.subtitle && (
-              <RichText data={intro.titleGroup.subtitle} enableProse={false} enableGutter={false} />
+              <RichText
+                data={intro.titleGroup.subtitle}
+                enableProse={false}
+                enableGutter={false}
+                className="text-[32px] font-black leading-tight tracking-tight font-['Roboto_Condensed']"
+              />
             )}
           </div>
         )}
