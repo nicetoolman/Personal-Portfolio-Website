@@ -1,10 +1,15 @@
 import React from 'react'
 
-import type { Project } from '@/payload-types'
+import type { Media as MediaType, Project } from '@/payload-types'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 import { CMSLink } from '@/components/Link'
 import { ProjectShowcase } from '@/components/projects/ProjectShowcase'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+
+type ProjectDetailPageIntroGlobal = {
+  scrollHintImage?: MediaType | number | string | null
+} | null
 
 interface ProjectIntroProps {
   intro?: Project['intro'] | null
@@ -26,10 +31,13 @@ const MetaSection: React.FC<MetaSectionProps> = ({ title, children }) => {
   )
 }
 
-export function ProjectIntro({ intro }: ProjectIntroProps) {
+export async function ProjectIntro({ intro }: ProjectIntroProps) {
   if (!intro) {
     return null
   }
+
+  const projectDetailIntroGlobal = (await getCachedGlobal('projectDetailPageIntro', 1)()) as ProjectDetailPageIntroGlobal
+  const scrollHintImage = projectDetailIntroGlobal?.scrollHintImage ?? null
 
   const contentBlocks = [
     { key: 'overview', label: 'Overview', value: intro.content?.overview },
@@ -182,14 +190,21 @@ export function ProjectIntro({ intro }: ProjectIntroProps) {
 
         <Divider />
 
-        {/* Scroll hint placeholder */}
-        <div
-          className="relative w-full overflow-hidden border border-dashed border-black/40 bg-white/40"
-          style={{ aspectRatio: '874 / 160' }}
-        >
-          <div className="absolute inset-0 flex items-center justify-center text-sm text-black/40">
-            Scroll hint placeholder
-          </div>
+        {/* Scroll hint */}
+        <div className="relative w-full overflow-hidden border border-black" style={{ aspectRatio: '874 / 160' }}>
+          {scrollHintImage ? (
+            <Media
+              resource={scrollHintImage}
+              htmlElement="div"
+              className="absolute inset-0"
+              imgClassName="object-cover w-full h-full"
+              fill
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center text-sm text-black/40">
+              Scroll hint placeholder
+            </div>
+          )}
         </div>
 
         <Divider />

@@ -111,12 +111,14 @@ export interface Config {
     footer: Footer;
     aboutPageDecorations: AboutPageDecoration;
     projectPageIntro: ProjectPageIntro;
+    projectDetailPageIntro: ProjectDetailPageIntro;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     aboutPageDecorations: AboutPageDecorationsSelect<false> | AboutPageDecorationsSelect<true>;
     projectPageIntro: ProjectPageIntroSelect<false> | ProjectPageIntroSelect<true>;
+    projectDetailPageIntro: ProjectDetailPageIntroSelect<false> | ProjectDetailPageIntroSelect<true>;
   };
   locale: null;
   user: User & {
@@ -2456,6 +2458,19 @@ export interface ProjectPageIntro {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projectDetailPageIntro".
+ */
+export interface ProjectDetailPageIntro {
+  id: number;
+  /**
+   * Display this image below the project intro as the global scroll hint.
+   */
+  scrollHintImage?: (number | null) | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2640,6 +2655,16 @@ export interface ProjectPageIntroSelect<T extends boolean = true> {
               bottomImage?: T;
             };
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projectDetailPageIntro_select".
+ */
+export interface ProjectDetailPageIntroSelect<T extends boolean = true> {
+  scrollHintImage?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
