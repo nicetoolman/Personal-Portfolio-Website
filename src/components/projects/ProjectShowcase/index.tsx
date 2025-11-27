@@ -71,7 +71,7 @@ export function ProjectShowcase({ items }: ProjectShowcaseProps) {
               <button
                 type="button"
                 aria-label="Show previous image"
-                className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full border border-black bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-black"
+                className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full border border-[hsl(var(--accent))] bg-[hsl(var(--background))] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[hsl(var(--accent))]"
                 onClick={goPrev}
               >
                 Prev
@@ -79,7 +79,7 @@ export function ProjectShowcase({ items }: ProjectShowcaseProps) {
               <button
                 type="button"
                 aria-label="Show next image"
-                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full border border-black bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-black"
+                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full border border-[hsl(var(--accent))] bg-[hsl(var(--background))] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[hsl(var(--accent))]"
                 onClick={goNext}
               >
                 Next
