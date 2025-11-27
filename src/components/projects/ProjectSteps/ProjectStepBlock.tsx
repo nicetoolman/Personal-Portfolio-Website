@@ -188,27 +188,37 @@ function renderImageGallery(images?: Step['images']) {
 
   return (
     <div
-      className="grid w-full gap-[6px]"
-      style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
+      className="grid w-full"
+      style={{
+        gap: BODY_GAP,
+        gridTemplateColumns: GRID_TEMPLATE,
+      }}
     >
-      {images.map((image, index) => (
-        <div key={image.id ?? index} className="flex h-full min-h-[280px] flex-col border-2 border-black">
-          <div className="relative flex-1 overflow-hidden border-b border-black bg-white/60">
-            <Media
-              resource={image.image}
-              htmlElement="div"
-              className="absolute inset-0"
-              imgClassName="object-contain w-full h-full"
-              fill
-            />
-          </div>
-          {getImageCaption(image.image) && (
-            <div className="px-2 py-1 text-center font-['Roboto'] text-[16px] font-black leading-tight">
-              {getImageCaption(image.image)}
+      <div />
+      <div
+        className="grid w-full gap-[6px] px-[8px]"
+        style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
+      >
+        {images.map((image, index) => (
+          <div key={image.id ?? index} className="flex h-full min-h-[280px] flex-col border-2 border-black">
+            <div className="relative flex-1 overflow-hidden border-b border-black bg-white/60">
+              <Media
+                resource={image.image}
+                htmlElement="div"
+                className="absolute inset-0"
+                imgClassName="object-contain w-full h-full"
+                fill
+              />
             </div>
-          )}
-        </div>
-      ))}
+            {getImageCaption(image.image) && (
+              <div className="px-2 py-1 text-center font-['Roboto'] text-[16px] font-black leading-tight">
+                {getImageCaption(image.image)}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div />
     </div>
   )
 }
