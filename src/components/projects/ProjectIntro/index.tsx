@@ -54,14 +54,15 @@ export function ProjectIntro({ intro }: ProjectIntroProps) {
   return (
     <section className="w-full flex justify-center">
       <div
-        className="flex w-full max-w-[890px] flex-col gap-2 box-content"
+        className="flex w-full flex-col gap-2"
         style={{
+          maxWidth: '890px',
           padding,
         }}
       >
         {/* Title Group */}
         {(intro.titleGroup?.title || intro.titleGroup?.subtitle) && (
-          <div className="w-full max-w-[874px] flex flex-col items-center gap-2 text-center">
+          <div className="w-full flex flex-col items-center gap-2 text-center">
             {intro.titleGroup?.title && (
               <RichText
                 data={intro.titleGroup.title}
@@ -83,7 +84,7 @@ export function ProjectIntro({ intro }: ProjectIntroProps) {
 
         {/* Hero Viewport */}
         <div
-          className="relative w-full max-w-[874px] overflow-hidden border border-black bg-white"
+          className="relative w-full overflow-hidden border border-black bg-white"
           style={{ aspectRatio: '16 / 9' }}
         >
           {intro.heroImage ? (
@@ -102,7 +103,7 @@ export function ProjectIntro({ intro }: ProjectIntroProps) {
         </div>
 
         {/* Content Blocks */}
-        <div className="w-full max-w-[874px] flex flex-col gap-4">
+        <div className="w-full flex flex-col gap-4">
           {contentBlocks.map((block) => {
             if (!block.value) return null
             return (
@@ -116,7 +117,7 @@ export function ProjectIntro({ intro }: ProjectIntroProps) {
 
         {/* Showcase placeholder */}
         <div
-          className="relative w-full max-w-[874px] overflow-hidden border border-dashed border-black/40 bg-white/40"
+          className="relative w-full overflow-hidden border border-dashed border-black/40 bg-white/40"
           style={{ aspectRatio: '16 / 9' }}
         >
           <div className="absolute inset-0 flex items-center justify-center text-sm text-black/40">
@@ -127,7 +128,7 @@ export function ProjectIntro({ intro }: ProjectIntroProps) {
         <Divider />
 
         {/* Meta Grid */}
-        <div className="w-full max-w-[874px] flex flex-col gap-6 md:flex-row md:gap-10">
+        <div className="w-full flex flex-col gap-6 md:flex-row md:gap-10">
           <div className="flex-1 flex flex-col gap-4">
             <MetaSection title="Year">
               {intro.meta?.year ? intro.meta.year : <span className="text-black/40">—</span>}
@@ -184,7 +185,7 @@ export function ProjectIntro({ intro }: ProjectIntroProps) {
 
         {/* Scroll hint placeholder */}
         <div
-          className="relative w-full max-w-[874px] overflow-hidden border border-dashed border-black/40 bg-white/40"
+          className="relative w-full overflow-hidden border border-dashed border-black/40 bg-white/40"
           style={{ aspectRatio: '874 / 160' }}
         >
           <div className="absolute inset-0 flex items-center justify-center text-sm text-black/40">
