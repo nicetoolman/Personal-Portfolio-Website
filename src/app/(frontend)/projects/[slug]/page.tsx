@@ -63,7 +63,7 @@ export default async function ProjectDetail({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       <LayoutViewport variant="wide" scrollable={true}>
-        <div className="flex h-auto w-full flex-col items-center gap-8">
+        <div className="flex h-auto w-full flex-col items-center">
           <ProjectIntro intro={project.intro} />
           <ProjectStepsSection steps={project.steps} />
 
