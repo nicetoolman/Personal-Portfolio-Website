@@ -15,7 +15,6 @@ interface ProjectStepBlockProps {
   step: Step
 }
 
-const GRID_TEMPLATE = 'minmax(0, 1fr) minmax(0, 890px) minmax(0, 1fr)'
 const BODY_GAP = '6px'
 
 export function ProjectStepBlock({ step, index }: ProjectStepBlockProps) {
@@ -39,16 +38,8 @@ function renderHeader(step: Step, index: number) {
   if (!step.title && !step.subtitle) return null
 
   return (
-    <div
-      className="grid w-full"
-      style={{
-        gap: BODY_GAP,
-        gridTemplateColumns: GRID_TEMPLATE,
-      }}
-      data-step-index={index}
-    >
-      <div />
-      <header className="flex flex-col gap-[6px] px-[8px]">
+    <CenterColumn>
+      <header className="flex w-full flex-col gap-[6px]" data-step-index={index}>
         {step.title && (
           <p className="font-['Roboto_Condensed'] text-[32px] font-bold leading-[38px] tracking-tight">{step.title}</p>
         )}
@@ -56,23 +47,26 @@ function renderHeader(step: Step, index: number) {
           <p className="font-['Roboto_Condensed'] text-[24px] font-medium leading-[30px] tracking-tight">{step.subtitle}</p>
         )}
       </header>
-      <div />
-    </div>
+    </CenterColumn>
   )
 }
 
 function renderBody(step: Step) {
   return (
-    <div
-      className="grid w-full"
-      style={{
-        gap: BODY_GAP,
-        gridTemplateColumns: GRID_TEMPLATE,
-      }}
-    >
-      {renderSidebarShell(step.enableSidebarLeft, step.sidebarLeft ?? undefined)}
-      {renderVariantContent(step)}
-      {renderSidebarShell(step.enableSidebarRight, step.sidebarRight ?? undefined)}
+    <div className="relative w-full">
+      <CenterColumn>{renderVariantContent(step)}</CenterColumn>
+
+      {step.enableSidebarLeft && (
+        <div className="absolute left-[8px] top-0">
+          <StepSidebar sidebar={step.sidebarLeft ?? undefined} />
+        </div>
+      )}
+
+      {step.enableSidebarRight && (
+        <div className="absolute right-[8px] top-0">
+          <StepSidebar sidebar={step.sidebarRight ?? undefined} />
+        </div>
+      )}
     </div>
   )
 }
@@ -81,10 +75,7 @@ function renderVariantContent(step: Step) {
   switch (step.variant) {
     case 'imageRight':
       return (
-        <div
-          className="grid w-full gap-[6px] px-[8px]"
-          style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}
-        >
+        <div className="grid w-full gap-[6px]" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
           {renderTextStack(step)}
           {renderImagePanel(step.images?.[0])}
         </div>
@@ -92,10 +83,7 @@ function renderVariantContent(step: Step) {
 
     case 'imageLeft':
       return (
-        <div
-          className="grid w-full gap-[6px] px-[8px]"
-          style={{ gridTemplateColumns: 'minmax(0, 550px) minmax(0, 318px)' }}
-        >
+        <div className="grid w-full gap-[6px]" style={{ gridTemplateColumns: 'minmax(0, 550px) minmax(0, 318px)' }}>
           {renderImagePanel(step.images?.[0])}
           {renderTextStack(step, { align: 'right' })}
         </div>
@@ -104,7 +92,7 @@ function renderVariantContent(step: Step) {
     case 'standard':
     default:
       return (
-        <div className="flex w-full flex-col gap-[9px] px-[8px]">
+        <div className="flex w-full flex-col gap-[9px]">
           {renderTextStack(step)}
         </div>
       )
@@ -187,18 +175,8 @@ function renderImageGallery(images?: Step['images']) {
   const columns = Math.min(images.length, 3)
 
   return (
-    <div
-      className="grid w-full"
-      style={{
-        gap: BODY_GAP,
-        gridTemplateColumns: GRID_TEMPLATE,
-      }}
-    >
-      <div />
-      <div
-        className="grid w-full gap-[6px] px-[8px]"
-        style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
-      >
+    <CenterColumn>
+      <div className="grid w-full gap-[6px]" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
         {images.map((image, index) => (
           <div key={image.id ?? index} className="flex h-full min-h-[280px] flex-col border-2 border-black">
             <div className="relative flex-1 overflow-hidden border-b border-black bg-white/60">
@@ -218,17 +196,8 @@ function renderImageGallery(images?: Step['images']) {
           </div>
         ))}
       </div>
-      <div />
-    </div>
+    </CenterColumn>
   )
-}
-
-function renderSidebarShell(isEnabled?: boolean | null, sidebar?: Step['sidebarLeft']) {
-  if (!isEnabled) {
-    return <div />
-  }
-
-  return <StepSidebar sidebar={sidebar ?? undefined} />
 }
 
 function getImageCaption(resource?: number | MediaType | null) {
@@ -237,5 +206,13 @@ function getImageCaption(resource?: number | MediaType | null) {
   }
 
   return null
+}
+
+function CenterColumn({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex w-full justify-center">
+      <div className="w-full max-w-[890px] px-[8px]">{children}</div>
+    </div>
+  )
 }
 
