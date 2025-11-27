@@ -4,6 +4,7 @@ import type { Project } from '@/payload-types'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 import { CMSLink } from '@/components/Link'
+import { ProjectShowcase } from '@/components/projects/ProjectShowcase'
 
 interface ProjectIntroProps {
   intro?: Project['intro'] | null
@@ -120,15 +121,8 @@ export function ProjectIntro({ intro }: ProjectIntroProps) {
           })}
         </div>
 
-        {/* Showcase placeholder */}
-        <div
-          className="relative w-full overflow-hidden border border-dashed border-black/40 bg-white/40"
-          style={{ aspectRatio: '16 / 9' }}
-        >
-          <div className="absolute inset-0 flex items-center justify-center text-sm text-black/40">
-            Showcase area (placeholder)
-          </div>
-        </div>
+        {/* Showcase */}
+        <ProjectShowcase items={intro.showcaseImages} />
 
         <Divider />
 
