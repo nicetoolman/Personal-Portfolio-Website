@@ -9,6 +9,7 @@ import type { Project } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { ProjectIntro } from '@/components/projects/ProjectIntro'
+import { ProjectStepsSection } from '@/components/projects/ProjectSteps'
 import { fetchProjectPage } from '@/lib/projects/fetchProjectPage'
 
 export async function generateStaticParams() {
@@ -62,15 +63,13 @@ export default async function ProjectDetail({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       <LayoutViewport variant="wide" scrollable={true}>
-        <div className="w-full h-auto flex flex-col items-center">
+        <div className="flex h-auto w-full flex-col items-center gap-8">
           <ProjectIntro intro={project.intro} />
-          {/* TODO: 渲染 Step Blocks */}
-          {/* TODO: 渲染 Navigation Footer */}
-          
-          {/* 占位内容 */}
+          <ProjectStepsSection steps={project.steps} />
+
           <div className="w-full max-w-[890px] py-16 text-center text-secondary">
             <p>Project Detail Page - {project.title}</p>
-            <p className="text-sm mt-2">Slug: {slug}</p>
+            <p className="mt-2 text-sm">Slug: {slug}</p>
           </div>
         </div>
       </LayoutViewport>
