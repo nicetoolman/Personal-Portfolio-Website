@@ -84,7 +84,7 @@ export function ProjectIntro({ intro }: ProjectIntroProps) {
 
         {/* Hero Viewport */}
         <div
-          className="relative w-full overflow-hidden border border-black bg-white"
+          className="relative w-full overflow-hidden border border-black"
           style={{ aspectRatio: '16 / 9' }}
         >
           {intro.heroImage ? (
@@ -103,13 +103,18 @@ export function ProjectIntro({ intro }: ProjectIntroProps) {
         </div>
 
         {/* Content Blocks */}
-        <div className="w-full flex flex-col gap-4">
+        <div className="w-full flex flex-col gap-2">
           {contentBlocks.map((block) => {
             if (!block.value) return null
             return (
-              <div key={block.key} className="flex flex-col gap-2">
-                <p className="text-sm font-semibold uppercase tracking-wide text-black/60">{block.label}</p>
-                <RichText data={block.value} enableGutter={false} enableProse={false} />
+              <div key={block.key} className="flex flex-col gap-0.5">
+                <p className="text-[20px] font-bold font-['Roboto'] text-black">{`${block.label}:`}</p>
+                <RichText
+                  data={block.value}
+                  enableGutter={false}
+                  enableProse={false}
+                  className="text-[18px] leading-relaxed"
+                />
               </div>
             )
           })}
