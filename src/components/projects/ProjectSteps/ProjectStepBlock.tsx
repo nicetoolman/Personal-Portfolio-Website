@@ -145,6 +145,8 @@ function renderTextStack(
 }
 
 function renderImagePanel(image?: StepImage) {
+  const caption = getImageEntryCaption(image)
+
   return (
     <div className="flex h-full min-h-[280px] w-full flex-col border-2 border-black">
       <div className="relative flex-1 overflow-hidden border-b border-black">
@@ -160,11 +162,7 @@ function renderImagePanel(image?: StepImage) {
           <div className="absolute inset-0 flex items-center justify-center text-sm text-black/40">Image placeholder</div>
         )}
       </div>
-      {getImageCaption(image?.image) && (
-        <div className="px-2 py-1 text-center font-['Roboto'] text-[16px] font-black leading-tight">
-          {getImageCaption(image?.image)}
-        </div>
-      )}
+      {caption && <div className="px-2 py-1 text-center font-['Roboto'] text-[16px] font-black leading-tight">{caption}</div>}
     </div>
   )
 }
@@ -177,30 +175,38 @@ function renderImageGallery(images?: Step['images']) {
   return (
     <CenterColumn>
       <div className="grid w-full gap-[6px]" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
-        {images.map((image, index) => (
-          <div key={image.id ?? index} className="flex h-full min-h-[280px] flex-col border-2 border-black">
+        {images.map((entry, index) => {
+          const caption = getImageEntryCaption(entry)
+
+          return (
+            <div key={entry.id ?? index} className="flex h-full min-h-[280px] flex-col border-2 border-black">
             <div className="relative flex-1 overflow-hidden border-b border-black">
               <Media
-                resource={image.image}
+                resource={entry.image}
                 htmlElement="div"
                 className="absolute inset-0"
                 imgClassName="object-contain w-full h-full"
                 fill
               />
             </div>
-            {getImageCaption(image.image) && (
-              <div className="px-2 py-1 text-center font-['Roboto'] text-[16px] font-black leading-tight">
-                {getImageCaption(image.image)}
-              </div>
+            {caption && (
+              <div className="px-2 py-1 text-center font-['Roboto'] text-[16px] font-black leading-tight">{caption}</div>
             )}
           </div>
-        ))}
+          )
+        })}
       </div>
     </CenterColumn>
   )
 }
 
-function getImageCaption(resource?: number | MediaType | null) {
+function getImageEntryCaption(entry?: StepImage) {
+  if (!entry) return null
+  if (entry.caption) return entry.caption
+  return getMediaCaption(entry.image)
+}
+
+function getMediaCaption(resource?: number | MediaType | null) {
   if (resource && typeof resource === 'object' && 'caption' in resource) {
     return resource.caption || null
   }

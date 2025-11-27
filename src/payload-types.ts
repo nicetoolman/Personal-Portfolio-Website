@@ -1042,6 +1042,10 @@ export interface Project {
         images?:
           | {
               image: number | Media;
+              /**
+               * Appears below the image in the step body.
+               */
+              caption?: string | null;
               id?: string | null;
             }[]
           | null;
@@ -1838,6 +1842,7 @@ export interface ProjectsSelect<T extends boolean = true> {
           | T
           | {
               image?: T;
+              caption?: T;
               id?: T;
             };
         enableSidebarLeft?: T;

@@ -205,6 +205,14 @@ const stepsField: Field = {
           relationTo: 'media',
           required: true,
         },
+        {
+          name: 'caption',
+          type: 'text',
+          label: 'Image Caption',
+          admin: {
+            description: 'Appears below the image in the step body.',
+          },
+        },
       ],
     },
     ...sidebarFields('sidebarLeft', 'enableSidebarLeft'),
