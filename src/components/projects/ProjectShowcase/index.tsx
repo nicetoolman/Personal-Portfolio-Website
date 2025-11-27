@@ -30,6 +30,7 @@ export function ProjectShowcase({ items }: ProjectShowcaseProps) {
   )
 
   const [current, setCurrent] = useState(0)
+  const [direction, setDirection] = useState<1 | -1>(1)
 
   if (slides.length === 0) {
     return (
@@ -47,8 +48,30 @@ export function ProjectShowcase({ items }: ProjectShowcaseProps) {
   const total = slides.length
   const safeIndex = ((current % total) + total) % total
 
-  const goPrev = () => setCurrent((index) => (index - 1 + total) % total)
-  const goNext = () => setCurrent((index) => (index + 1) % total)
+  const goPrev = () => {
+    setDirection(-1)
+    setCurrent((index) => (index - 1 + total) % total)
+  }
+
+  const goNext = () => {
+    setDirection(1)
+    setCurrent((index) => (index + 1) % total)
+  }
+
+  const slideVariants = {
+    initial: (dir: 1 | -1) => ({
+      x: dir === 1 ? 60 : -60,
+      opacity: 0,
+    }),
+    animate: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (dir: 1 | -1) => ({
+      x: dir === 1 ? -60 : 60,
+      opacity: 0,
+    }),
+  }
 
   return (
     <div
@@ -60,14 +83,16 @@ export function ProjectShowcase({ items }: ProjectShowcaseProps) {
     >
       <div className="absolute inset-0 flex">
         <div className="relative flex-1 overflow-hidden border border-black">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" initial={false} custom={direction}>
             <motion.div
               key={safeIndex}
               className="absolute inset-0"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.02 }}
-              transition={{ duration: 0.4, ease: 'easeInOut' }}
+              custom={direction}
+              variants={slideVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{ duration: 0.45, ease: 'easeInOut' }}
             >
               <Media
                 resource={slides[safeIndex]}
