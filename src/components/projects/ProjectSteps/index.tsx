@@ -3,6 +3,7 @@ import React from 'react'
 import type { Project } from '@/payload-types'
 
 import { ProjectStepBlock } from './ProjectStepBlock'
+import { StepBlockViewport } from './StepBlockViewport'
 
 type Steps = Project['steps']
 
@@ -14,11 +15,13 @@ export function ProjectStepsSection({ steps }: ProjectStepsSectionProps) {
   if (!steps || steps.length === 0) return null
 
   return (
-    <section className="flex w-full flex-col items-center">
-      {steps.map((step, index) => (
-        <ProjectStepBlock key={step?.id ?? index} index={index + 1} step={step} />
-      ))}
-    </section>
+    <StepBlockViewport>
+      <section className="flex w-full flex-col items-center gap-6">
+        {steps.map((step, index) => (
+          <ProjectStepBlock key={step?.id ?? index} index={index + 1} step={step} />
+        ))}
+      </section>
+    </StepBlockViewport>
   )
 }
 

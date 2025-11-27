@@ -21,15 +21,13 @@ export function ProjectStepBlock({ step, index }: ProjectStepBlockProps) {
   if (!step) return null
 
   return (
-    <article className="flex w-full justify-center">
-      <div
-        className="flex w-full max-w-[1440px] flex-col bg-[hsl(var(--background))] px-2 py-1 md:px-[8px] md:py-[3px]"
-        style={{ rowGap: BODY_GAP }}
-      >
-        {renderHeader(step, index)}
-        {renderBody(step)}
-        {step.variant === 'standard' && renderImageGallery(step.images)}
-      </div>
+    <article
+      className="flex w-full max-w-[1440px] flex-col bg-[hsl(var(--background))] px-2 py-1 md:px-[8px] md:py-[3px]"
+      style={{ rowGap: BODY_GAP }}
+    >
+      {renderHeader(step, index)}
+      {renderBody(step)}
+      {step.variant === 'standard' && renderImageGallery(step.images)}
     </article>
   )
 }
