@@ -75,6 +75,7 @@ export interface Config {
     tags: Tag;
     sketchbook: Sketchbook;
     projects: Project;
+    sidebarVariants: SidebarVariant;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -94,6 +95,7 @@ export interface Config {
     tags: TagsSelect<false> | TagsSelect<true>;
     sketchbook: SketchbookSelect<false> | SketchbookSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    sidebarVariants: SidebarVariantsSelect<false> | SidebarVariantsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -1051,7 +1053,7 @@ export interface Project {
           | null;
         enableSidebarLeft?: boolean | null;
         sidebarLeft?: {
-          variant?: ('think' | 'idea' | 'explain' | 'reference' | 'relax') | null;
+          variant: number | SidebarVariant;
           content: {
             root: {
               type: string;
@@ -1076,7 +1078,7 @@ export interface Project {
         };
         enableSidebarRight?: boolean | null;
         sidebarRight?: {
-          variant?: ('think' | 'idea' | 'explain' | 'reference' | 'relax') | null;
+          variant: number | SidebarVariant;
           content: {
             root: {
               type: string;
@@ -1131,6 +1133,24 @@ export interface Project {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sidebarVariants".
+ */
+export interface SidebarVariant {
+  id: number;
+  name: string;
+  description?: string | null;
+  icon: number | Media;
+  /**
+   * Optional CSS color for future styling.
+   */
+  accentColor?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1336,6 +1356,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'projects';
         value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'sidebarVariants';
+        value: number | SidebarVariant;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1895,6 +1919,20 @@ export interface ProjectsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sidebarVariants_select".
+ */
+export interface SidebarVariantsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  icon?: T;
+  accentColor?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

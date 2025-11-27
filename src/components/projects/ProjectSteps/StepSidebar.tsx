@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
-import type { Media as MediaType, Project } from '@/payload-types'
+import type { Media as MediaType, Project, SidebarVariants } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
 type Sidebar = NonNullable<Project['steps']>[number]['sidebarLeft']
@@ -44,11 +44,33 @@ export function StepSidebar({ sidebar }: StepSidebarProps) {
 }
 
 function renderIconSlot(variant?: string | null) {
-  return (
-    <div className="relative h-[78px] w-full rounded-[10px] border border-dashed border-black/40 bg-white/40">
-      <div className="absolute inset-0 flex items-center justify-center text-xs font-semibold uppercase tracking-[0.08em] text-black/40">
-        {variant ? `icon: ${variant}` : 'icon placeholder'}
+  if (!variant) {
+    return (
+      <div className="relative h-[78px] w-full rounded-[10px] border border-dashed border-black/40 bg-white/40">
+        <div className="absolute inset-0 flex items-center justify-center text-xs font-semibold uppercase tracking-[0.08em] text-black/40">
+          icon placeholder
+        </div>
       </div>
+    )
+  }
+
+  const variantDoc = typeof variant === 'object' ? (variant as SidebarVariants) : null
+
+  return (
+    <div className="relative h-[78px] w-full overflow-hidden rounded-[10px] border-2 border-black">
+      {variantDoc?.icon ? (
+        <Media
+          resource={variantDoc.icon as MediaType | number}
+          htmlElement="div"
+          className="absolute inset-0"
+          imgClassName="object-contain w-full h-full"
+          fill
+        />
+      ) : (
+        <div className="absolute inset-0 flex items-center justify-center text-xs font-semibold uppercase tracking-[0.08em] text-black/40">
+          {variantDoc?.name || 'icon'}
+        </div>
+      )}
     </div>
   )
 }

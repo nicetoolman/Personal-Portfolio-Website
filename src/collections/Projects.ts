@@ -127,15 +127,10 @@ const sidebarFields = (name: string, toggleName: string): Field[] => [
     fields: [
       {
         name: 'variant',
-        type: 'select',
+        type: 'relationship',
         label: 'Variant',
-        options: [
-          { label: 'Think', value: 'think' },
-          { label: 'Idea', value: 'idea' },
-          { label: 'Explain', value: 'explain' },
-          { label: 'Reference', value: 'reference' },
-          { label: 'Relax', value: 'relax' },
-        ],
+        relationTo: 'sidebarVariants',
+        required: true,
       },
       {
         name: 'content',

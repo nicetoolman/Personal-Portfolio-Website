@@ -14,6 +14,7 @@ import { Users } from './collections/Users'
 import { Tags } from './collections/Tags'
 import { Sketchbook } from './collections/Sketchbook'
 import { Projects } from './collections/Projects'
+import { SidebarVariants } from './collections/SidebarVariants'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { AboutPageDecorations } from './AboutPageDecorations/config'
@@ -70,7 +71,7 @@ export default buildConfig({
       connectionString: process.env.POSTGRES_URL || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Tags, Sketchbook, Projects],
+  collections: [Pages, Posts, Media, Categories, Users, Tags, Sketchbook, Projects, SidebarVariants],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, AboutPageDecorations, ProjectPageIntro, ProjectDetailPageIntro],
   plugins: [
