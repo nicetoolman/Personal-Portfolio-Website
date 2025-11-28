@@ -39,7 +39,7 @@ export function ProjectNavFooter({ navFooter }: ProjectNavFooterProps) {
   const nextSlug = getProjectSlug(nextProject)
 
   return (
-    <div className="flex w-full max-w-[890px] flex-col items-center gap-[10px] px-[8px]">
+    <div className="flex w-full max-w-[var(--layout-content-width)] flex-col items-center gap-[10px] px-md">
       {/* Closing Image */}
       {closingImage && (
         <div className="relative h-[100px] w-full overflow-hidden border-2 border-black">
@@ -60,19 +60,16 @@ export function ProjectNavFooter({ navFooter }: ProjectNavFooterProps) {
       <nav className="flex w-full items-center justify-between">
         {/* Previous Project */}
         {previousSlug ? (
-          <Link
-            href={`/projects/${previousSlug}`}
-            className="flex h-[28px] items-center gap-[6px]"
-          >
+          <Link href={`/projects/${previousSlug}`} className="flex h-[28px] items-center gap-sm">
             <ChevronLeft className="h-5 w-5 shrink-0" />
-            <span className="font-['Roboto_Condensed'] text-[20px] leading-[28px] text-black">
+            <span className="font-['Roboto_Condensed'] text-heading-sm leading-[28px] text-black">
               Previous project
             </span>
           </Link>
         ) : (
-          <div className="flex h-[28px] items-center gap-[6px] opacity-30 pointer-events-none cursor-default">
+          <div className="flex h-[28px] items-center gap-sm opacity-30 pointer-events-none cursor-default">
             <ChevronLeft className="h-5 w-5 shrink-0" />
-            <span className="font-['Roboto_Condensed'] text-[20px] leading-[28px] text-black">
+            <span className="font-['Roboto_Condensed'] text-heading-sm leading-[28px] text-black">
               Previous project
             </span>
           </div>
@@ -82,23 +79,20 @@ export function ProjectNavFooter({ navFooter }: ProjectNavFooterProps) {
         <CMSLink
           {...backToList}
           appearance="inline"
-          className="font-['Roboto_Condensed'] text-[20px] leading-[28px] text-black"
+          className="font-['Roboto_Condensed'] text-heading-sm leading-[28px] text-black"
         />
 
         {/* Next Project */}
         {nextSlug ? (
-          <Link
-            href={`/projects/${nextSlug}`}
-            className="flex h-[28px] items-center gap-[6px]"
-          >
-            <span className="font-['Roboto_Condensed'] text-[20px] leading-[28px] text-black">
+          <Link href={`/projects/${nextSlug}`} className="flex h-[28px] items-center gap-sm">
+            <span className="font-['Roboto_Condensed'] text-heading-sm leading-[28px] text-black">
               Next project
             </span>
             <ChevronLeft className="h-5 w-5 shrink-0 rotate-180" />
           </Link>
         ) : (
-          <div className="flex h-[28px] items-center gap-[6px] opacity-30 pointer-events-none cursor-default">
-            <span className="font-['Roboto_Condensed'] text-[20px] leading-[28px] text-black">
+          <div className="flex h-[28px] items-center gap-sm opacity-30 pointer-events-none cursor-default">
+            <span className="font-['Roboto_Condensed'] text-heading-sm leading-[28px] text-black">
               Next project
             </span>
             <ChevronLeft className="h-5 w-5 shrink-0 rotate-180" />

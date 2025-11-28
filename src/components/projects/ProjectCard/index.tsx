@@ -109,11 +109,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
         >
           {/* Title 栏：524×38 */}
           <div
-            className="flex items-center px-2 shrink-0 overflow-hidden"
+            className="flex items-center px-md shrink-0 overflow-hidden"
             style={{ height: 'calc(100% * 38 / 197)' }}
           >
             {title && (
-              <div className="flex-1 text-[20px] font-medium leading-normal">
+              <div className="flex-1 text-heading-sm font-medium leading-normal">
                 <RichText data={title} enableProse={false} enableGutter={false} />
               </div>
             )}
@@ -124,11 +124,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
           {/* Year 栏：524×23 */}
           <div
-            className="flex items-center px-2 shrink-0 overflow-hidden"
+            className="flex items-center px-md shrink-0 overflow-hidden"
             style={{ height: 'calc(100% * 23 / 197)' }}
           >
             {year && (
-              <div className="flex-1 text-[16px] font-medium leading-normal">{year}</div>
+              <div className="flex-1 text-body font-medium leading-normal">{year}</div>
             )}
           </div>
 
@@ -137,11 +137,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
           {/* Overview：524×118 */}
           <div
-            className="flex items-start px-2 flex-1 overflow-hidden"
+            className="flex items-start px-md flex-1 overflow-hidden"
             style={{ height: 'calc(100% * 118 / 197)' }}
           >
             {overview && (
-              <div className="flex-1 text-[20px] font-normal leading-normal line-clamp-4">
+              <div className="flex-1 text-heading-sm font-normal leading-normal line-clamp-4">
                 <RichText data={overview} enableProse={false} enableGutter={false} />
               </div>
             )}
@@ -156,14 +156,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
       >
         {/* Tags 栏：874×31 */}
         <div
-          className="flex items-center px-2 py-1 shrink-0 overflow-hidden"
+          className="flex items-center px-md py-xs shrink-0 overflow-hidden"
           style={{ height: 'calc(100% * 31 / 63)' }}
         >
-          <span className="text-[16px] font-bold leading-normal shrink-0">Tags：</span>
+          <span className="text-body font-bold leading-normal shrink-0">Tags：</span>
           {tagNames.length > 0 && (
-            <div className="flex-1 flex gap-1 flex-wrap ml-2">
+            <div className="flex-1 flex gap-xs flex-wrap ml-md">
               {tagNames.map((tag, idx) => (
-                <span key={idx} className="text-[16px] leading-normal">
+                <span key={idx} className="text-body leading-normal">
                   {tag}
                   {idx < tagNames.length - 1 && ','}
                 </span>
@@ -177,14 +177,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Keywords 栏：874×31 */}
         <div
-          className="flex items-center px-2 py-1 shrink-0 overflow-hidden"
+          className="flex items-center px-md py-xs shrink-0 overflow-hidden"
           style={{ height: 'calc(100% * 31 / 63)' }}
         >
-          <span className="text-[16px] font-bold leading-normal shrink-0">Keywords：</span>
+          <span className="text-body font-bold leading-normal shrink-0">Keywords：</span>
           {keywordValues.length > 0 && (
-            <div className="flex-1 flex gap-1 flex-wrap ml-2">
+            <div className="flex-1 flex gap-xs flex-wrap ml-md">
               {keywordValues.map((kw, idx) => (
-                <span key={idx} className="text-[16px] leading-normal">
+                <span key={idx} className="text-body leading-normal">
                   {kw}
                   {idx < keywordValues.length - 1 && ','}
                 </span>

@@ -26,11 +26,11 @@ export function StepSidebar({ sidebar }: StepSidebarProps) {
 
   return (
     <aside className="flex w-full justify-center">
-      <div className="flex w-[253px] flex-col gap-[6px] rounded-[10px] border-2 border-black p-[4px]">
+      <div className="flex w-[var(--layout-sidebar-width)] flex-col gap-sm rounded-[10px] border-2 border-black p-xs">
         {renderIconSlot(sidebar.variant)}
 
         {sidebar.content && (
-          <div className="text-[16px] leading-[28px]">
+          <div className="text-body leading-[28px]">
             <RichText data={sidebar.content} enableProse={false} enableGutter={false} />
           </div>
         )}
@@ -84,7 +84,7 @@ function renderImagesStrip(images?: SidebarImage | null) {
   const columns = validImages.length
 
   return (
-    <div className="grid h-[120px] w-full gap-[6px]" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
+    <div className="grid h-[120px] w-full gap-sm" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
       {validImages.map((item, index) => (
         <div key={item?.id ?? index} className="relative flex-1">
           <Media
@@ -104,7 +104,7 @@ function SidebarPlaceholder({ label = 'Sidebar placeholder', muted = false }: { 
   return (
     <div
       className={cn(
-        'flex w-[253px] items-center justify-center rounded-[10px] border-2 border-dashed border-black/30 px-4 py-6 text-center text-xs font-semibold uppercase tracking-[0.1em]',
+        'flex w-[var(--layout-sidebar-width)] items-center justify-center rounded-[10px] border-2 border-dashed border-black/30 px-lg py-xl text-center text-xs font-semibold uppercase tracking-[0.1em]',
         muted ? 'text-black/30' : 'text-black/50',
       )}
     >

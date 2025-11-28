@@ -16,7 +16,7 @@ export function ProjectStepsSection({ steps }: ProjectStepsSectionProps) {
 
   return (
     <StepBlockViewport>
-      <section className="flex w-full flex-col items-center gap-[9px]">
+      <section className="flex w-full flex-col items-center gap-paragraph">
         {steps.map((step, index) => (
           <ProjectStepBlock key={step?.id ?? index} index={index + 1} step={step} />
         ))}

@@ -25,8 +25,8 @@ const Divider = () => <div className="w-full h-px bg-black/30" />
 const MetaSection: React.FC<MetaSectionProps> = ({ title, children }) => {
   return (
     <div className="flex flex-col gap-0.5">
-      <p className="text-[20px] font-medium font-['Roboto_Condensed'] text-black">{`${title}:`}</p>
-      <div className="text-base leading-relaxed text-black">{children}</div>
+      <p className="text-heading-sm font-medium font-['Roboto_Condensed'] text-black">{`${title}:`}</p>
+      <div className="text-body leading-relaxed text-black">{children}</div>
     </div>
   )
 }
@@ -63,21 +63,21 @@ export async function ProjectIntro({ intro }: ProjectIntroProps) {
   return (
     <section className="w-full flex justify-center">
       <div
-        className="flex w-full flex-col gap-2"
+        className="flex w-full flex-col gap-md"
         style={{
-          maxWidth: '890px',
+          maxWidth: 'var(--layout-content-width)',
           padding,
         }}
       >
         {/* Title Group */}
         {(intro.titleGroup?.title || intro.titleGroup?.subtitle) && (
-          <div className="w-full flex flex-col items-center gap-2 text-center">
+          <div className="w-full flex flex-col items-center gap-md text-center">
             {intro.titleGroup?.title && (
               <RichText
                 data={intro.titleGroup.title}
                 enableProse={false}
                 enableGutter={false}
-                className="text-[40px] font-black leading-tight tracking-tight font-['Roboto_Condensed']"
+                className="text-display font-black leading-tight tracking-tight font-['Roboto_Condensed']"
               />
             )}
             {intro.titleGroup?.subtitle && (
@@ -85,7 +85,7 @@ export async function ProjectIntro({ intro }: ProjectIntroProps) {
                 data={intro.titleGroup.subtitle}
                 enableProse={false}
                 enableGutter={false}
-                className="text-[32px] font-black leading-tight tracking-tight font-['Roboto_Condensed']"
+                className="text-heading-lg font-black leading-tight tracking-tight font-['Roboto_Condensed']"
               />
             )}
           </div>
@@ -105,24 +105,24 @@ export async function ProjectIntro({ intro }: ProjectIntroProps) {
               fill
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center text-sm text-black/40">
+            <div className="absolute inset-0 flex items-center justify-center text-caption text-black/40">
               Hero image placeholder
             </div>
           )}
         </div>
 
         {/* Content Blocks */}
-        <div className="w-full flex flex-col gap-2">
+        <div className="w-full flex flex-col gap-md">
           {contentBlocks.map((block) => {
             if (!block.value) return null
             return (
               <div key={block.key} className="flex flex-col gap-0.5">
-                <p className="text-[20px] font-bold font-['Roboto'] text-black">{`${block.label}:`}</p>
+                <p className="text-heading-sm font-bold font-['Roboto'] text-black">{`${block.label}:`}</p>
                 <RichText
                   data={block.value}
                   enableGutter={false}
                   enableProse={false}
-                  className="text-[18px] leading-relaxed"
+                  className="text-body-lg leading-relaxed"
                 />
               </div>
             )
@@ -135,19 +135,19 @@ export async function ProjectIntro({ intro }: ProjectIntroProps) {
         <Divider />
 
         {/* Meta Grid */}
-        <div className="w-full flex flex-col gap-6 md:flex-row md:gap-10">
-          <div className="flex-1 flex flex-col gap-2">
+        <div className="w-full flex flex-col gap-xl md:flex-row md:gap-3xl">
+          <div className="flex-1 flex flex-col gap-md">
             <MetaSection title="Year">
               {intro.meta?.year ? intro.meta.year : <span className="text-black/40">—</span>}
             </MetaSection>
 
             <MetaSection title="Keywords">
               {keywords && keywords.length > 0 ? (
-                <div className="flex flex-wrap gap-2 text-sm">
+                <div className="flex flex-wrap gap-md text-caption">
                   {keywords.map((keywordItem, index) => (
                     <span
                       key={`${keywordItem.keyword}-${index}`}
-                      className="border border-black px-2 py-1 text-xs uppercase tracking-wide"
+                      className="border border-black px-md py-xs text-caption uppercase tracking-wide"
                     >
                       {keywordItem.keyword}
                     </span>
@@ -160,9 +160,9 @@ export async function ProjectIntro({ intro }: ProjectIntroProps) {
 
             <MetaSection title="Links">
               {links && links.length > 0 ? (
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-xs">
                   {links.map((linkItem, index) => (
-                    <CMSLink key={index} {...linkItem} className="underline underline-offset-2 text-base" />
+                    <CMSLink key={index} {...linkItem} className="underline underline-offset-2 text-body" />
                   ))}
                 </div>
               ) : (
@@ -171,12 +171,12 @@ export async function ProjectIntro({ intro }: ProjectIntroProps) {
             </MetaSection>
           </div>
 
-          <div className="flex-1 flex flex-col gap-4">
+          <div className="flex-1 flex flex-col gap-lg">
             <MetaSection title="Roles">
               {roles && roles.length > 0 ? (
-                <ul className="flex flex-col gap-1">
+                <ul className="flex flex-col gap-xs">
                   {roles.map((roleItem, index) => (
-                    <li key={`${roleItem.role}-${index}`} className="text-base leading-relaxed">
+                    <li key={`${roleItem.role}-${index}`} className="text-body leading-relaxed">
                       {roleItem.role}
                     </li>
                   ))}
@@ -201,7 +201,7 @@ export async function ProjectIntro({ intro }: ProjectIntroProps) {
               fill
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center text-sm text-black/40">
+            <div className="absolute inset-0 flex items-center justify-center text-caption text-black/40">
               Scroll hint placeholder
             </div>
           )}
