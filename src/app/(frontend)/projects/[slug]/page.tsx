@@ -96,4 +96,29 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   }
 }
 
+// 调试文件
+// export default function ProjectDetailTestPage() {
+//   return (
+//     <div style={{ padding: 32 }}>
+//       <h1>Project detail TEST</h1>
+//       <p>如果你能看到这段文字，说明 `/projects/[slug]` 至少走到了 page.tsx。</p>
+//     </div>
+//   )
+// }
+
+// src/app/(frontend)/projects/[slug]/page.tsx
+//调试文件2
+
+// type PageProps = {
+//   params: { slug: string }
+// }
+
+// export default function ProjectDetailPage({ params }: PageProps) {
+//   return (
+//     <div style={{ padding: 32 }}>
+//       <h1>Project detail TEST</h1>
+//       <p>slug: <strong>{params.slug}</strong></p>
+//     </div>
+//   )
+// }
 

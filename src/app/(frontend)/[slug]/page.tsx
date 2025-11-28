@@ -112,3 +112,19 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
 
   return result.docs?.[0] || null
 })
+
+//调试信息
+// import type { Metadata } from 'next'
+
+// interface ProjectDetailPageProps {
+//   params: { slug: string }
+// }
+
+// export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
+//   return (
+//     <div className="w-full min-h-screen p-8">
+//       <h1>Project Detail Test</h1>
+//       <p>slug: {params.slug}</p>
+//     </div>
+//   )
+// }
