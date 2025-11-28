@@ -151,6 +151,19 @@
       --footer-copyright-font-size: var(--footer-content-font-size); /* 桌面端 16px */
     }
   }
+
+  /* 手机端字体降一档（≤ 640px） */
+  @media (max-width: 640px) {
+    :root {
+      --font-size-display: 32px;
+      --font-size-heading-lg: 28px;
+      --font-size-heading-md: 20px;
+      --font-size-heading-sm: 18px;
+      --font-size-body-lg: 16px;
+      --font-size-body: 15px;
+      --font-size-caption: 13px;
+    }
+  }
 }
 
 @layer base {
