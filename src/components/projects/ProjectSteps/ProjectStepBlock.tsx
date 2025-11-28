@@ -166,7 +166,10 @@ function renderImagePanel(image?: StepImage) {
 
   return (
     <div className="flex h-full min-h-[var(--layout-image-min-height)] w-full flex-col">
-      <div className="relative flex-1 overflow-hidden">
+      <div
+        className="relative w-full overflow-hidden"
+        style={{ aspectRatio: '16 / 9', minHeight: 'var(--layout-image-min-height)' }}
+      >
         {image ? (
           <Media
             resource={image.image}
@@ -200,7 +203,10 @@ function renderImageGallery(images?: Step['images']) {
 
           return (
             <div key={entry.id ?? index} className="flex h-full min-h-[var(--layout-image-min-height)] flex-col">
-              <div className="relative flex-1 overflow-hidden">
+              <div
+                className="relative w-full overflow-hidden"
+                style={{ aspectRatio: '16 / 9', minHeight: 'var(--layout-image-min-height)' }}
+              >
                 <Media
                   resource={entry.image}
                   htmlElement="div"

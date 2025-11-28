@@ -78,6 +78,7 @@ export function ProjectShowcase({ items }: ProjectShowcaseProps) {
       className="relative w-full box-content"
       style={{
         aspectRatio: '16 / 9',
+        minHeight: '120px',
         padding,
       }}
     >

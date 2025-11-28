@@ -78,7 +78,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       <div className="hidden md:flex flex-row shrink-0 w-full h-[calc(100%*197/260)]">
         {/* Thumbnail：桌面端显示 */}
         <div
-          className="relative shrink-0 border border-black overflow-hidden w-[calc(100%*350/874)] h-full"
+          className="relative shrink-0 border border-black overflow-hidden w-[calc(100%*350/874)] h-full min-h-[120px]"
         >
           {cardImage ? (
             <Media
@@ -210,9 +210,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Summary：摘要（限制 3 行） */}
         {overview && (
-          <p className="text-body leading-normal line-clamp-3">
+          <div className="text-body leading-normal line-clamp-3">
             <RichText data={overview} enableProse={false} enableGutter={false} />
-          </p>
+          </div>
         )}
       </article>
     </Link>

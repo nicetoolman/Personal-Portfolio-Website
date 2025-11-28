@@ -94,7 +94,7 @@ export async function ProjectIntro({ intro }: ProjectIntroProps) {
         {/* Hero Viewport */}
         <div
           className="relative w-full overflow-hidden border border-black"
-          style={{ aspectRatio: '16 / 9' }}
+          style={{ aspectRatio: '16 / 9', minHeight: '120px' }}
         >
           {intro.heroImage ? (
             <Media
@@ -191,7 +191,7 @@ export async function ProjectIntro({ intro }: ProjectIntroProps) {
         <Divider />
 
         {/* Scroll hint */}
-        <div className="relative w-full overflow-hidden border border-black" style={{ aspectRatio: '874 / 160' }}>
+        <div className="relative w-full overflow-hidden border border-black" style={{ aspectRatio: '874 / 160', minHeight: '120px' }}>
           {scrollHintImage ? (
             <Media
               resource={scrollHintImage}

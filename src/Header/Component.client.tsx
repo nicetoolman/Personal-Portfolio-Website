@@ -40,20 +40,20 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           {hasLogo && (
             <Link
               href="/"
-              className="relative overflow-hidden shrink-0 flex items-center justify-center h-[var(--navbar-icon-height)] py-[var(--navbar-icon-padding-y)]"
+              className="relative overflow-hidden shrink-0 flex items-center justify-center"
             >
               <div
-                className="relative w-auto"
+                className="relative"
                 style={{
-                  height: `calc((var(--navbar-icon-height) - var(--navbar-icon-padding-y) * 2) * var(--navbar-icon-scale))`,
-                  aspectRatio: 'var(--navbar-icon-aspect-ratio)',
+                  height: 'var(--navbar-icon-height)',
+                  aspectRatio: 'var(--navbar-icon-aspect-ratio)', // 88/87
                 }}
               >
                 <Media
                   resource={logo}
                   htmlElement="div"
                   className="absolute inset-0 opacity-60"
-                  imgClassName="object-cover"
+                  imgClassName="object-contain w-full h-full"
                   fill
                 />
               </div>
@@ -83,21 +83,21 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         {hasLogo && (
           <Link
             href="/"
-            className="relative overflow-hidden shrink-0 flex items-center justify-center h-[var(--navbar-mobile-height)] py-[var(--navbar-mobile-icon-padding-y)]"
+            className="relative overflow-hidden shrink-0 flex items-center justify-center"
             onClick={() => setMenuOpen(false)}
           >
             <div
-              className="relative w-auto"
+              className="relative"
               style={{
-                height: `calc((var(--navbar-mobile-height) - var(--navbar-mobile-icon-padding-y) * 2) * var(--navbar-icon-scale))`,
-                aspectRatio: 'var(--navbar-icon-aspect-ratio)',
+                height: 'var(--navbar-icon-height)',
+                aspectRatio: 'var(--navbar-icon-aspect-ratio)', // 88/87
               }}
             >
               <Media
                 resource={logo}
                 htmlElement="div"
                 className="absolute inset-0 opacity-60"
-                imgClassName="object-cover"
+                imgClassName="object-contain w-full h-full"
                 fill
               />
             </div>

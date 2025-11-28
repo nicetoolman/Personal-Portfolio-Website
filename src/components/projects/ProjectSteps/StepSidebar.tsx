@@ -57,7 +57,10 @@ function renderIconSlot(variant?: string | null) {
   const variantDoc = typeof variant === 'object' ? (variant as SidebarVariants) : null
 
   return (
-    <div className="relative h-[78px] w-full overflow-hidden">
+    <div
+      className="relative w-full overflow-hidden"
+      style={{ height: '78px', minHeight: '78px' }}
+    >
       {variantDoc?.icon ? (
         <Media
           resource={variantDoc.icon as MediaType | number}
@@ -84,7 +87,7 @@ function renderImagesStrip(images?: SidebarImage | null) {
   const columns = validImages.length
 
   return (
-    <div className="grid h-[120px] w-full gap-sm" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
+    <div className="grid w-full gap-sm" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`, height: '120px', minHeight: '120px' }}>
       {validImages.map((item, index) => (
         <div key={item?.id ?? index} className="relative flex-1">
           <Media

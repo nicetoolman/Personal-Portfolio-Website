@@ -26,7 +26,7 @@ export function ProcessPhaseCard({ image, textImage, bottomImage, className }: P
       >
         <SimpleImageToggle image={image} textImage={textImage} />
       </div>
-      <div className="relative w-full flex-1 overflow-hidden">
+      <div className="relative w-full flex-1 overflow-hidden min-h-[120px]">
         {bottomImage ? (
           <Media
             resource={bottomImage}
