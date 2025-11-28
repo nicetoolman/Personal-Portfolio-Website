@@ -26,7 +26,7 @@ export function StepSidebar({ sidebar }: StepSidebarProps) {
 
   return (
     <aside className="flex w-full justify-center">
-      <div className="flex w-[var(--layout-sidebar-width)] flex-col gap-sm rounded-[10px] border-2 border-black p-xs">
+      <div className="flex w-full md:w-[var(--layout-sidebar-width)] flex-col gap-sm rounded-[10px] border-2 border-black p-xs">
         {renderIconSlot(sidebar.variant)}
 
         {sidebar.content && (
@@ -104,7 +104,7 @@ function SidebarPlaceholder({ label = 'Sidebar placeholder', muted = false }: { 
   return (
     <div
       className={cn(
-        'flex w-[var(--layout-sidebar-width)] items-center justify-center rounded-[10px] border-2 border-dashed border-black/30 px-lg py-xl text-center text-xs font-semibold uppercase tracking-[0.1em]',
+        'flex w-full md:w-[var(--layout-sidebar-width)] items-center justify-center rounded-[10px] border-2 border-dashed border-black/30 px-lg py-xl text-center text-xs font-semibold uppercase tracking-[0.1em]',
         muted ? 'text-black/30' : 'text-black/50',
       )}
     >

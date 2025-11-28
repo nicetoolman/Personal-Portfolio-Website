@@ -6,10 +6,23 @@ import { STEP_BLOCKS_READY_EVENT } from '@/constants/events'
 
 const LOGICAL_CANVAS_WIDTH = 1440
 const BODY_WIDTH = 890
+const MOBILE_BREAKPOINT = 640
 
 /**
- * Wraps the StepBlock content with a horizontally scrollable viewport that keeps
- * a 1440px logical canvas and scales down when the viewport is narrower than 890px.
+ * StepBlockViewport - 响应式容器组件
+ * 
+ * 两种布局模式：
+ * 
+ * 1. 桌面端模式（> 640px）：
+ *    - 使用 1440px 逻辑画布和 transform: scale() 缩放
+ *    - 保持现有的左右分栏、边距等布局
+ *    - 水平滚动以聚焦内容区域
+ * 
+ * 2. 手机端模式（≤ 640px）：
+ *    - 禁用缩放（scale = 1）
+ *    - 不使用固定 1440px 画布，改用 width: 100%; max-width: var(--layout-content-width)
+ *    - 不设置固定 aspectRatio，让内容自然撑高
+ *    - 布局简化为单列，Sidebar 和正文上下堆叠
  */
 export function StepBlockViewport({ children }: PropsWithChildren) {
   const scrollRef = useRef<HTMLDivElement | null>(null)
@@ -23,15 +36,27 @@ export function StepBlockViewport({ children }: PropsWithChildren) {
     typeof window !== 'undefined' ? window.innerWidth : LOGICAL_CANVAS_WIDTH,
   )
 
+  // 判断是否为手机端布局
+  const isMobileLayout = viewportWidth <= MOBILE_BREAKPOINT
+
   const updateMetrics = useCallback(() => {
     if (typeof window === 'undefined') return
     const vw = window.innerWidth
     setViewportWidth(vw)
-    const nextScale = Math.min(1, vw / BODY_WIDTH)
-    setScale(nextScale)
+    
+    // 手机端禁用缩放
+    if (vw <= MOBILE_BREAKPOINT) {
+      setScale(1)
+    } else {
+      const nextScale = Math.min(1, vw / BODY_WIDTH)
+      setScale(nextScale)
+    }
   }, [])
 
   const focusBody = useCallback(() => {
+    // 手机端不需要聚焦逻辑
+    if (isMobileLayout) return
+
     const scrollEl = scrollRef.current
     const canvasEl = canvasRef.current
     if (!scrollEl) return
@@ -50,7 +75,7 @@ export function StepBlockViewport({ children }: PropsWithChildren) {
     }
 
     scrollEl.scrollTo({ left: target })
-  }, [viewportWidth])
+  }, [viewportWidth, isMobileLayout])
 
   useLayoutEffect(() => {
     updateMetrics()
@@ -100,6 +125,22 @@ export function StepBlockViewport({ children }: PropsWithChildren) {
     })
   }, [canvasHeight])
 
+  // 手机端：简单容器，不使用缩放
+  if (isMobileLayout) {
+    return (
+      <div
+        ref={wrapperRef}
+        className="w-full"
+        style={{ maxWidth: 'var(--layout-content-width)' }}
+      >
+        <div ref={canvasRef} className="step-block-mobile">
+          {children}
+        </div>
+      </div>
+    )
+  }
+
+  // 桌面端：保持原有的缩放画布逻辑
   return (
     <div ref={scrollRef} className="w-full overflow-x-auto">
       <div

@@ -18,8 +18,19 @@ interface ProjectStepBlockProps {
 const BODY_GAP = 'var(--spacing-paragraph)'
 
 /**
- * Step block = Header + Body (variant layout + optional sidebars) + optional gallery.
- * 每个部分在这里拆成独立的渲染函数，方便日后复用 / 替换 token。
+ * ProjectStepBlock - 响应式 Step Block 组件
+ * 
+ * 两种布局模式：
+ * 
+ * 1. 移动端单列模式（< md）：
+ *    - 外层容器使用 flex flex-col gap-paragraph
+ *    - Sidebar 和正文上下堆叠：Sidebar 在上（order-1），正文在下（order-2）
+ *    - Sidebar 使用 w-full，不使用绝对定位
+ *    - 正文使用 w-full，不需要右侧 padding
+ * 
+ * 2. 桌面端画布+Sidebar 模式（≥ md）：
+ *    - 保持现有布局：Sidebar 在右侧绝对定位，宽度基于 var(--layout-sidebar-width)
+ *    - 正文通过 md:pr-[calc(var(--layout-sidebar-width)+var(--spacing-lg))] 留出空间，避免被 Sidebar 遮挡
  */
 export function ProjectStepBlock({ step, index }: ProjectStepBlockProps) {
   if (!step) return null
@@ -62,21 +73,35 @@ function renderHeader(step: Step, index: number) {
 // Step Body (variant layout + optional sidebars)
 // =====================
 function renderBody(step: Step) {
-  return (
-    <div className="relative w-full">
-      <CenterColumn>{renderVariantContent(step)}</CenterColumn>
+  const hasSidebar = step.enableSidebarLeft || step.enableSidebarRight
 
+  return (
+    <div className="relative w-full flex flex-col gap-paragraph md:block">
+      {/* 移动端：Sidebar 在上，正文在下 */}
       {step.enableSidebarLeft && (
-        <div className="absolute left-[8px] top-0">
+        <div className="order-1 w-full md:absolute md:left-[8px] md:top-0 md:w-auto md:order-none">
           <StepSidebar sidebar={step.sidebarLeft ?? undefined} />
         </div>
       )}
 
       {step.enableSidebarRight && (
-        <div className="absolute right-[8px] top-0">
+        <div className="order-2 w-full md:absolute md:right-[8px] md:top-0 md:w-auto md:order-none">
           <StepSidebar sidebar={step.sidebarRight ?? undefined} />
         </div>
       )}
+
+      {/* 正文区域 */}
+      <div
+        className={cn(
+          'order-3 w-full md:order-none',
+          // 桌面端：如果有右侧 Sidebar，留出空间避免被遮挡
+          step.enableSidebarRight && 'md:pr-[calc(var(--layout-sidebar-width)+var(--spacing-lg))]',
+          // 桌面端：如果有左侧 Sidebar，留出空间避免被遮挡
+          step.enableSidebarLeft && 'md:pl-[calc(var(--layout-sidebar-width)+var(--spacing-lg))]',
+        )}
+      >
+        <CenterColumn>{renderVariantContent(step)}</CenterColumn>
+      </div>
     </div>
   )
 }
@@ -253,7 +278,8 @@ function renderCaption(text?: string | null) {
 function CenterColumn({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex w-full justify-center">
-      <div className="w-full max-w-[var(--layout-content-width)] px-md">{children}</div>
+      {/* 移动端：不需要左右 padding，桌面端保持 px-md */}
+      <div className="w-full max-w-[var(--layout-content-width)] md:px-md">{children}</div>
     </div>
   )
 }
