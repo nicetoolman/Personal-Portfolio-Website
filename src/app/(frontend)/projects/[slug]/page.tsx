@@ -10,6 +10,7 @@ import { generateMeta } from '@/utilities/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { ProjectIntro } from '@/components/projects/ProjectIntro'
 import { ProjectStepsSection } from '@/components/projects/ProjectSteps'
+import { ProjectNavFooter } from '@/components/projects/ProjectNavFooter'
 import { fetchProjectPage } from '@/lib/projects/fetchProjectPage'
 
 export async function generateStaticParams() {
@@ -66,6 +67,7 @@ export default async function ProjectDetail({ params: paramsPromise }: Args) {
         <div className="flex h-auto w-full flex-col items-center">
           <ProjectIntro intro={project.intro} />
           <ProjectStepsSection steps={project.steps} />
+          <ProjectNavFooter navFooter={project.navFooter} />
         </div>
       </LayoutViewport>
     </article>
