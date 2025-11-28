@@ -62,9 +62,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
     })
   }
 
-  // 合并 tags 和 keywords 用于移动端显示
-  const allKeywords = [...tagNames, ...keywordValues]
-
   return (
     <Link
       href={`/projects/${slug}`}
@@ -174,7 +171,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
        * 移动端布局：纯文本列表项
        * ===================== */}
       <article className="flex flex-col px-md py-sm gap-paragraph md:hidden">
-        {/* Meta：标题 + 年份 + keywords */}
+        {/* Meta：标题 + 年份 + tags + keywords */}
         <div className="flex flex-col gap-paragraph">
           {/* 标题 */}
           {title && (
@@ -183,21 +180,33 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </h3>
           )}
 
-          {/* 年份 + keywords */}
-          <div className="flex flex-wrap gap-sm text-caption text-secondary">
+          {/* 年份 + tags（primary 字体） */}
+          <div className="flex flex-wrap gap-sm text-body">
             {year && <span>{year}</span>}
-            {allKeywords.length > 0 && (
+            {tagNames.length > 0 && (
               <>
                 {year && <span>·</span>}
-                {allKeywords.map((kw, idx) => (
+                {tagNames.map((tag, idx) => (
                   <span key={idx}>
-                    {kw}
-                    {idx < allKeywords.length - 1 && ','}
+                    {tag}
+                    {idx < tagNames.length - 1 && ','}
                   </span>
                 ))}
               </>
             )}
           </div>
+
+          {/* Keywords（secondary 字体） */}
+          {keywordValues.length > 0 && (
+            <div className="flex flex-wrap gap-sm text-caption text-secondary">
+              {keywordValues.map((kw, idx) => (
+                <span key={idx}>
+                  {kw}
+                  {idx < keywordValues.length - 1 && ','}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Summary：摘要（限制 3 行） */}
