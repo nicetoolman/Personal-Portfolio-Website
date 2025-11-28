@@ -145,24 +145,12 @@
   --layout-card-ratio-project-h: 260;
   }
 
-@layer utilities {
-  .project-card {
-    aspect-ratio: calc(var(--layout-card-ratio-project-w) / var(--layout-card-ratio-project-h));
-  }
-  @media (max-width: 768px) {
-    .project-card {
-      aspect-ratio: auto;
-    }
-  }
-}
-
   /* Footer 版权信息桌面端字体大小 */
   @media (min-width: 768px) {
     :root {
       --footer-copyright-font-size: var(--footer-content-font-size); /* 桌面端 16px */
     }
   }
-
 }
 
 @layer base {
@@ -203,4 +191,19 @@ body {
 .about-scroll-container::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.2);
   border-radius: 999px;
+}
+
+@layer utilities {
+  /* ProjectCard hover 效果：使用伪元素创建内阴影层，确保不被子元素遮挡 */
+  .project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    transition: box-shadow 0.3s;
+  }
+  .project-card:hover::before {
+    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 1);
+  }
 }

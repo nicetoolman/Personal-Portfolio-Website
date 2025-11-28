@@ -67,7 +67,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
       href={`/projects/${slug}`}
       className={cn(
         'project-card group relative flex flex-col w-full overflow-hidden border-2 border-black transition-all duration-300',
-        'hover:border-[3px]',
         // 移动端：自然高度，不使用 aspect-ratio
         // 桌面端：保持固定比例 874/260
         'h-auto md:aspect-[874/260]',
