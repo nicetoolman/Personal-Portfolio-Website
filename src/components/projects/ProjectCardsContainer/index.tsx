@@ -31,13 +31,13 @@ export async function ProjectCardsContainer() {
   if (projects.length === 0) {
     return (
       <div className="w-full py-16 text-center text-secondary">
-        <p>暂无项目</p>
+        <p className="text-body">暂无项目</p>
       </div>
     )
   }
 
   return (
-    <div className="w-full h-auto flex flex-col gap-4 px-2">
+    <div className="w-full h-auto flex flex-col gap-lg px-md">
       {projects.map((project) => (
         <ProjectCard key={project.slug} project={project} />
       ))}

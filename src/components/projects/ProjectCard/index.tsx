@@ -13,12 +13,9 @@ interface ProjectCardProps {
 /**
  * Project 卡片组件
  * 
- * 基于 Figma 1127-7751 设计：
- * - 卡片整体：874×260，垂直布局
- * - main 容器：874×197，水平布局
- *   - 图片：350×197
- *   - 信息区：524×197
- * - Tags/keywords 区：874×63
+ * 响应式行为：
+ * - 桌面端 (md 及以上)：保持原有卡片式布局（874×260，左右分栏，带缩略图）
+ * - 移动端 (md 以下)：纯文本列表项（隐藏缩略图，自然高度，只显示文字信息）
  */
 export function ProjectCard({ project }: ProjectCardProps) {
   const { slug, intro } = project
@@ -65,26 +62,27 @@ export function ProjectCard({ project }: ProjectCardProps) {
     })
   }
 
+  // 合并 tags 和 keywords 用于移动端显示
+  const allKeywords = [...tagNames, ...keywordValues]
+
   return (
     <Link
       href={`/projects/${slug}`}
       className={cn(
-        'group relative flex flex-col w-full overflow-hidden border-2 border-black transition-all duration-300',
+        'project-card group relative flex flex-col w-full overflow-hidden border-2 border-black transition-all duration-300',
         'hover:border-[3px]',
+        // 移动端：自然高度，不使用 aspect-ratio
+        // 桌面端：保持固定比例 874/260
+        'h-auto md:aspect-[874/260]',
       )}
-      style={{
-        aspectRatio: '874/260',
-      }}
     >
-      {/* Main 容器：874×197，水平布局 */}
-      <div className="flex shrink-0 w-full" style={{ height: 'calc(100% * 197 / 260)' }}>
-        {/* 图片区：350×197，1px border */}
+      {/* =====================
+       * 桌面端布局：保持原有卡片式结构
+       * ===================== */}
+      <div className="hidden md:flex flex-row shrink-0 w-full h-[calc(100%*197/260)]">
+        {/* Thumbnail：桌面端显示 */}
         <div
-          className="relative shrink-0 border border-black overflow-hidden"
-          style={{
-            width: 'calc(100% * 350 / 874)',
-            height: '100%',
-          }}
+          className="relative shrink-0 border border-black overflow-hidden w-[calc(100%*350/874)] h-full"
         >
           {cardImage ? (
             <Media
@@ -99,19 +97,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
           )}
         </div>
 
-        {/* 信息区：524×197，垂直布局，1px border */}
+        {/* 信息区：桌面端保持原有布局 */}
         <div
-          className="flex flex-col flex-1 border border-black overflow-hidden"
-          style={{
-            width: 'calc(100% * 524 / 874)',
-            height: '100%',
-          }}
+          className="flex flex-col flex-1 border border-black overflow-hidden w-[calc(100%*524/874)] h-full"
         >
-          {/* Title 栏：524×38 */}
-          <div
-            className="flex items-center px-md shrink-0 overflow-hidden"
-            style={{ height: 'calc(100% * 38 / 197)' }}
-          >
+          {/* Title 栏 */}
+          <div className="flex items-center px-md shrink-0 h-[calc(100%*38/197)]">
             {title && (
               <div className="flex-1 text-heading-sm font-medium leading-normal">
                 <RichText data={title} enableProse={false} enableGutter={false} />
@@ -119,27 +110,21 @@ export function ProjectCard({ project }: ProjectCardProps) {
             )}
           </div>
 
-          {/* Divider：1px，30% 不透明度 */}
+          {/* Divider */}
           <div className="h-px bg-black/30 shrink-0 w-full" />
 
-          {/* Year 栏：524×23 */}
-          <div
-            className="flex items-center px-md shrink-0 overflow-hidden"
-            style={{ height: 'calc(100% * 23 / 197)' }}
-          >
+          {/* Year 栏 */}
+          <div className="flex items-center px-md shrink-0 h-[calc(100%*23/197)]">
             {year && (
               <div className="flex-1 text-body font-medium leading-normal">{year}</div>
             )}
           </div>
 
-          {/* Divider：1px，30% 不透明度 */}
+          {/* Divider */}
           <div className="h-px bg-black/30 shrink-0 w-full" />
 
-          {/* Overview：524×118 */}
-          <div
-            className="flex items-start px-md flex-1 overflow-hidden"
-            style={{ height: 'calc(100% * 118 / 197)' }}
-          >
+          {/* Overview */}
+          <div className="flex items-start px-md flex-1 overflow-hidden h-[calc(100%*118/197)]">
             {overview && (
               <div className="flex-1 text-heading-sm font-normal leading-normal line-clamp-4">
                 <RichText data={overview} enableProse={false} enableGutter={false} />
@@ -149,16 +134,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
       </div>
 
-      {/* Tags/keywords 区：874×63，垂直布局，1px border */}
-      <div
-        className="flex flex-col shrink-0 w-full border border-black overflow-hidden"
-        style={{ height: 'calc(100% * 63 / 260)' }}
-      >
-        {/* Tags 栏：874×31 */}
-        <div
-          className="flex items-center px-md py-xs shrink-0 overflow-hidden"
-          style={{ height: 'calc(100% * 31 / 63)' }}
-        >
+      {/* Tags/keywords 区：桌面端 */}
+      <div className="hidden md:flex flex-col shrink-0 w-full border border-black overflow-hidden h-[calc(100%*63/260)]">
+        {/* Tags 栏 */}
+        <div className="flex items-center px-md py-xs shrink-0 h-[calc(100%*31/63)]">
           <span className="text-body font-bold leading-normal shrink-0">Tags：</span>
           {tagNames.length > 0 && (
             <div className="flex-1 flex gap-xs flex-wrap ml-md">
@@ -172,14 +151,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
           )}
         </div>
 
-        {/* Divider：1px，30% 不透明度 */}
+        {/* Divider */}
         <div className="h-px bg-black/30 shrink-0 w-full" />
 
-        {/* Keywords 栏：874×31 */}
-        <div
-          className="flex items-center px-md py-xs shrink-0 overflow-hidden"
-          style={{ height: 'calc(100% * 31 / 63)' }}
-        >
+        {/* Keywords 栏 */}
+        <div className="flex items-center px-md py-xs shrink-0 h-[calc(100%*31/63)]">
           <span className="text-body font-bold leading-normal shrink-0">Keywords：</span>
           {keywordValues.length > 0 && (
             <div className="flex-1 flex gap-xs flex-wrap ml-md">
@@ -193,6 +169,44 @@ export function ProjectCard({ project }: ProjectCardProps) {
           )}
         </div>
       </div>
+
+      {/* =====================
+       * 移动端布局：纯文本列表项
+       * ===================== */}
+      <article className="flex flex-col px-md py-sm gap-paragraph md:hidden">
+        {/* Meta：标题 + 年份 + keywords */}
+        <div className="flex flex-col gap-paragraph">
+          {/* 标题 */}
+          {title && (
+            <h3 className="text-heading-sm font-medium leading-normal">
+              <RichText data={title} enableProse={false} enableGutter={false} />
+            </h3>
+          )}
+
+          {/* 年份 + keywords */}
+          <div className="flex flex-wrap gap-sm text-caption text-secondary">
+            {year && <span>{year}</span>}
+            {allKeywords.length > 0 && (
+              <>
+                {year && <span>·</span>}
+                {allKeywords.map((kw, idx) => (
+                  <span key={idx}>
+                    {kw}
+                    {idx < allKeywords.length - 1 && ','}
+                  </span>
+                ))}
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Summary：摘要（限制 3 行） */}
+        {overview && (
+          <p className="text-body leading-normal line-clamp-3">
+            <RichText data={overview} enableProse={false} enableGutter={false} />
+          </p>
+        )}
+      </article>
     </Link>
   )
 }

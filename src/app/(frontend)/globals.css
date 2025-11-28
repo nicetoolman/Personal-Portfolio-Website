@@ -145,6 +145,17 @@
   --layout-card-ratio-project-h: 260;
   }
 
+@layer utilities {
+  .project-card {
+    aspect-ratio: calc(var(--layout-card-ratio-project-w) / var(--layout-card-ratio-project-h));
+  }
+  @media (max-width: 768px) {
+    .project-card {
+      aspect-ratio: auto;
+    }
+  }
+}
+
   /* Footer 版权信息桌面端字体大小 */
   @media (min-width: 768px) {
     :root {
