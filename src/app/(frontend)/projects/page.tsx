@@ -113,7 +113,7 @@ export default async function ProjectsPage() {
               return (
                 <div
                   key={slot.flowKey}
-                  className="relative overflow-hidden"
+                  className="relative overflow-hidden h-full w-full"
                   style={{ gridRow: slot.gridRow, gridColumn: slot.gridColumn }}
                 >
                   <ProcessPhaseCard

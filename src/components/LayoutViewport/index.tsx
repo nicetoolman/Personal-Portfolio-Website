@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { useEffect, useRef, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 
 import { cn } from '@/utilities/ui'
 import { STEP_BLOCKS_READY_EVENT } from '@/constants/events'
@@ -10,6 +10,8 @@ const VIEWPORT_MAP = {
   narrow: { width: 890, height: 633 },
   wide: { width: 1440, height: 633 },
 } as const
+
+const MOBILE_BREAKPOINT = 640
 
 export type ViewportVariant = keyof typeof VIEWPORT_MAP
 
@@ -43,6 +45,24 @@ export function LayoutViewport({
   const hasRestoredRef = useRef(false)
   const pathname = usePathname()
   const storageKey = scrollStorageKey ?? `viewport-scroll:${pathname}`
+  
+  const [viewportWidth, setViewportWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : config.width,
+  )
+  const isMobile = viewportWidth < MOBILE_BREAKPOINT
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    
+    const updateViewportWidth = () => {
+      setViewportWidth(window.innerWidth)
+    }
+    
+    window.addEventListener('resize', updateViewportWidth)
+    return () => {
+      window.removeEventListener('resize', updateViewportWidth)
+    }
+  }, [])
 
   useEffect(() => {
     if (!restoreScroll) return
@@ -125,6 +145,36 @@ export function LayoutViewport({
     }
   }, [restoreScroll, storageKey])
 
+  // Mobile: height auto, no aspect ratio restriction
+  if (isMobile) {
+    return (
+      <div
+        className={cn(
+          'relative mx-auto mt-[calc(64px+var(--navbar-height))] mb-16',
+          className,
+        )}
+        style={{
+          maxWidth: `${config.width}px`,
+          width: '100%',
+          ...style,
+        }}
+      >
+        <div
+          ref={scrollRef}
+          className={cn(
+            'w-full overflow-x-hidden',
+            scrollable ? 'overflow-y-auto about-scroll-container' : 'overflow-y-hidden',
+            contentClassName,
+          )}
+          style={contentStyle}
+        >
+          {children}
+        </div>
+      </div>
+    )
+  }
+
+  // Desktop: original behavior with aspect ratio
   return (
     <div
       className={cn(

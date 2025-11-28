@@ -15,7 +15,7 @@ export function SimpleImageToggle({ image, textImage, className }: SimpleImageTo
   if (!image && !textImage) return null
 
   return (
-    <div className={cn('group relative flex h-full w-full overflow-hidden min-h-[120px]', className)}>
+    <div className={cn('group relative w-full overflow-hidden', className)} style={{ height: '100%' }}>
       {image && (
         <Media
           resource={image}

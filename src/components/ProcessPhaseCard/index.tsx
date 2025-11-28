@@ -22,11 +22,12 @@ export function ProcessPhaseCard({ image, textImage, bottomImage, className }: P
         style={{
           flexBasis: 'calc((142 / 183.9) * 100%)',
           flexShrink: 0,
+          minHeight: 0,
         }}
       >
         <SimpleImageToggle image={image} textImage={textImage} />
       </div>
-      <div className="relative w-full flex-1 overflow-hidden min-h-[120px]">
+      <div className="relative w-full flex-1 overflow-hidden" style={{ minHeight: 0 }}>
         {bottomImage ? (
           <Media
             resource={bottomImage}
