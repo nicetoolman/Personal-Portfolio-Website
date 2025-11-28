@@ -2,6 +2,8 @@
 
 import { PropsWithChildren, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
+import { STEP_BLOCKS_READY_EVENT } from '@/constants/events'
+
 const LOGICAL_CANVAS_WIDTH = 1440
 const BODY_WIDTH = 890
 
@@ -13,6 +15,7 @@ export function StepBlockViewport({ children }: PropsWithChildren) {
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const canvasRef = useRef<HTMLDivElement | null>(null)
   const wrapperRef = useRef<HTMLDivElement | null>(null)
+  const readyDispatchedRef = useRef(false)
 
   const [scale, setScale] = useState(1)
   const [canvasHeight, setCanvasHeight] = useState(0)
@@ -81,6 +84,20 @@ export function StepBlockViewport({ children }: PropsWithChildren) {
     if (wrapperEl) {
       wrapperEl.style.setProperty('--step-canvas-height', `${canvasHeight}px`)
     }
+  }, [canvasHeight])
+
+  useEffect(() => {
+    if (readyDispatchedRef.current) return
+    if (canvasHeight <= 0) return
+    if (typeof window === 'undefined') return
+
+    readyDispatchedRef.current = true
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        window.dispatchEvent(new Event(STEP_BLOCKS_READY_EVENT))
+      })
+    })
   }, [canvasHeight])
 
   return (

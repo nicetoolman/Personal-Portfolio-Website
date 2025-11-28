@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import { LayoutViewport } from '@/components/LayoutViewport'
+import configPromise from '@payload-config'
 import { draftMode } from 'next/headers'
+import { getPayload } from 'payload'
 import React from 'react'
 
 import type { Project } from '@/payload-types'
@@ -27,8 +29,10 @@ export async function generateStaticParams() {
       },
     })
 
-    const params = projects.docs
-      .filter((doc) => doc.slug)
+    type ProjectSlugDoc = { slug?: string | null }
+
+    const params = (projects.docs as ProjectSlugDoc[])
+      .filter((doc): doc is { slug: string } => Boolean(doc.slug))
       .map(({ slug }) => {
         return { slug }
       })
@@ -63,7 +67,7 @@ export default async function ProjectDetail({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <LayoutViewport variant="wide" scrollable={true}>
+      <LayoutViewport variant="wide" scrollable={true} restoreScroll contentClassName="project-detail-scroll">
         <div className="flex h-auto w-full flex-col items-center">
           <ProjectIntro intro={project.intro} />
           <ProjectStepsSection steps={project.steps} />
