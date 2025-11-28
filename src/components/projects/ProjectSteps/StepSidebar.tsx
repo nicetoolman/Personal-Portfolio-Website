@@ -26,7 +26,7 @@ export function StepSidebar({ sidebar }: StepSidebarProps) {
 
   return (
     <aside className="flex w-full justify-center">
-      <div className="flex w-[var(--layout-sidebar-width)] flex-col gap-sm rounded-[10px] border-2 border-black p-xs">
+      <div className="flex w-full md:w-[var(--layout-sidebar-width)] flex-col gap-sm rounded-[10px] border-2 border-black p-xs">
         {renderIconSlot(sidebar.variant)}
 
         {sidebar.content && (

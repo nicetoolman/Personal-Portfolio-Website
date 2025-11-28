@@ -32,6 +32,7 @@ export function ProjectStepBlock({ step, index }: ProjectStepBlockProps) {
       {renderHeader(step, index)}
       {renderBody(step)}
       {step.variant === 'standard' && renderImageGallery(step.images)}
+      {renderSidebars(step)}
     </article>
   )
 }
@@ -59,21 +60,32 @@ function renderHeader(step: Step, index: number) {
 }
 
 // =====================
-// Step Body (variant layout + optional sidebars)
+// Step Body (variant layout only, no sidebars)
 // =====================
 function renderBody(step: Step) {
   return (
     <div className="relative w-full">
       <CenterColumn>{renderVariantContent(step)}</CenterColumn>
+    </div>
+  )
+}
 
+// =====================
+// Sidebars (rendered after body and image gallery)
+// =====================
+function renderSidebars(step: Step) {
+  if (!step.enableSidebarLeft && !step.enableSidebarRight) return null
+
+  return (
+    <div className="relative w-full">
       {step.enableSidebarLeft && (
-        <div className="absolute left-[8px] top-0">
+        <div className="absolute left-[8px] top-0 md:w-auto w-full">
           <StepSidebar sidebar={step.sidebarLeft ?? undefined} />
         </div>
       )}
 
       {step.enableSidebarRight && (
-        <div className="absolute right-[8px] top-0">
+        <div className="absolute right-[8px] top-0 md:w-auto w-full">
           <StepSidebar sidebar={step.sidebarRight ?? undefined} />
         </div>
       )}
@@ -88,7 +100,7 @@ function renderVariantContent(step: Step) {
   switch (step.variant) {
     case 'imageRight':
       return (
-        <div className="grid w-full gap-sm" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
+        <div className="flex md:grid w-full flex-col md:grid-cols-2 gap-sm">
           {renderTextStack(step)}
           {renderImagePanel(step.images?.[0])}
         </div>
@@ -96,9 +108,14 @@ function renderVariantContent(step: Step) {
 
     case 'imageLeft':
       return (
-        <div className="grid w-full gap-sm" style={{ gridTemplateColumns: 'minmax(0, 550px) minmax(0, 318px)' }}>
-          {renderImagePanel(step.images?.[0])}
-          {renderTextStack(step, { align: 'right' })}
+        <div className="flex md:grid w-full flex-col md:flex-row gap-sm" style={{ gridTemplateColumns: 'minmax(0, 550px) minmax(0, 318px)' }}>
+          {/* Mobile: text first, then image. Desktop: image first, then text */}
+          <div className="order-2 md:order-1">
+            {renderImagePanel(step.images?.[0])}
+          </div>
+          <div className="order-1 md:order-2">
+            {renderTextStack(step, { align: 'right' })}
+          </div>
         </div>
       )
 
@@ -197,7 +214,12 @@ function renderImageGallery(images?: Step['images']) {
 
   return (
     <CenterColumn>
-      <div className="grid w-full gap-sm" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
+      <div 
+        className="flex md:grid w-full flex-col gap-sm" 
+        style={{ 
+          gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` 
+        }}
+      >
         {images.map((entry, index) => {
           const caption = getImageEntryCaption(entry)
 
@@ -247,7 +269,7 @@ function getMediaCaption(resource?: number | MediaType | null) {
 // =====================
 function renderCaption(text?: string | null) {
   return (
-    <div className="min-h-[28px] px-md py-xs text-center font-['Roboto'] text-body font-black leading-tight">
+    <div className="hidden md:block min-h-[28px] px-md py-xs text-center font-['Roboto'] text-body font-black leading-tight">
       {text || '\u00A0'}
     </div>
   )

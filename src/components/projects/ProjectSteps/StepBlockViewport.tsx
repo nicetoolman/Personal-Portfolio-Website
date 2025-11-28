@@ -6,10 +6,13 @@ import { STEP_BLOCKS_READY_EVENT } from '@/constants/events'
 
 const LOGICAL_CANVAS_WIDTH = 1440
 const BODY_WIDTH = 890
+const MOBILE_BREAKPOINT = 640
 
 /**
  * Wraps the StepBlock content with a horizontally scrollable viewport that keeps
  * a 1440px logical canvas and scales down when the viewport is narrower than 890px.
+ * 
+ * On mobile (< 640px), completely disables scaling and uses natural flow layout.
  */
 export function StepBlockViewport({ children }: PropsWithChildren) {
   const scrollRef = useRef<HTMLDivElement | null>(null)
@@ -23,15 +26,25 @@ export function StepBlockViewport({ children }: PropsWithChildren) {
     typeof window !== 'undefined' ? window.innerWidth : LOGICAL_CANVAS_WIDTH,
   )
 
+  const isMobile = viewportWidth < MOBILE_BREAKPOINT
+
   const updateMetrics = useCallback(() => {
     if (typeof window === 'undefined') return
     const vw = window.innerWidth
     setViewportWidth(vw)
-    const nextScale = Math.min(1, vw / BODY_WIDTH)
-    setScale(nextScale)
+    // Only calculate scale for desktop
+    if (vw >= MOBILE_BREAKPOINT) {
+      const nextScale = Math.min(1, vw / BODY_WIDTH)
+      setScale(nextScale)
+    } else {
+      setScale(1) // Mobile: no scaling
+    }
   }, [])
 
   const focusBody = useCallback(() => {
+    // Skip focusBody on mobile
+    if (isMobile) return
+    
     const scrollEl = scrollRef.current
     const canvasEl = canvasRef.current
     if (!scrollEl) return
@@ -50,7 +63,7 @@ export function StepBlockViewport({ children }: PropsWithChildren) {
     }
 
     scrollEl.scrollTo({ left: target })
-  }, [viewportWidth])
+  }, [viewportWidth, isMobile])
 
   useLayoutEffect(() => {
     updateMetrics()
@@ -61,8 +74,10 @@ export function StepBlockViewport({ children }: PropsWithChildren) {
   }, [updateMetrics])
 
   useEffect(() => {
-    focusBody()
-  }, [focusBody, scale, viewportWidth])
+    if (!isMobile) {
+      focusBody()
+    }
+  }, [focusBody, scale, viewportWidth, isMobile])
 
   useEffect(() => {
     const canvasEl = canvasRef.current
@@ -81,14 +96,14 @@ export function StepBlockViewport({ children }: PropsWithChildren) {
 
   useEffect(() => {
     const wrapperEl = wrapperRef.current
-    if (wrapperEl) {
+    if (wrapperEl && !isMobile) {
       wrapperEl.style.setProperty('--step-canvas-height', `${canvasHeight}px`)
     }
-  }, [canvasHeight])
+  }, [canvasHeight, isMobile])
 
   useEffect(() => {
     if (readyDispatchedRef.current) return
-    if (canvasHeight <= 0) return
+    if (canvasHeight <= 0 && !isMobile) return
     if (typeof window === 'undefined') return
 
     readyDispatchedRef.current = true
@@ -98,8 +113,20 @@ export function StepBlockViewport({ children }: PropsWithChildren) {
         window.dispatchEvent(new Event(STEP_BLOCKS_READY_EVENT))
       })
     })
-  }, [canvasHeight])
+  }, [canvasHeight, isMobile])
 
+  // Mobile: return flow layout without scaling
+  if (isMobile) {
+    return (
+      <div className="w-full max-w-[var(--layout-content-width)] mx-auto">
+        <div ref={canvasRef} className="step-block-mobile w-full">
+          {children}
+        </div>
+      </div>
+    )
+  }
+
+  // Desktop: original scaling behavior
   return (
     <div ref={scrollRef} className="w-full overflow-x-auto">
       <div

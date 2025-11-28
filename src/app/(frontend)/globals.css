@@ -220,3 +220,41 @@ body {
     box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 1);
   }
 }
+
+/* =========================
+ * StepBlock Mobile Styles
+ * ========================= */
+/* Mobile: disable scaling, use natural flow layout */
+.step-block-mobile {
+  width: 100%;
+  max-width: 100%;
+  /* No fixed height */
+  /* No transform */
+  /* No scale */
+}
+
+/* Mobile: disable absolute positioning for sidebars, place them after content */
+@media (max-width: 639px) {
+  /* Make sidebar containers relative instead of absolute */
+  /* Sidebar is now in its own div.relative after body and gallery */
+  .step-block-mobile article > div.relative > div[class*="absolute"] {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    width: 100% !important;
+  }
+  
+  /* Ensure sidebar appears after content in mobile */
+  .step-block-mobile article > div.relative {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Ensure sidebar content is full width on mobile */
+  .step-block-mobile aside {
+    width: 100% !important;
+  }
+}
