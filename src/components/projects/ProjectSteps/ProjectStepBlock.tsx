@@ -77,23 +77,10 @@ function renderBody(step: Step) {
 
   return (
     <div className="relative w-full flex flex-col gap-paragraph md:block">
-      {/* 移动端：Sidebar 在上，正文在下 */}
-      {step.enableSidebarLeft && (
-        <div className="order-1 w-full md:absolute md:left-[8px] md:top-0 md:w-auto md:order-none">
-          <StepSidebar sidebar={step.sidebarLeft ?? undefined} />
-        </div>
-      )}
-
-      {step.enableSidebarRight && (
-        <div className="order-2 w-full md:absolute md:right-[8px] md:top-0 md:w-auto md:order-none">
-          <StepSidebar sidebar={step.sidebarRight ?? undefined} />
-        </div>
-      )}
-
-      {/* 正文区域 */}
+      {/* 正文区域：移动端最先显示，符合阅读逻辑 */}
       <div
         className={cn(
-          'order-3 w-full md:order-none',
+          'order-1 w-full md:order-none',
           // 桌面端：如果有右侧 Sidebar，留出空间避免被遮挡
           step.enableSidebarRight && 'md:pr-[calc(var(--layout-sidebar-width)+var(--spacing-lg))]',
           // 桌面端：如果有左侧 Sidebar，留出空间避免被遮挡
@@ -102,6 +89,19 @@ function renderBody(step: Step) {
       >
         <CenterColumn>{renderVariantContent(step)}</CenterColumn>
       </div>
+
+      {/* 移动端：Sidebar 在正文之后显示 */}
+      {step.enableSidebarLeft && (
+        <div className="order-2 w-full md:absolute md:left-[8px] md:top-0 md:w-auto md:order-none">
+          <StepSidebar sidebar={step.sidebarLeft ?? undefined} />
+        </div>
+      )}
+
+      {step.enableSidebarRight && (
+        <div className="order-3 w-full md:absolute md:right-[8px] md:top-0 md:w-auto md:order-none">
+          <StepSidebar sidebar={step.sidebarRight ?? undefined} />
+        </div>
+      )}
     </div>
   )
 }
