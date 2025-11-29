@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
@@ -13,6 +14,12 @@ import { generateMeta } from '@/utilities/generateMeta'
 import { cn } from '@/utilities/ui'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { ProjectCard } from '@/components/projects/ProjectCard'
+import { SketchlogCard } from '@/components/sketchlog/SketchlogCard'
+import { AboutMain } from '@/components/about/AboutMain'
+import { fetchFeaturedProjectsForHome } from '@/lib/projects/fetchFeaturedProjectsForHome'
+import { fetchFeaturedSketchlogsForHome } from '@/lib/sketchlogs/fetchFeaturedSketchlogsForHome'
+import { fetchAboutPageForHome } from '@/lib/pages/fetchAboutPageForHome'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -69,6 +76,16 @@ export default async function Page({ params: paramsPromise }: Args) {
   // Remove bottom padding for customHomepage hero to eliminate gap between hero and footer
   const isCustomHomepage = hero?.type === 'customHomepage'
 
+  // 只在首页（slug === 'home'）时获取移动端 feed 数据
+  const isHomePage = slug === 'home'
+  const [featuredProjects, featuredSketchlogs, aboutPageData] = isHomePage
+    ? await Promise.all([
+        fetchFeaturedProjectsForHome(),
+        fetchFeaturedSketchlogsForHome(),
+        fetchAboutPageForHome(),
+      ])
+    : [[], [], null]
+
   return (
     <article className={cn(!isCustomHomepage && 'pb-16')}>
       <PageClient />
@@ -79,6 +96,69 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       <RenderHero {...hero} />
       {layout && <RenderBlocks blocks={layout} />}
+
+      {/* 移动端 Home Feed（仅在首页显示） */}
+      {isHomePage && (
+        <section className="lg:hidden px-4 sm:px-6 py-8 space-y-8">
+          {/* Projects 精选 */}
+          {featuredProjects.length > 0 && (
+            <div>
+              <div className="mb-3 flex items-baseline justify-between">
+                <h2 className="text-sm font-semibold tracking-wide uppercase">Projects</h2>
+                <Link
+                  href="/projects"
+                  className="text-xs text-muted-foreground hover:underline"
+                >
+                  View All
+                </Link>
+              </div>
+              <div className="space-y-4">
+                {featuredProjects.map((project) => (
+                  <ProjectCard key={project.id} project={project} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Sketchlog 精选 */}
+          {featuredSketchlogs.length > 0 && (
+            <div>
+              <div className="mb-3 flex items-baseline justify-between">
+                <h2 className="text-sm font-semibold tracking-wide uppercase">Sketchlog</h2>
+                <Link
+                  href="/sketchlog"
+                  className="text-xs text-muted-foreground hover:underline"
+                >
+                  View All
+                </Link>
+              </div>
+              <div className="space-y-4">
+                {featuredSketchlogs.map((entry) => (
+                  <SketchlogCard key={entry.id} entry={entry} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* About 正文区域 */}
+          {aboutPageData && (
+            <div>
+              <div className="mb-2 flex items-baseline justify-between">
+                <h2 className="text-sm font-semibold tracking-wide uppercase">About</h2>
+                <Link
+                  href="/about"
+                  className="text-xs text-muted-foreground hover:underline"
+                >
+                  View Full Page
+                </Link>
+              </div>
+              <div className="border border-border/40 rounded-2xl bg-background/80 p-4">
+                <AboutMain decorationsData={aboutPageData} />
+              </div>
+            </div>
+          )}
+        </section>
+      )}
     </article>
   )
 }
