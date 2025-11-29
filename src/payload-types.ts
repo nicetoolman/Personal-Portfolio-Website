@@ -74,6 +74,7 @@ export interface Config {
     users: User;
     tags: Tag;
     sketchbook: Sketchbook;
+    sketchlogs: Sketchlog;
     projects: Project;
     sidebarVariants: SidebarVariant;
     redirects: Redirect;
@@ -94,6 +95,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     sketchbook: SketchbookSelect<false> | SketchbookSelect<true>;
+    sketchlogs: SketchlogsSelect<false> | SketchlogsSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     sidebarVariants: SidebarVariantsSelect<false> | SidebarVariantsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -824,6 +826,62 @@ export interface Sketchbook {
   createdAt: string;
 }
 /**
+ * 时间线 feed 内容，用于频繁更新的速写、草图、过程图记录。
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sketchlogs".
+ */
+export interface Sketchlog {
+  id: number;
+  /**
+   * 标题（可选），如果不填写，前端会显示 "Untitled Sketchlog"
+   */
+  title?: string | null;
+  /**
+   * 发布日期，用于时间线排序
+   */
+  publishedOn: string;
+  /**
+   * 这一条 Sketchlog 相关的图片（至少 1 张，可以多张）。
+   */
+  images: {
+    /**
+     * 图片资源
+     */
+    image: number | Media;
+    /**
+     * 图片说明（可选）
+     */
+    caption?: string | null;
+    id?: string | null;
+  }[];
+  /**
+   * 这一条的文字说明，feed 里会显示，可折叠展开。支持富文本格式。
+   */
+  excerpt?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * 如果这条是某个项目的过程记录，可以在这里关联。
+   */
+  project?: (number | null) | Project;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects".
  */
@@ -1354,6 +1412,10 @@ export interface PayloadLockedDocument {
         value: number | Sketchbook;
       } | null)
     | ({
+        relationTo: 'sketchlogs';
+        value: number | Sketchlog;
+      } | null)
+    | ({
         relationTo: 'projects';
         value: number | Project;
       } | null)
@@ -1781,6 +1843,26 @@ export interface SketchbookSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sketchlogs_select".
+ */
+export interface SketchlogsSelect<T extends boolean = true> {
+  title?: T;
+  publishedOn?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  excerpt?: T;
+  project?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
