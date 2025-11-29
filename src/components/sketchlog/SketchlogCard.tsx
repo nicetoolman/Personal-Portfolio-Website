@@ -182,18 +182,18 @@ export function SketchlogCard({ entry }: SketchlogCardProps) {
                 <button
                   type="button"
                   aria-label="Show previous image"
-                  className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full border border-[hsl(var(--accent))] px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-[hsl(var(--accent))] opacity-70 transition-all duration-300 ease-in-out hover:opacity-100 hover:bg-black/50 hover:text-white z-10"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full border border-[hsl(var(--accent))] text-[hsl(var(--accent))] opacity-70 transition-all duration-300 ease-in-out hover:opacity-100 hover:bg-black/50 hover:text-white hover:border-white z-10"
                   onClick={goPrev}
                 >
-                  Prev
+                  <span className="text-sm leading-none">◀</span>
                 </button>
                 <button
                   type="button"
                   aria-label="Show next image"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full border border-[hsl(var(--accent))] px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-[hsl(var(--accent))] opacity-70 transition-all duration-300 ease-in-out hover:opacity-100 hover:bg-black/50 hover:text-white z-10"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full border border-[hsl(var(--accent))] text-[hsl(var(--accent))] opacity-70 transition-all duration-300 ease-in-out hover:opacity-100 hover:bg-black/50 hover:text-white hover:border-white z-10"
                   onClick={goNext}
                 >
-                  Next
+                  <span className="text-sm leading-none">▶</span>
                 </button>
               </>
             )}
