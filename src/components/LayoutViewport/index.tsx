@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 
 import { cn } from '@/utilities/ui'
 import { STEP_BLOCKS_READY_EVENT } from '@/constants/events'
@@ -11,16 +11,12 @@ const VIEWPORT_MAP = {
   wide: { width: 1440, height: 633 },
 } as const
 
-const MOBILE_BREAKPOINT = 640
-
 export type ViewportVariant = keyof typeof VIEWPORT_MAP
 
 interface LayoutViewportProps {
   variant?: ViewportVariant
   className?: string
   contentClassName?: string
-  style?: CSSProperties
-  contentStyle?: CSSProperties
   scrollable?: boolean
   restoreScroll?: boolean
   scrollStorageKey?: string
@@ -31,38 +27,20 @@ export function LayoutViewport({
   variant = 'narrow',
   className,
   contentClassName,
-  style,
-  contentStyle,
   scrollable = true,
   restoreScroll = false,
   scrollStorageKey,
   children,
 }: LayoutViewportProps) {
-  const config = VIEWPORT_MAP[variant]
-  const aspectRatio = `${config.width}/${config.height}`
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const storedPositionRef = useRef<{ x?: number; y?: number } | null>(null)
   const hasRestoredRef = useRef(false)
   const pathname = usePathname()
   const storageKey = scrollStorageKey ?? `viewport-scroll:${pathname}`
   
-  const [viewportWidth, setViewportWidth] = useState(
-    typeof window !== 'undefined' ? window.innerWidth : config.width,
-  )
-  const isMobile = viewportWidth < MOBILE_BREAKPOINT
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    
-    const updateViewportWidth = () => {
-      setViewportWidth(window.innerWidth)
-    }
-    
-    window.addEventListener('resize', updateViewportWidth)
-    return () => {
-      window.removeEventListener('resize', updateViewportWidth)
-    }
-  }, [])
+  // Determine max-width class based on variant
+  // This is deterministic and doesn't depend on runtime values
+  const maxWidthClass = variant === 'narrow' ? 'max-w-[890px]' : 'max-w-[1440px]'
 
   useEffect(() => {
     if (!restoreScroll) return
@@ -145,57 +123,29 @@ export function LayoutViewport({
     }
   }, [restoreScroll, storageKey])
 
-  // Mobile: height auto, no aspect ratio restriction
-  if (isMobile) {
-    return (
-      <div
-        className={cn(
-          'relative mx-auto mt-[calc(64px+var(--navbar-height))] mb-16',
-          className,
-        )}
-        style={{
-          maxWidth: `${config.width}px`,
-          width: '100%',
-          ...style,
-        }}
-      >
-        <div
-          ref={scrollRef}
-          className={cn(
-            'w-full overflow-x-hidden',
-            scrollable ? 'overflow-y-auto about-scroll-container' : 'overflow-y-hidden',
-            contentClassName,
-          )}
-          style={contentStyle}
-        >
-          {children}
-        </div>
-      </div>
-    )
-  }
-
-  // Desktop: original behavior with aspect ratio
+  // Fixed HTML structure - SSR and client render the same
+  // All mobile/desktop differences are handled via CSS media queries
   return (
     <div
       className={cn(
-        'relative mx-auto overflow-hidden mt-[calc(64px+var(--navbar-height))] mb-16',
+        'layout-viewport-root',
+        'relative mx-auto mt-[calc(64px+var(--navbar-height))] mb-16',
+        'w-full',
+        maxWidthClass,
+        scrollable && 'layout-viewport-root--scrollable',
+        variant === 'narrow' && 'layout-viewport-root--narrow',
+        variant === 'wide' && 'layout-viewport-root--wide',
         className,
       )}
-      style={{
-        maxWidth: `${config.width}px`,
-        width: '100%',
-        aspectRatio,
-        ...style,
-      }}
     >
       <div
         ref={scrollRef}
         className={cn(
-          'absolute inset-0 overflow-x-hidden',
+          'layout-viewport-inner',
+          'overflow-x-hidden',
           scrollable ? 'overflow-y-auto about-scroll-container' : 'overflow-y-hidden',
           contentClassName,
         )}
-        style={contentStyle}
       >
         {children}
       </div>

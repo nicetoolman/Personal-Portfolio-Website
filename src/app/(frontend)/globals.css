@@ -222,6 +222,53 @@ body {
 }
 
 /* =========================
+ * LayoutViewport Styles
+ * ========================= */
+/* Base styles - consistent for SSR and client */
+.layout-viewport-root {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: calc(64px + var(--navbar-height));
+  margin-bottom: 4rem;
+  width: 100%;
+}
+
+.layout-viewport-inner {
+  /* Base styles - will be overridden by media queries */
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Desktop layout (≥ 640px): aspect-ratio + absolute positioning */
+@media (min-width: 640px) {
+  .layout-viewport-root--scrollable {
+    overflow: hidden;
+  }
+
+  .layout-viewport-root--narrow {
+    aspect-ratio: 890 / 633;
+  }
+
+  .layout-viewport-root--wide {
+    aspect-ratio: 1440 / 633;
+  }
+
+  .layout-viewport-inner {
+    position: absolute;
+    inset: 0;
+  }
+}
+
+/* Mobile layout (< 640px): natural flow, no aspect-ratio */
+@media (max-width: 639px) {
+  .layout-viewport-inner {
+    position: static;
+    width: 100%;
+  }
+}
+
+/* =========================
  * StepBlock Mobile Styles
  * ========================= */
 /* Mobile: disable scaling, use natural flow layout */
