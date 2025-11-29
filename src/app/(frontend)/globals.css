@@ -225,6 +225,7 @@ body {
  * LayoutViewport Styles
  * ========================= */
 /* Base styles - consistent for SSR and client */
+/* Simple, clean styles that don't interfere with click events */
 .layout-viewport-root {
   position: relative;
   margin-left: auto;
@@ -255,6 +256,8 @@ body {
   }
 
   .layout-viewport-inner {
+    /* Absolute positioning for scroll container */
+    /* This does NOT block clicks - children inside can still receive events */
     position: absolute;
     inset: 0;
   }
