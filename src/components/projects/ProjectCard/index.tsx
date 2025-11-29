@@ -169,9 +169,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
       {/* =====================
        * 移动端布局：纯文本列表项
        * ===================== */}
-      <article className="flex flex-col px-md py-sm gap-paragraph md:hidden">
+      <article className="flex flex-col px-md py-sm gap-0 md:hidden">
         {/* Meta：标题 + 年份 + tags + keywords */}
-        <div className="flex flex-col gap-paragraph">
+        <div className="flex flex-col gap-0">
           {/* 标题 */}
           {title && (
             <h3 className="text-heading-sm font-medium leading-normal">
@@ -207,13 +207,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </div>
           )}
         </div>
-
-        {/* Summary：摘要（限制 3 行） */}
-        {overview && (
-          <div className="text-body leading-normal line-clamp-3">
-            <RichText data={overview} enableProse={false} enableGutter={false} />
-          </div>
-        )}
       </article>
     </Link>
   )
