@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useMemo } from 'react'
+import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { Sketchlog } from '@/payload-types'
 import { Media } from '@/components/Media'
@@ -26,6 +27,11 @@ export function SketchlogCard({ entry }: SketchlogCardProps) {
   const [imageHeight, setImageHeight] = useState<number | null>(null)
   const [textHeight, setTextHeight] = useState<number | null>(null)
   const [shouldCollapse, setShouldCollapse] = useState(false)
+
+  // Lightbox 状态
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [mounted, setMounted] = useState(false)
 
   // 提取数据
   const title = entry.title || 'Untitled Sketchlog'
@@ -60,6 +66,43 @@ export function SketchlogCard({ entry }: SketchlogCardProps) {
     setDirection(1)
     setCurrentImageIndex((index) => (index + 1) % validImages.length)
   }
+
+  // Lightbox 功能
+  const handleOpenLightbox = (index: number) => {
+    if (!validImages[index]) return
+    setActiveIndex(index)
+    setLightboxOpen(true)
+    // 防止背景滚动
+    document.body.style.overflow = 'hidden'
+  }
+
+  const handleCloseLightbox = () => {
+    setLightboxOpen(false)
+    // 恢复背景滚动
+    document.body.style.overflow = ''
+  }
+
+  const handleLightboxPrev = () => {
+    if (validImages.length <= 1) return
+    setActiveIndex((prev) => (prev === 0 ? validImages.length - 1 : prev - 1))
+  }
+
+  const handleLightboxNext = () => {
+    if (validImages.length <= 1) return
+    setActiveIndex((prev) => (prev === validImages.length - 1 ? 0 : prev + 1))
+  }
+
+  // 清理：组件卸载时恢复滚动
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
+
+  // 设置 mounted 状态，避免 SSR 报错
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const slideVariants = {
     initial: (dir: 1 | -1) => ({
@@ -115,9 +158,75 @@ export function SketchlogCard({ entry }: SketchlogCardProps) {
     }
   }, [excerpt, expanded])
 
+  // Lightbox JSX（提取为独立变量）
+  const lightbox = lightboxOpen && validImages[activeIndex] ? (
+    <div
+      className="fixed inset-0 z-[9999] flex justify-center bg-black/70 px-4 py-10 overflow-y-auto"
+      onClick={handleCloseLightbox}
+    >
+      <div
+        className="relative my-auto max-w-5xl w-full bg-background/90 rounded-lg shadow-xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* 关闭按钮 */}
+        <button
+          type="button"
+          onClick={handleCloseLightbox}
+          className="absolute right-3 top-3 z-10 rounded-full bg-black/60 px-3 py-1 text-xs text-white hover:bg-black/80 transition-colors"
+        >
+          Close
+        </button>
+
+        {/* 大图区域 */}
+        <div className="relative w-full bg-black max-h-[80vh] min-h-[50vh]">
+          <Media
+            resource={validImages[activeIndex]}
+            htmlElement="div"
+            className="absolute inset-0"
+            imgClassName="object-contain w-full h-full"
+            fill
+            size="(max-width: 1024px) 100vw, 900px"
+          />
+        </div>
+
+        {/* 底部控制区域（多图时显示） */}
+        {validImages.length > 1 && (
+          <div className="flex items-center justify-between px-4 py-3 text-xs text-muted-foreground border-t">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleLightboxPrev}
+                className="rounded-full border px-3 py-1 hover:bg-muted transition-colors"
+              >
+                &lt;
+              </button>
+              <button
+                type="button"
+                onClick={handleLightboxNext}
+                className="rounded-full border px-3 py-1 hover:bg-muted transition-colors"
+              >
+                &gt;
+              </button>
+            </div>
+            <div>
+              {activeIndex + 1} / {validImages.length}
+            </div>
+          </div>
+        )}
+
+        {/* 当前图片 caption */}
+        {images[activeIndex]?.caption && (
+          <div className="border-t px-4 py-3 text-xs text-muted-foreground whitespace-pre-wrap">
+            {images[activeIndex].caption}
+          </div>
+        )}
+      </div>
+    </div>
+  ) : null
 
   return (
-    <article className="rounded bg-card/60 backdrop-blur-sm shadow-sm border-2 border-black p-4 sm:p-5">
+    <>
+      <article className="rounded bg-card/60 backdrop-blur-sm shadow-sm border-2 border-black p-4 sm:p-5">
       {/* 标题和日期 */}
       <div className="flex items-start justify-between gap-3 mb-3">
         <h2 className="text-base font-semibold leading-tight">{title}</h2>
@@ -140,7 +249,8 @@ export function SketchlogCard({ entry }: SketchlogCardProps) {
         {validImages.length > 0 && (
           <div
             ref={imageRef}
-            className="relative bg-muted rounded-lg overflow-hidden shrink-0"
+            className="relative bg-muted rounded-lg overflow-hidden shrink-0 cursor-pointer"
+            onClick={() => handleOpenLightbox(currentImageIndex)}
             style={
               containerRef.current
                 ? {
@@ -183,7 +293,10 @@ export function SketchlogCard({ entry }: SketchlogCardProps) {
                   type="button"
                   aria-label="Show previous image"
                   className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full border border-[hsl(var(--accent))] text-[hsl(var(--accent))] opacity-70 transition-all duration-300 ease-in-out hover:opacity-100 hover:bg-black/50 hover:text-white hover:border-white z-10"
-                  onClick={goPrev}
+                  onClick={(e) => {
+                    e.stopPropagation() // 阻止触发图片点击事件
+                    goPrev()
+                  }}
                 >
                   <span className="text-sm leading-none">◀</span>
                 </button>
@@ -191,7 +304,10 @@ export function SketchlogCard({ entry }: SketchlogCardProps) {
                   type="button"
                   aria-label="Show next image"
                   className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full border border-[hsl(var(--accent))] text-[hsl(var(--accent))] opacity-70 transition-all duration-300 ease-in-out hover:opacity-100 hover:bg-black/50 hover:text-white hover:border-white z-10"
-                  onClick={goNext}
+                  onClick={(e) => {
+                    e.stopPropagation() // 阻止触发图片点击事件
+                    goNext()
+                  }}
                 >
                   <span className="text-sm leading-none">▶</span>
                 </button>
@@ -249,7 +365,11 @@ export function SketchlogCard({ entry }: SketchlogCardProps) {
           关联项目: {String(project.title ?? 'Unknown project')}
         </div>
       )}
-    </article>
+      </article>
+
+      {/* 使用 Portal 将 Lightbox 渲染到 document.body */}
+      {mounted && lightboxOpen ? createPortal(lightbox, document.body) : null}
+    </>
   )
 }
 
