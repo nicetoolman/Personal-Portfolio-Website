@@ -21,20 +21,20 @@ export function AboutMain({ decorationsData, mobileHero }: AboutMainProps) {
       {/* 移动端专用 hero */}
       {mobileHero?.image && typeof mobileHero.image === 'object' && (
         <div
-          className="w-full block md:hidden"
+          className="w-full block md:hidden relative"
           style={{
             aspectRatio: '3560/2896',
+            minHeight: 0, // Ensure container can shrink if needed
           }}
         >
-          <div className="relative w-full h-full overflow-hidden">
-            <Media
-              resource={mobileHero.image}
-              htmlElement="div"
-              className="absolute inset-0"
-              imgClassName="object-contain w-full h-full"
-              fill
-            />
-          </div>
+          <Media
+            resource={mobileHero.image}
+            htmlElement="div"
+            className="absolute inset-0"
+            imgClassName="object-contain w-full h-full"
+            fill
+            priority
+          />
         </div>
       )}
 
