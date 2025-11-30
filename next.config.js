@@ -33,6 +33,12 @@
           pathname: '/api/media/**', // 推荐加上路径
         },
 
+        // 👇👇👇 新增：Vercel Blob Storage 支持 👇👇👇
+        {
+          protocol: 'https',
+          hostname: '*.public.blob.vercel-storage.com',
+        },
+
         ...(LOCAL_NETWORK_HOST
           ? [
               {

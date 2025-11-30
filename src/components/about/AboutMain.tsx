@@ -16,10 +16,13 @@ export function AboutMain({ decorationsData, mobileHero }: AboutMainProps) {
   const decorationSection3 = decorationsData?.decorationSection3
   const resumeSection = decorationsData?.resumeSection
 
+  // Debug: Check if mobileHero data is available
+  const hasMobileHeroImage = mobileHero?.image && typeof mobileHero.image === 'object'
+
   return (
     <div className="w-full h-auto flex flex-col items-center">
       {/* 移动端专用 hero */}
-      {mobileHero?.image && typeof mobileHero.image === 'object' && (
+      {hasMobileHeroImage && (
         <div
           className="w-full block md:hidden relative"
           style={{
