@@ -25,6 +25,14 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+
+      // 👇👇👇 新增：手动加入你的自定义域名 catbox.world 👇👇👇
+      {
+        protocol: 'https',
+        hostname: 'catbox.world',
+        pathname: '/api/media/**', // 推荐加上路径
+      },
+
       ...(LOCAL_NETWORK_HOST
         ? [
             {
