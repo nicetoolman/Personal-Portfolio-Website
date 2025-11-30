@@ -1,4 +1,4 @@
-import { cache } from 'react'
+import { unstable_cache } from 'next/cache'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -7,7 +7,7 @@ import type { Sketchlog } from '@/payload-types'
 
 /**
  * Server-side helper to fetch featured sketchlogs for home page.
- * The query is cached per request.
+ * Uses Next.js unstable_cache with revalidation tag for proper cache invalidation.
  */
 async function fetchFeaturedSketchlogsForHomeInternal(): Promise<Sketchlog[]> {
   try {
@@ -33,5 +33,13 @@ async function fetchFeaturedSketchlogsForHomeInternal(): Promise<Sketchlog[]> {
   }
 }
 
-export const fetchFeaturedSketchlogsForHome = cache(fetchFeaturedSketchlogsForHomeInternal)
+// Use unstable_cache with revalidation tag and 60-second revalidation
+export const fetchFeaturedSketchlogsForHome = unstable_cache(
+  fetchFeaturedSketchlogsForHomeInternal,
+  ['featured-sketchlogs'],
+  {
+    tags: ['sketchlogs'],
+    revalidate: 60,
+  },
+)
 

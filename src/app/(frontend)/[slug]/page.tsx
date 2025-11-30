@@ -25,6 +25,8 @@ import type { AboutMobileHero } from '@/payload-types'
 
 export const dynamic = 'force-dynamic'
 export const dynamicParams = true
+// Enable ISR revalidation: regenerate homepage every 60 seconds to fetch fresh sketchlog data
+export const revalidate = 60
 
 type Args = {
   params: Promise<{

@@ -1,4 +1,4 @@
-import { cache } from 'react'
+import { unstable_cache } from 'next/cache'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -7,7 +7,7 @@ import type { Project } from '@/payload-types'
 
 /**
  * Server-side helper to fetch featured projects for home page.
- * The query is cached per request.
+ * Uses Next.js unstable_cache with revalidation tag for proper cache invalidation.
  */
 async function fetchFeaturedProjectsForHomeInternal(): Promise<Project[]> {
   try {
@@ -33,5 +33,13 @@ async function fetchFeaturedProjectsForHomeInternal(): Promise<Project[]> {
   }
 }
 
-export const fetchFeaturedProjectsForHome = cache(fetchFeaturedProjectsForHomeInternal)
+// Use unstable_cache with revalidation tag and 60-second revalidation
+export const fetchFeaturedProjectsForHome = unstable_cache(
+  fetchFeaturedProjectsForHomeInternal,
+  ['featured-projects'],
+  {
+    tags: ['projects'],
+    revalidate: 60,
+  },
+)
 
