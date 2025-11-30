@@ -26,7 +26,7 @@ export function ProjectStepBlock({ step, index }: ProjectStepBlockProps) {
 
   return (
     <article
-      className="flex w-full max-w-[var(--layout-canvas-wide)] flex-col bg-[hsl(var(--background))] px-md md:px-md"
+      className="relative flex w-full max-w-[var(--layout-canvas-wide)] flex-col bg-[hsl(var(--background))] px-md md:px-md"
       style={{ rowGap: BODY_GAP }}
     >
       {renderHeader(step, index)}
@@ -63,11 +63,7 @@ function renderHeader(step: Step, index: number) {
 // Step Body (variant layout only, no sidebars)
 // =====================
 function renderBody(step: Step) {
-  return (
-    <div className="relative w-full">
-      <CenterColumn>{renderVariantContent(step)}</CenterColumn>
-    </div>
-  )
+  return <CenterColumn>{renderVariantContent(step)}</CenterColumn>
 }
 
 // =====================
@@ -76,16 +72,18 @@ function renderBody(step: Step) {
 function renderSidebars(step: Step) {
   if (!step.enableSidebarLeft && !step.enableSidebarRight) return null
 
+  const sidebarBaseClass = 'md:absolute md:top-0 md:pointer-events-auto md:z-10 md:w-auto w-full'
+
   return (
-    <div className="relative w-full">
+    <div className="relative w-full md:absolute md:inset-0 md:pointer-events-none">
       {step.enableSidebarLeft && (
-        <div className="absolute left-[8px] top-0 md:w-auto w-full">
+        <div className={cn(sidebarBaseClass, 'md:left-[8px]')}>
           <StepSidebar sidebar={step.sidebarLeft ?? undefined} />
         </div>
       )}
 
       {step.enableSidebarRight && (
-        <div className="absolute right-[8px] top-0 md:w-auto w-full">
+        <div className={cn(sidebarBaseClass, 'md:right-[8px]')}>
           <StepSidebar sidebar={step.sidebarRight ?? undefined} />
         </div>
       )}
