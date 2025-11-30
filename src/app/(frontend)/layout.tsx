@@ -68,9 +68,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
+  title: 'CATBOX',  // ← 添加默认标题
+  description: 'Sketches, stories, and visual experiments by Ming Zu',  // ← 添加默认描述
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
+    creator: '@nicetoolman',
   },
 }
