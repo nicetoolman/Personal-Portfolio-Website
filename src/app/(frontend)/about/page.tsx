@@ -4,6 +4,9 @@ import { LayoutViewport } from '@/components/LayoutViewport'
 import { AboutMain } from '@/components/about/AboutMain'
 import type { AboutPageDecoration as AboutPageDecorationType } from '@/payload-types'
 
+export const dynamic = 'force-dynamic'
+export const dynamicParams = true
+
 export default async function AboutPage() {
   const decorationsData: AboutPageDecorationType = await getCachedGlobal(
     'aboutPageDecorations',

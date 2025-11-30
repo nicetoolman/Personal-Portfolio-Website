@@ -4,6 +4,9 @@ import { LayoutViewport } from '@/components/LayoutViewport'
 import { SketchlogCard } from '@/components/sketchlog/SketchlogCard'
 import { fetchSketchlogs } from '@/lib/sketchlogs/fetchSketchlogs'
 
+export const dynamic = 'force-dynamic'
+export const dynamicParams = true
+
 export const metadata: Metadata = {
   title: 'Sketchlog | CATBOX',
   description: '速写 / 草图 / 过程图的时间线。所有内容都在这个 feed 里完成。',

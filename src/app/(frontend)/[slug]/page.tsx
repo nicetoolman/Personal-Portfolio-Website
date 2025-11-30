@@ -21,29 +21,8 @@ import { fetchFeaturedProjectsForHome } from '@/lib/projects/fetchFeaturedProjec
 import { fetchFeaturedSketchlogsForHome } from '@/lib/sketchlogs/fetchFeaturedSketchlogsForHome'
 import { fetchAboutPageForHome } from '@/lib/pages/fetchAboutPageForHome'
 
-export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise })
-  const pages = await payload.find({
-    collection: 'pages',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    pagination: false,
-    select: {
-      slug: true,
-    },
-  })
-
-  const params = pages.docs
-    ?.filter((doc) => {
-      return doc.slug !== 'home'
-    })
-    .map(({ slug }) => {
-      return { slug }
-    })
-
-  return params
-}
+export const dynamic = 'force-dynamic'
+export const dynamicParams = true
 
 type Args = {
   params: Promise<{
@@ -173,24 +152,34 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 }
 
 const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
-  const { isEnabled: draft } = await draftMode()
+  try {
+    if (!slug) {
+      return null
+    }
 
-  const payload = await getPayload({ config: configPromise })
+    const { isEnabled: draft } = await draftMode()
 
-  const result = await payload.find({
-    collection: 'pages',
-    draft,
-    limit: 1,
-    pagination: false,
-    overrideAccess: draft,
-    where: {
-      slug: {
-        equals: slug,
+    const payload = await getPayload({ config: configPromise })
+
+    const result = await payload.find({
+      collection: 'pages',
+      draft,
+      limit: 1,
+      pagination: false,
+      overrideAccess: draft,
+      depth: 1, // prevent recursive payload relations from causing RSC serialization hang
+      where: {
+        slug: {
+          equals: slug,
+        },
       },
-    },
-  })
+    })
 
-  return result.docs?.[0] || null
+    return result.docs?.[0] || null
+  } catch (error) {
+    console.error('Failed to fetch page by slug:', error)
+    return null
+  }
 })
 
 //调试信息

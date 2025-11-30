@@ -15,34 +15,37 @@ import { ProjectStepsSection } from '@/components/projects/ProjectSteps'
 import { ProjectNavFooter } from '@/components/projects/ProjectNavFooter'
 import { fetchProjectPage } from '@/lib/projects/fetchProjectPage'
 
-export async function generateStaticParams() {
-  try {
-    const payload = await getPayload({ config: configPromise })
-    const projects = await payload.find({
-      collection: 'projects',
-      draft: false,
-      limit: 1000,
-      overrideAccess: false,
-      pagination: false,
-      select: {
-        slug: true,
-      },
-    })
+// export async function generateStaticParams() {
+//   try {
+//     const payload = await getPayload({ config: configPromise })
+//     const projects = await payload.find({
+//       collection: 'projects',
+//       draft: false,
+//       limit: 1000,
+//       overrideAccess: false,
+//       pagination: false,
+//       select: {
+//         slug: true,
+//       },
+//     })
 
-    type ProjectSlugDoc = { slug?: string | null }
+//     type ProjectSlugDoc = { slug?: string | null }
 
-    const params = (projects.docs as ProjectSlugDoc[])
-      .filter((doc): doc is { slug: string } => Boolean(doc.slug))
-      .map(({ slug }) => {
-        return { slug }
-      })
+//     const params = (projects.docs as ProjectSlugDoc[])
+//       .filter((doc): doc is { slug: string } => Boolean(doc.slug))
+//       .map(({ slug }) => {
+//         return { slug }
+//       })
 
-    return params
-  } catch (error) {
-    console.error('Error generating static params for projects:', error)
-    return []
-  }
-}
+//     return params
+//   } catch (error) {
+//     console.error('Error generating static params for projects:', error)
+//     return []
+//   }
+// }
+
+export const dynamic = 'force-dynamic'
+export const dynamicParams = true
 
 type Args = {
   params: Promise<{
@@ -56,6 +59,8 @@ export default async function ProjectDetail({ params: paramsPromise }: Args) {
   const url = '/projects/' + slug
   const { project, redirects } = await fetchProjectPage(slug)
 
+  // project can be null if fetchProjectPage encountered a depth/redirect SSR failure
+  // the page must immediately return instead of continuing to render LayoutViewport
   if (!project) {
     return <PayloadRedirects url={url} prefetchedRedirects={redirects ?? undefined} />
   }

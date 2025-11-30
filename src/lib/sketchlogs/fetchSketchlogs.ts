@@ -20,10 +20,11 @@ async function fetchSketchlogsInternal(): Promise<Sketchlog[]> {
         },
       },
       sort: '-publishedOn', // 按发布日期倒序
-      depth: 2, // 需要展开 media 和 project 关系
+      depth: 1, // prevent recursive payload relations from causing RSC serialization hang
       limit: 50,
+      pagination: false,
     })
-    return docs as Sketchlog[]
+    return (docs as Sketchlog[]) || []
   } catch (error) {
     console.error('Failed to fetch sketchlogs:', error)
     return [] // 返回空数组，避免页面崩溃

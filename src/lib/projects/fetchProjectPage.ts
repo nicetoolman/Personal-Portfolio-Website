@@ -16,43 +16,54 @@ type FetchResult = {
  * ensuring generateMetadata and the page component reuse the same result.
  */
 async function fetchProjectPageInternal(slug: string): Promise<FetchResult> {
-  if (!slug) {
-    return { project: null, redirects: null }
-  }
+  try {
+    if (!slug) {
+      return { project: null, redirects: null }
+    }
 
-  const { isEnabled: draft } = await draftMode()
-  const payload = await getPayload({ config: configPromise })
+    const { isEnabled: draft } = await draftMode()
+    const payload = await getPayload({ config: configPromise })
 
-  const projectResult = await payload.find({
-    collection: 'projects',
-    draft,
-    limit: 1,
-    overrideAccess: draft,
-    pagination: false,
-    depth: 2,
-    where: {
-      slug: {
-        equals: slug,
+    const projectResult = await payload.find({
+      collection: 'projects',
+      draft,
+      limit: 1,
+      overrideAccess: draft,
+      pagination: false,
+      depth: 2, // needed by intro and steps
+      where: {
+        slug: {
+          equals: slug,
+        },
       },
-    },
-  })
+    })
 
-  const project = (projectResult.docs?.[0] as Project | undefined) ?? null
+    const project = (projectResult.docs?.[0] as Project | undefined) ?? null
 
-  if (project) {
-    return { project, redirects: null }
-  }
+    if (project) {
+      return { project, redirects: null }
+    }
 
-  const redirectsResult = await payload.find({
-    collection: 'redirects',
-    limit: 300,
-    pagination: false,
-    depth: 1,
-  })
+    // Large redirect queries with depth were causing SSR stalls
+    const redirectsResult = await payload.find({
+      collection: 'redirects',
+      limit: 100, // lower load + faster SSR
+      pagination: false,
+      depth: 0, // prevent nested relations from causing RSC serialization stalls
+      select: {
+        // only fetch necessary fields
+        from: true,
+        to: true,
+      },
+    })
 
-  return {
-    project: null,
-    redirects: redirectsResult.docs as Redirect[],
+    return {
+      project: null,
+      redirects: redirectsResult.docs as Redirect[],
+    }
+  } catch (error) {
+    console.error('Failed to fetch project page:', error)
+    return { project: null, redirects: null }
   }
 }
 

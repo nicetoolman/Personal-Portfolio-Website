@@ -21,11 +21,12 @@ async function fetchFeaturedProjectsForHomeInternal(): Promise<Project[]> {
         },
       },
       sort: '-publishedOn', // 按发布日期倒序
-      depth: 2, // 需要 depth=2 来获取 intro 中的嵌套数据
+      depth: 1, // prevent recursive payload relations from causing RSC serialization hang
       limit: 3,
+      pagination: false,
     })
 
-    return docs as Project[]
+    return (docs as Project[]) || []
   } catch (error) {
     console.error('Failed to fetch featured projects:', error)
     return [] // 返回空数组，避免页面崩溃

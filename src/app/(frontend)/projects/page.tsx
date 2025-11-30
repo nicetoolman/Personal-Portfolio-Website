@@ -7,6 +7,9 @@ import { ProjectCardsContainer } from '@/components/projects/ProjectCardsContain
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import type { Media as MediaType, ProjectPageIntro as ProjectPageIntroType } from '@/payload-types'
 
+export const dynamic = 'force-dynamic'
+export const dynamicParams = true
+
 export const metadata: Metadata = {
   title: 'Projects | CATBOX',
   description: 'Projects list is under construction.',

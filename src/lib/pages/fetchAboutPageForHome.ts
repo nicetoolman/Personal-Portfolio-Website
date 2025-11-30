@@ -18,7 +18,7 @@ async function fetchAboutPageForHomeInternal(): Promise<AboutPageDecoration | nu
       depth: 1,
     })
 
-    return (global as AboutPageDecoration) ?? null
+    return (global as AboutPageDecoration) || null
   } catch (error) {
     console.error('Failed to fetch About page decorations:', error)
     return null // 返回 null，避免页面崩溃
