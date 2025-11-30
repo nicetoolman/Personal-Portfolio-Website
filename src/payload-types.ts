@@ -116,6 +116,7 @@ export interface Config {
     aboutPageDecorations: AboutPageDecoration;
     projectPageIntro: ProjectPageIntro;
     projectDetailPageIntro: ProjectDetailPageIntro;
+    aboutMobileHero: AboutMobileHero;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -123,6 +124,7 @@ export interface Config {
     aboutPageDecorations: AboutPageDecorationsSelect<false> | AboutPageDecorationsSelect<true>;
     projectPageIntro: ProjectPageIntroSelect<false> | ProjectPageIntroSelect<true>;
     projectDetailPageIntro: ProjectDetailPageIntroSelect<false> | ProjectDetailPageIntroSelect<true>;
+    aboutMobileHero: AboutMobileHeroSelect<false> | AboutMobileHeroSelect<true>;
   };
   locale: null;
   user: User & {
@@ -2596,6 +2598,19 @@ export interface ProjectDetailPageIntro {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "aboutMobileHero".
+ */
+export interface AboutMobileHero {
+  id: number;
+  /**
+   * 移动端 About Intro 用的大图（导出的那一张）
+   */
+  image?: (number | null) | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2790,6 +2805,16 @@ export interface ProjectPageIntroSelect<T extends boolean = true> {
  */
 export interface ProjectDetailPageIntroSelect<T extends boolean = true> {
   scrollHintImage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "aboutMobileHero_select".
+ */
+export interface AboutMobileHeroSelect<T extends boolean = true> {
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

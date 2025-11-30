@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { LayoutViewport } from '@/components/LayoutViewport'
 import { AboutMain } from '@/components/about/AboutMain'
-import type { AboutPageDecoration as AboutPageDecorationType } from '@/payload-types'
+import type { AboutPageDecoration as AboutPageDecorationType, AboutMobileHero } from '@/payload-types'
 
 export const dynamic = 'force-dynamic'
 export const dynamicParams = true
@@ -13,10 +13,15 @@ export default async function AboutPage() {
     1,
   )()
 
+  const mobileHeroData: AboutMobileHero = await getCachedGlobal(
+    'aboutMobileHero',
+    1,
+  )()
+
   return (
     <article>
       <LayoutViewport variant="narrow">
-        <AboutMain decorationsData={decorationsData} />
+        <AboutMain decorationsData={decorationsData} mobileHero={mobileHeroData} />
       </LayoutViewport>
     </article>
   )

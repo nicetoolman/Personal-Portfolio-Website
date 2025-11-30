@@ -1,12 +1,13 @@
 import { Media } from '@/components/Media'
 import { AboutPageInteractiveCard } from '@/components/AboutPageInteractiveCard'
-import type { AboutPageDecoration } from '@/payload-types'
+import type { AboutPageDecoration, AboutMobileHero } from '@/payload-types'
 
 interface AboutMainProps {
   decorationsData: AboutPageDecoration | null
+  mobileHero?: AboutMobileHero | null
 }
 
-export function AboutMain({ decorationsData }: AboutMainProps) {
+export function AboutMain({ decorationsData, mobileHero }: AboutMainProps) {
   if (!decorationsData) return null
 
   const introSection = decorationsData?.introSection
@@ -17,19 +18,40 @@ export function AboutMain({ decorationsData }: AboutMainProps) {
 
   return (
     <div className="w-full h-auto flex flex-col items-center">
-      {/* Grid 容器：宽度与 About 内容容器一致，比例 890/635，所有属性按比例变化 */}
-      <div
-        className="grid overflow-hidden relative shrink-0 w-full"
-        style={{
-          width: '100%', // 与 About 内容容器宽度一致
-          aspectRatio: '890/635', // 保持 Grid 容器的宽高比
-          padding: 'calc(100% * 3 / 890) calc(100% * 8 / 890)', // 按比例变化
-          rowGap: '6', // 按比例变化
-          columnGap: '6', // 按比例变化
-          gridTemplateRows: 'repeat(8, minmax(0, 1fr))',
-          gridTemplateColumns: 'repeat(13, minmax(0, 1fr))',
-        }}
-      >
+      {/* 移动端专用 hero */}
+      {mobileHero?.image && typeof mobileHero.image === 'object' && (
+        <div
+          className="w-full block md:hidden"
+          style={{
+            aspectRatio: '3560/2896',
+          }}
+        >
+          <div className="relative w-full h-full overflow-hidden">
+            <Media
+              resource={mobileHero.image}
+              htmlElement="div"
+              className="absolute inset-0"
+              imgClassName="object-contain w-full h-full"
+              fill
+            />
+          </div>
+        </div>
+      )}
+
+      {/* 桌面端 Intro Grid 容器：宽度与 About 内容容器一致，比例 890/635，所有属性按比例变化 */}
+      <div className="hidden md:block w-full">
+        <div
+          className="grid overflow-hidden relative shrink-0 w-full"
+          style={{
+            width: '100%', // 与 About 内容容器宽度一致
+            aspectRatio: '890/635', // 保持 Grid 容器的宽高比
+            padding: 'calc(100% * 3 / 890) calc(100% * 8 / 890)', // 按比例变化
+            rowGap: '6', // 按比例变化
+            columnGap: '6', // 按比例变化
+            gridTemplateRows: 'repeat(8, minmax(0, 1fr))',
+            gridTemplateColumns: 'repeat(13, minmax(0, 1fr))',
+          }}
+        >
         {/* 子容器 1：CATBOX 标题区域 (1, 1, 3, 3) */}
         <div
           className="grid overflow-hidden shrink-0 relative"
@@ -182,6 +204,7 @@ export function AboutMain({ decorationsData }: AboutMainProps) {
             />
           )}
         </div>
+      </div>
       </div>
 
       {/* About 装饰区 1：890 × 168 图片容器 */}
