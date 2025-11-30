@@ -1,4 +1,4 @@
-import { cache } from 'react'
+import { unstable_cache } from 'next/cache'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -7,7 +7,7 @@ import type { AboutPageDecoration } from '@/payload-types'
 
 /**
  * Server-side helper to fetch About page decorations for home page.
- * The query is cached per request.
+ * Uses Next.js unstable_cache with revalidation tag for proper cache invalidation.
  */
 async function fetchAboutPageForHomeInternal(): Promise<AboutPageDecoration | null> {
   try {
@@ -25,5 +25,13 @@ async function fetchAboutPageForHomeInternal(): Promise<AboutPageDecoration | nu
   }
 }
 
-export const fetchAboutPageForHome = cache(fetchAboutPageForHomeInternal)
+// Use unstable_cache with revalidation tag and 60-second revalidation
+export const fetchAboutPageForHome = unstable_cache(
+  fetchAboutPageForHomeInternal,
+  ['about-page-decorations'],
+  {
+    tags: ['global_aboutPageDecorations'],
+    revalidate: 60,
+  },
+)
 
