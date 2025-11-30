@@ -104,7 +104,7 @@ export default async function Page({ params: paramsPromise }: Args) {
           {featuredProjects.length > 0 && (
             <div>
               <div className="mb-3 flex items-baseline justify-between">
-                <h2 className="text-sm font-semibold tracking-wide uppercase">Projects</h2>
+                <h2 className="text-sm font-semibold tracking-wide uppercase">Project</h2>
                 <Link
                   href="/projects"
                   className="text-xs text-muted-foreground hover:underline"
