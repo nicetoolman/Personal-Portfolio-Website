@@ -36,11 +36,7 @@ export function SketchlogCard({ entry }: SketchlogCardProps) {
   // 提取数据
   const title = entry.title || 'Untitled Sketchlog'
   const publishedOn = entry.publishedOn
-    ? new Date(entry.publishedOn as string).toLocaleDateString('ja-JP', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      })
+    ? new Date(entry.publishedOn as string).toISOString().split('T')[0]
     : null
   const images = (entry.images as { image?: any; caption?: string }[] | undefined) ?? []
   const excerpt = entry.excerpt as any // RichText 数据（JSON 格式）
