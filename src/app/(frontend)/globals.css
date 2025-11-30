@@ -197,6 +197,11 @@ body {
   background: transparent;
 }
 
+/* Hide horizontal scrollbar for step blocks */
+.step-block-scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
 .about-scroll-container::-webkit-scrollbar-track {
   background: transparent;
 }

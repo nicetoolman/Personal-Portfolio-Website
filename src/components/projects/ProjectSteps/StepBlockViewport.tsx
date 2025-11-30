@@ -128,7 +128,14 @@ export function StepBlockViewport({ children }: PropsWithChildren) {
 
   // Desktop: original scaling behavior
   return (
-    <div ref={scrollRef} className="w-full overflow-x-auto">
+    <div 
+      ref={scrollRef} 
+      className="w-full overflow-x-auto step-block-scrollbar-hide"
+      style={{
+        scrollbarWidth: 'none', // Firefox
+        msOverflowStyle: 'none', // IE/Edge
+      }}
+    >
       <div
         ref={wrapperRef}
         className="inline-block"
