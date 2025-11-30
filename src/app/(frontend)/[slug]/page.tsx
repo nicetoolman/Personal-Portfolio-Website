@@ -20,6 +20,8 @@ import { AboutMain } from '@/components/about/AboutMain'
 import { fetchFeaturedProjectsForHome } from '@/lib/projects/fetchFeaturedProjectsForHome'
 import { fetchFeaturedSketchlogsForHome } from '@/lib/sketchlogs/fetchFeaturedSketchlogsForHome'
 import { fetchAboutPageForHome } from '@/lib/pages/fetchAboutPageForHome'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+import type { AboutMobileHero } from '@/payload-types'
 
 export const dynamic = 'force-dynamic'
 export const dynamicParams = true
@@ -57,13 +59,14 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   // 只在首页（slug === 'home'）时获取移动端 feed 数据
   const isHomePage = slug === 'home'
-  const [featuredProjects, featuredSketchlogs, aboutPageData] = isHomePage
+  const [featuredProjects, featuredSketchlogs, aboutPageData, mobileHeroData] = isHomePage
     ? await Promise.all([
         fetchFeaturedProjectsForHome(),
         fetchFeaturedSketchlogsForHome(),
         fetchAboutPageForHome(),
+        getCachedGlobal('aboutMobileHero', 1)(),
       ])
-    : [[], [], null]
+    : [[], [], null, null]
 
   return (
     <article className={cn(!isCustomHomepage && 'pb-16')}>
@@ -132,7 +135,7 @@ export default async function Page({ params: paramsPromise }: Args) {
                 </Link>
               </div>
               <div className="border border-border/40 rounded-2xl bg-background/80 p-4">
-                <AboutMain decorationsData={aboutPageData} />
+                <AboutMain decorationsData={aboutPageData} mobileHero={mobileHeroData as AboutMobileHero | null} />
               </div>
             </div>
           )}
