@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
-import type { Media as MediaType, Project, SidebarVariants } from '@/payload-types'
+import type { Media as MediaType, Project, SidebarVariant } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
 type Sidebar = NonNullable<Project['steps']>[number]['sidebarLeft']
@@ -43,7 +43,7 @@ export function StepSidebar({ sidebar }: StepSidebarProps) {
   )
 }
 
-function renderIconSlot(variant?: string | null) {
+function renderIconSlot(variant?: number | SidebarVariant | null) {
   if (!variant) {
     return (
       <div className="relative h-[78px] w-full rounded-[10px] border border-dashed border-black/40 bg-white/40">
@@ -54,7 +54,7 @@ function renderIconSlot(variant?: string | null) {
     )
   }
 
-  const variantDoc = typeof variant === 'object' ? (variant as SidebarVariants) : null
+  const variantDoc = typeof variant === 'object' ? (variant as SidebarVariant) : null
 
   return (
     <div
