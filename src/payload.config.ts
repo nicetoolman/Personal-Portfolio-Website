@@ -11,8 +11,17 @@ import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
+import { Tags } from './collections/Tags'
+import { Sketchbook } from './collections/Sketchbook'
+import { Sketchlogs } from './collections/Sketchlogs'
+import { Projects } from './collections/Projects'
+import { SidebarVariants } from './collections/SidebarVariants'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
+import { AboutPageDecorations } from './AboutPageDecorations/config'
+import { ProjectPageIntro } from './ProjectPageIntro/config'
+import { ProjectDetailPageIntro } from './ProjectDetailPageIntro/config'
+import { AboutMobileHero } from './globals/AboutMobileHero'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -64,9 +73,9 @@ export default buildConfig({
       connectionString: process.env.POSTGRES_URL || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Media, Categories, Users, Tags, Sketchbook, Sketchlogs, Projects, SidebarVariants],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer],
+  globals: [Header, Footer, AboutPageDecorations, ProjectPageIntro, ProjectDetailPageIntro, AboutMobileHero],
   plugins: [
     ...plugins,
     vercelBlobStorage({

@@ -35,6 +35,10 @@ export const hero: Field = {
           label: 'Low Impact',
           value: 'lowImpact',
         },
+        {
+          label: 'Custom Homepage',
+          value: 'customHomepage',
+        },
       ],
       required: true,
     },
@@ -66,6 +70,79 @@ export const hero: Field = {
       },
       relationTo: 'media',
       required: true,
+    },
+    // Custom Homepage Hero fields
+    {
+      name: 'mainVisualGroup',
+      type: 'group',
+      admin: {
+        condition: (_, { type } = {}) => type === 'customHomepage',
+      },
+      fields: [
+        {
+          name: 'mainVisual',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Main Visual',
+          admin: {
+            description: 'Main visual image (1024x1024, right-aligned)',
+          },
+        },
+      ],
+    },
+    {
+      name: 'titleGroup',
+      type: 'group',
+      admin: {
+        condition: (_, { type } = {}) => type === 'customHomepage',
+      },
+      fields: [
+        {
+          name: 'titleImage',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Title Image',
+          admin: {
+            description: 'Title image (full size overlay)',
+          },
+        },
+      ],
+    },
+    {
+      name: 'scrollBarGroup',
+      type: 'group',
+      admin: {
+        condition: (_, { type } = {}) => type === 'customHomepage',
+      },
+      fields: [
+        {
+          name: 'scrollBar',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Scroll Bar',
+          admin: {
+            description: 'Scroll bar image (bottom aligned)',
+          },
+        },
+      ],
+    },
+    {
+      name: 'decorationGroup',
+      type: 'group',
+      admin: {
+        condition: (_, { type } = {}) => type === 'customHomepage',
+      },
+      fields: [
+        {
+          name: 'decorationImage',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Decoration Image',
+          admin: {
+            description: 'Decoration image (full size overlay, top layer)',
+          },
+        },
+      ],
     },
   ],
   label: false,

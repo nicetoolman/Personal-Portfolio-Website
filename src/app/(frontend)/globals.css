@@ -14,73 +14,155 @@
   }
 
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 34 71% 88%;
+    --foreground: 0 0% 0%;
 
-    --card: 240 5% 96%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 34 71% 88%;
+    --card-foreground: 0 0% 0%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 34 71% 88%;
+    --popover-foreground: 0 0% 0%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 0% 0%;
+    --primary-foreground: 34 71% 88%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 0 0% 0% / 0.5;
+    --secondary-foreground: 34 71% 88%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 34 71% 88%;
+    --muted-foreground: 0 0% 0%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 24 64% 66%;
+    --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 240 6% 80%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 0 0% 0%;
+    --input: 0 0% 0%;
+    --ring: 0 0% 0%;
 
     --radius: 0.2rem;
+
+    /* 内容区域边框样式（通用，方便以后取消） */
+    --border-width-content: 2px; /* 设置为 0px 即可取消边框 */
+
+    /* About 页面设计基准宽度 */
+    --about-base-width: 890px;
 
     --success: 196 52% 74%;
     --warning: 34 89% 85%;
     --error: 10 100% 86%;
+
+    /* Navbar 基础尺寸 */
+    --navbar-height: 80px;
+    --navbar-font-size: 16px;
+    --navbar-side-padding: 16px;
+    
+    /* Icon 尺寸 */
+    --navbar-icon-height: 80px;
+    --navbar-icon-aspect-ratio: 88/87;
+    --navbar-icon-scale: 0.85; /* Icon 缩小到 85%，留出安全边距 */
+    --navbar-icon-padding-y: 8px; /* 桌面端 Icon 上下 padding */
+    
+    /* 链接容器 */
+    --navbar-link-height: 80px; /* 等于 Icon 高度 */
+    
+    /* Icon 和链接容器宽度 */
+    --navbar-content-width: calc(100vw * 550 / 1440);
+    
+    /* 间隔 */
+    --navbar-gap: 24px;
+    
+    /* 移动端尺寸 */
+    --navbar-mobile-height: 64px;
+    --navbar-mobile-hamburger-width: 48px;
+    --navbar-mobile-font-size: 14px;
+    --navbar-mobile-link-padding: 16px;
+    --navbar-mobile-icon-height: 48px; /* 移动端 Icon 高度（64px * 0.75） */
+    --navbar-mobile-icon-padding-y: 4px; /* 移动端 Icon 上下 padding */
+    
+    /* Footer 基础尺寸（参考 Header） */
+    --footer-padding-y: 8px;                  /* 与 Header icon padding-y 一致 */
+    --footer-padding-x: 16px;                 /* 与 Header side-padding 一致 */
+    --footer-gap: 16px;                       /* 元素之间的间隔（从 10px 增加） */
+    
+    /* Footer 字体大小（与 Header 一致） */
+    --footer-title-font-size: var(--navbar-font-size); /* 16px */
+    --footer-content-font-size: var(--navbar-font-size); /* 16px */
+    
+    /* Footer 区域尺寸 */
+    --footer-info-padding: 0px;               /* 移除 info 区域的 padding（从 10px 改为 0） */
+    --footer-column-gap: 24px;               /* 列之间的间隔（从 10px 增加到 24px，与 Header gap 一致） */
+    
+    /* Identity Section */
+    --footer-identity-icon-size: 60px; /* 从 100px 缩小到 60px */
+    --footer-identity-padding-x: 40px; /* Slogan 左右的 padding（从 24px 增加到 40px，让 slogan 更短） */
+    
+    /* Explore Section */
+    --footer-link-list-indent: 48px;
+    
+    /* Contact Section */
+    --footer-social-icon-size: 38px;
+    --footer-social-gap: 10px;
+    
+    /* Footer 版权信息响应式字体大小 */
+    --footer-copyright-font-size: var(--navbar-mobile-font-size); /* 默认 14px（移动端） */
+
+  /* =========================
+   * Design Tokens - Typography
+   * ========================= */
+  --font-size-display: 40px;
+  --font-size-heading-lg: 32px;
+  --font-size-heading-md: 24px;
+  --font-size-heading-sm: 20px;
+  --font-size-body-lg: 18px;
+  --font-size-body: 16px;
+  --font-size-caption: 14px;
+
+  /* =========================
+   * Design Tokens - Spacing
+   * ========================= */
+  --spacing-xs: 4px;
+  --spacing-sm: 6px;
+  --spacing-md: 8px;
+  /* ⭐ 内容节奏专用间距：StepBlock 段落间距、StepBlock 之间间距等 */
+  --spacing-paragraph: 9px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+  --spacing-3xl: 40px;
+
+  /* =========================
+   * Design Tokens - Layout
+   * ========================= */
+  --layout-content-width: 890px;
+  --layout-canvas-wide: 1440px;
+  --layout-viewport-height: 633px;
+  --layout-sidebar-width: 253px;
+  --layout-image-min-height: 280px;
+  --layout-card-ratio-project-w: 874;
+  --layout-card-ratio-project-h: 260;
   }
 
-  [data-theme='dark'] {
-    --background: 0 0% 0%;
-    --foreground: 210 40% 98%;
+  /* Footer 版权信息桌面端字体大小 */
+  @media (min-width: 768px) {
+    :root {
+      --footer-copyright-font-size: var(--footer-content-font-size); /* 桌面端 16px */
+    }
+  }
 
-    --card: 0 0% 4%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 0, 0%, 15%, 0.8;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-
-    --success: 196 100% 14%;
-    --warning: 34 51% 25%;
-    --error: 10 39% 43%;
+  /* 手机端字体降一档（≤ 640px） */
+  @media (max-width: 640px) {
+    :root {
+      --font-size-display: 32px;
+      --font-size-heading-lg: 28px;
+      --font-size-heading-md: 20px;
+      --font-size-heading-sm: 18px;
+      --font-size-body-lg: 16px;
+      --font-size-body: 15px;
+      --font-size-caption: 13px;
+    }
   }
 }
 
@@ -94,10 +176,140 @@
 }
 
 html {
-  opacity: 0;
+  opacity: 1;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
-html[data-theme='dark'],
-html[data-theme='light'] {
-  opacity: initial;
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* About 页面滚动条：低存在感但保留可用性 */
+.about-scroll-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.about-scroll-container::-webkit-scrollbar {
+  width: 6px;
+  background: transparent;
+}
+
+/* Hide horizontal scrollbar for step blocks */
+.step-block-scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.about-scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.about-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
+}
+
+@layer utilities {
+  /* ProjectCard hover 效果：使用伪元素创建内阴影层，确保不被子元素遮挡 */
+  .project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    transition: box-shadow 0.3s;
+  }
+  .project-card:hover::before {
+    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 1);
+  }
+}
+
+/* =========================
+ * LayoutViewport Styles
+ * ========================= */
+/* Base styles - consistent for SSR and client */
+/* Simple, clean styles that don't interfere with click events */
+.layout-viewport-root {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: calc(64px + var(--navbar-height));
+  margin-bottom: 4rem;
+  width: 100%;
+}
+
+.layout-viewport-inner {
+  /* Base styles - will be overridden by media queries */
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Desktop layout (≥ 640px): aspect-ratio + absolute positioning */
+@media (min-width: 640px) {
+  .layout-viewport-root--scrollable {
+    overflow: hidden;
+  }
+
+  .layout-viewport-root--narrow {
+    aspect-ratio: 890 / 633;
+  }
+
+  .layout-viewport-root--wide {
+    aspect-ratio: 1440 / 633;
+  }
+
+  .layout-viewport-inner {
+    /* Absolute positioning for scroll container */
+    /* This does NOT block clicks - children inside can still receive events */
+    position: absolute;
+    inset: 0;
+  }
+}
+
+/* Mobile layout (< 640px): natural flow, no aspect-ratio */
+@media (max-width: 639px) {
+  .layout-viewport-inner {
+    position: static;
+    width: 100%;
+  }
+}
+
+/* =========================
+ * StepBlock Mobile Styles
+ * ========================= */
+/* Mobile: disable scaling, use natural flow layout */
+.step-block-mobile {
+  width: 100%;
+  max-width: 100%;
+  /* No fixed height */
+  /* No transform */
+  /* No scale */
+}
+
+/* Mobile: disable absolute positioning for sidebars, place them after content */
+@media (max-width: 639px) {
+  /* Make sidebar containers relative instead of absolute */
+  /* Sidebar is now in its own div.relative after body and gallery */
+  .step-block-mobile article > div.relative > div[class*="absolute"] {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    width: 100% !important;
+  }
+  
+  /* Ensure sidebar appears after content in mobile */
+  .step-block-mobile article > div.relative {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Ensure sidebar content is full width on mobile */
+  .step-block-mobile aside {
+    width: 100% !important;
+  }
 }

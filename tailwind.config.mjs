@@ -50,6 +50,28 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      spacing: {
+        xs: 'var(--spacing-xs)',
+        sm: 'var(--spacing-sm)',
+        md: 'var(--spacing-md)',
+        paragraph: 'var(--spacing-paragraph)',
+        lg: 'var(--spacing-lg)',
+        xl: 'var(--spacing-xl)',
+        '2xl': 'var(--spacing-2xl)',
+        '3xl': 'var(--spacing-3xl)',
+      },
+      fontSize: {
+        display: ['var(--font-size-display)', { lineHeight: '1.2' }],
+        'heading-lg': ['var(--font-size-heading-lg)', { lineHeight: '38px' }],
+        'heading-md': ['var(--font-size-heading-md)', { lineHeight: '30px' }],
+        'heading-sm': ['var(--font-size-heading-sm)', { lineHeight: '28px' }],
+        'body-lg': ['var(--font-size-body-lg)', { lineHeight: '1.6' }],
+        body: ['var(--font-size-body)', { lineHeight: '28px' }],
+        caption: ['var(--font-size-caption)', { lineHeight: '1.4' }],
+      },
+      borderWidth: {
+        'content': 'var(--border-width-content)', // 2px - 内容区域边框（通用，可设置为 0px 取消）
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -86,6 +108,8 @@ const config = {
         },
         ring: 'hsl(var(--ring))',
         secondary: {
+          // ⚠️ 重要：必须引用 CSS 变量，不要直接写死颜色值
+          // 这样 text-secondary 类才能正确使用设计系统的 secondary 颜色（50% 不透明度黑色）
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
@@ -94,8 +118,9 @@ const config = {
         warning: 'hsl(var(--warning))',
       },
       fontFamily: {
-        mono: ['var(--font-geist-mono)'],
-        sans: ['var(--font-geist-sans)'],
+        mono: ['var(--font-geist-mono)', 'monospace'],
+        sans: ['var(--font-roboto)', 'var(--font-noto-sans-jp)', 'sans-serif'],
+        condensed: ['var(--font-roboto-condensed)', 'sans-serif'],
       },
       keyframes: {
         'accordion-down': {

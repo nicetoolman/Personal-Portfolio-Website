@@ -28,6 +28,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     size: sizeFromProps,
     src: srcFromProps,
     loading: loadingFromProps,
+    className: htmlElementClassName,
   } = props
 
   let width: number | undefined
@@ -56,8 +57,18 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         .map(([, value]) => `(max-width: ${value}px) ${value * 2}w`)
         .join(', ')
 
+  // 判断 htmlElement 是否是 absolute 定位
+  // 如果是 absolute inset-0，picture 也应该用 absolute inset-0
+  // 否则，picture 用 relative w-full h-full，但需要确保父元素有高度
+  const isParentAbsolute = htmlElementClassName?.includes('absolute') || htmlElementClassName?.includes('inset-0')
+  
   return (
-    <picture className={cn(pictureClassName)}>
+    <picture
+      className={cn(
+        pictureClassName,
+        fill && (isParentAbsolute ? 'absolute inset-0' : 'relative w-full h-full'),
+      )}
+    >
       <NextImage
         alt={alt || ''}
         className={cn(imgClassName)}

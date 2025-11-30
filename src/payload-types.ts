@@ -72,6 +72,11 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    tags: Tag;
+    sketchbook: Sketchbook;
+    sketchlogs: Sketchlog;
+    projects: Project;
+    sidebarVariants: SidebarVariant;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,6 +93,11 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
+    sketchbook: SketchbookSelect<false> | SketchbookSelect<true>;
+    sketchlogs: SketchlogsSelect<false> | SketchlogsSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    sidebarVariants: SidebarVariantsSelect<false> | SidebarVariantsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -103,10 +113,18 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    aboutPageDecorations: AboutPageDecoration;
+    projectPageIntro: ProjectPageIntro;
+    projectDetailPageIntro: ProjectDetailPageIntro;
+    aboutMobileHero: AboutMobileHero;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    aboutPageDecorations: AboutPageDecorationsSelect<false> | AboutPageDecorationsSelect<true>;
+    projectPageIntro: ProjectPageIntroSelect<false> | ProjectPageIntroSelect<true>;
+    projectDetailPageIntro: ProjectDetailPageIntroSelect<false> | ProjectDetailPageIntroSelect<true>;
+    aboutMobileHero: AboutMobileHeroSelect<false> | AboutMobileHeroSelect<true>;
   };
   locale: null;
   user: User & {
@@ -149,7 +167,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'customHomepage';
     richText?: {
       root: {
         type: string;
@@ -190,8 +208,32 @@ export interface Page {
         }[]
       | null;
     media?: (number | null) | Media;
+    mainVisualGroup?: {
+      /**
+       * Main visual image (1024x1024, right-aligned)
+       */
+      mainVisual?: (number | null) | Media;
+    };
+    titleGroup?: {
+      /**
+       * Title image (full size overlay)
+       */
+      titleImage?: (number | null) | Media;
+    };
+    scrollBarGroup?: {
+      /**
+       * Scroll bar image (bottom aligned)
+       */
+      scrollBar?: (number | null) | Media;
+    };
+    decorationGroup?: {
+      /**
+       * Decoration image (full size overlay, top layer)
+       */
+      decorationImage?: (number | null) | Media;
+    };
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout?: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -736,6 +778,442 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: number;
+  title: string;
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sketchbook".
+ */
+export interface Sketchbook {
+  id: number;
+  title: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  cover: number | Media;
+  images: {
+    image: number | Media;
+    id?: string | null;
+  }[];
+  tags?: (number | Tag)[] | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  externalLinks?:
+    | {
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * 时间线 feed 内容，用于频繁更新的速写、草图、过程图记录。
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sketchlogs".
+ */
+export interface Sketchlog {
+  id: number;
+  /**
+   * 标题（可选），如果不填写，前端会显示 "Untitled Sketchlog"
+   */
+  title?: string | null;
+  /**
+   * 发布日期，用于时间线排序
+   */
+  publishedOn: string;
+  /**
+   * 这一条 Sketchlog 相关的图片（至少 1 张，可以多张）。
+   */
+  images: {
+    /**
+     * 图片资源
+     */
+    image: number | Media;
+    /**
+     * 图片说明（可选）
+     */
+    caption?: string | null;
+    id?: string | null;
+  }[];
+  /**
+   * 这一条的文字说明，feed 里会显示，可折叠展开。支持富文本格式。
+   */
+  excerpt?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * 如果这条是某个项目的过程记录，可以在这里关联。
+   */
+  project?: (number | null) | Project;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  intro: {
+    titleGroup: {
+      title: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+      subtitle?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+    };
+    heroImage?: (number | null) | Media;
+    content: {
+      overview: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+      goal?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      process?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      outcome?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+    };
+    showcaseImages?:
+      | {
+          image: number | Media;
+          caption?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    meta?: {
+      year?: string | null;
+      roles?:
+        | {
+            role: string;
+            id?: string | null;
+          }[]
+        | null;
+      keywords?:
+        | {
+            keyword: string;
+            id?: string | null;
+          }[]
+        | null;
+      links?:
+        | {
+            link: {
+              type?: ('reference' | 'custom') | null;
+              newTab?: boolean | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: number | Page;
+                  } | null)
+                | ({
+                    relationTo: 'posts';
+                    value: number | Post;
+                  } | null);
+              url?: string | null;
+              label: string;
+            };
+            id?: string | null;
+          }[]
+        | null;
+      tags?:
+        | {
+            tag: number | Tag;
+            id?: string | null;
+          }[]
+        | null;
+    };
+  };
+  steps?:
+    | {
+        variant: 'standard' | 'imageRight' | 'imageLeft';
+        title?: string | null;
+        subtitle?: string | null;
+        text1: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        text1Divider?: boolean | null;
+        text2?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        text3?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        text4?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        images?:
+          | {
+              image: number | Media;
+              /**
+               * Appears below the image in the step body.
+               */
+              caption?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        enableSidebarLeft?: boolean | null;
+        sidebarLeft?: {
+          variant: number | SidebarVariant;
+          content: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          images?:
+            | {
+                image: number | Media;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        enableSidebarRight?: boolean | null;
+        sidebarRight?: {
+          variant: number | SidebarVariant;
+          content: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          images?:
+            | {
+                image: number | Media;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  navFooter: {
+    closingImage?: (number | null) | Media;
+    previousProject?: (number | null) | Project;
+    nextProject?: (number | null) | Project;
+    backToList: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline') | null;
+    };
+  };
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sidebarVariants".
+ */
+export interface SidebarVariant {
+  id: number;
+  name: string;
+  description?: string | null;
+  icon: number | Media;
+  /**
+   * Optional CSS color for future styling.
+   */
+  accentColor?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -928,6 +1406,26 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
+        relationTo: 'tags';
+        value: number | Tag;
+      } | null)
+    | ({
+        relationTo: 'sketchbook';
+        value: number | Sketchbook;
+      } | null)
+    | ({
+        relationTo: 'sketchlogs';
+        value: number | Sketchlog;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'sidebarVariants';
+        value: number | SidebarVariant;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -1016,6 +1514,26 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         media?: T;
+        mainVisualGroup?:
+          | T
+          | {
+              mainVisual?: T;
+            };
+        titleGroup?:
+          | T
+          | {
+              titleImage?: T;
+            };
+        scrollBarGroup?:
+          | T
+          | {
+              scrollBar?: T;
+            };
+        decorationGroup?:
+          | T
+          | {
+              decorationImage?: T;
+            };
       };
   layout?:
     | T
@@ -1293,6 +1811,215 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sketchbook_select".
+ */
+export interface SketchbookSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  cover?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  tags?: T;
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  externalLinks?:
+    | T
+    | {
+        url?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sketchlogs_select".
+ */
+export interface SketchlogsSelect<T extends boolean = true> {
+  title?: T;
+  publishedOn?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  excerpt?: T;
+  project?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  title?: T;
+  intro?:
+    | T
+    | {
+        titleGroup?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+            };
+        heroImage?: T;
+        content?:
+          | T
+          | {
+              overview?: T;
+              goal?: T;
+              process?: T;
+              outcome?: T;
+            };
+        showcaseImages?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              id?: T;
+            };
+        meta?:
+          | T
+          | {
+              year?: T;
+              roles?:
+                | T
+                | {
+                    role?: T;
+                    id?: T;
+                  };
+              keywords?:
+                | T
+                | {
+                    keyword?: T;
+                    id?: T;
+                  };
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              tags?:
+                | T
+                | {
+                    tag?: T;
+                    id?: T;
+                  };
+            };
+      };
+  steps?:
+    | T
+    | {
+        variant?: T;
+        title?: T;
+        subtitle?: T;
+        text1?: T;
+        text1Divider?: T;
+        text2?: T;
+        text3?: T;
+        text4?: T;
+        images?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              id?: T;
+            };
+        enableSidebarLeft?: T;
+        sidebarLeft?:
+          | T
+          | {
+              variant?: T;
+              content?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+            };
+        enableSidebarRight?: T;
+        sidebarRight?:
+          | T
+          | {
+              variant?: T;
+              content?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+            };
+        id?: T;
+      };
+  navFooter?:
+    | T
+    | {
+        closingImage?: T;
+        previousProject?: T;
+        nextProject?: T;
+        backToList?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+      };
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sidebarVariants_select".
+ */
+export interface SidebarVariantsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  icon?: T;
+  accentColor?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects_select".
  */
 export interface RedirectsSelect<T extends boolean = true> {
@@ -1552,6 +2279,10 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
+  /**
+   * Logo icon displayed in the header
+   */
+  logo?: (number | null) | Media;
   navItems?:
     | {
         link: {
@@ -1601,6 +2332,280 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  identitySection?: {
+    title?: string | null;
+    icon?: (number | null) | Media;
+    description?: string | null;
+  };
+  exploreSection?: {
+    title?: string | null;
+    links?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: number | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  contactSection?: {
+    title?: string | null;
+    socialLinks?:
+      | {
+          platform: 'rednote' | 'instagram' | 'x' | 'custom';
+          icon?: (number | null) | Media;
+          url: string;
+          label?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  copyright?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "aboutPageDecorations".
+ */
+export interface AboutPageDecoration {
+  id: number;
+  introSection?: {
+    /**
+     * CATBOX 标题区域的装饰图片
+     */
+    level3?: (number | null) | Media;
+    /**
+     * 主要内容区域的装饰图片
+     */
+    level1?: (number | null) | Media;
+    /**
+     * Created by 区域的装饰图片
+     */
+    level4?: (number | null) | Media;
+    /**
+     * 左侧插画区域的装饰图片
+     */
+    level2?: (number | null) | Media;
+    /**
+     * Visual sandbox 标签的装饰图片
+     */
+    level5_1?: (number | null) | Media;
+    /**
+     * clarity through design 标签的装饰图片
+     */
+    level5_2?: (number | null) | Media;
+  };
+  /**
+   * 对应 Figma 中 890×168 的装饰条，将渲染在网站简介内容下方
+   */
+  decorationSection1?: (number | null) | Media;
+  /**
+   * 对应 Figma 中 890×788.667 的装饰区，将渲染在 Resume 容器之后
+   */
+  decorationSection2?: (number | null) | Media;
+  /**
+   * 对应 Figma 中 890×633 的装饰区，将渲染在装饰区 2 之后
+   */
+  decorationSection3?: (number | null) | Media;
+  resumeSection?: {
+    /**
+     * 位于 Resume 模块顶部的大标题图像，尺寸参考 Figma
+     */
+    title?: (number | null) | Media;
+    /**
+     * 紧接标题的纯图片容器内容
+     */
+    headline?: (number | null) | Media;
+    /**
+     * 第二个子容器中左侧图片内容
+     */
+    basicInfoLeft?: (number | null) | Media;
+    /**
+     * 覆盖整个第二子容器的背景图
+     */
+    basicInfoBackground?: (number | null) | Media;
+    /**
+     * 右列交互组件的关闭状态图片，默认 20% 不透明度，hover 时 50%
+     */
+    basicInfoRightClosed?: (number | null) | Media;
+    /**
+     * 右列交互组件的打开状态图片，点击后显示，100% 不透明度
+     */
+    basicInfoRightOpen?: (number | null) | Media;
+    /**
+     * Resume 简介区域的图片内容
+     */
+    resumeIntro?: (number | null) | Media;
+    /**
+     * 第四个 Grid 容器的背景图片，覆盖整个容器
+     */
+    resumeGridBackground?: (number | null) | Media;
+    /**
+     * 第四个 Grid 容器中左子容器的图片内容
+     */
+    resumeGridLeft?: (number | null) | Media;
+    /**
+     * 第四个 Grid 容器中右子容器的关闭状态图片，默认 20% 不透明度，hover 时 50%
+     */
+    resumeGridRightClosed?: (number | null) | Media;
+    /**
+     * 第四个 Grid 容器中右子容器的打开状态图片，点击后显示，100% 不透明度
+     */
+    resumeGridRightOpen?: (number | null) | Media;
+    /**
+     * 第五个子容器的图片内容（gridRow: 15 / span 5）
+     */
+    resumeSection5?: (number | null) | Media;
+    /**
+     * 第六个子容器的图片内容（gridRow: 20 / span 12）
+     */
+    resumeSection6?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projectPageIntro".
+ */
+export interface ProjectPageIntro {
+  id: number;
+  titleImage?: (number | null) | Media;
+  textLine1?: (number | null) | Media;
+  placeholder1?: (number | null) | Media;
+  placeholder2?: (number | null) | Media;
+  placeholder3?: (number | null) | Media;
+  placeholder4?: (number | null) | Media;
+  textLine2?: (number | null) | Media;
+  scrollHint?: (number | null) | Media;
+  /**
+   * 六个流程卡片的 hover/静态图配置，用于项目列表首屏
+   */
+  flowCards?: {
+    flow1?: {
+      /**
+       * Flow 上半区的默认图（hover 前）
+       */
+      image?: (number | null) | Media;
+      /**
+       * Flow 上半区 hover 时切换的文本图
+       */
+      textImage?: (number | null) | Media;
+      /**
+       * Flow 卡片下半区的静态图片
+       */
+      bottomImage?: (number | null) | Media;
+    };
+    flow2?: {
+      /**
+       * Flow 上半区的默认图（hover 前）
+       */
+      image?: (number | null) | Media;
+      /**
+       * Flow 上半区 hover 时切换的文本图
+       */
+      textImage?: (number | null) | Media;
+      /**
+       * Flow 卡片下半区的静态图片
+       */
+      bottomImage?: (number | null) | Media;
+    };
+    flow3?: {
+      /**
+       * Flow 上半区的默认图（hover 前）
+       */
+      image?: (number | null) | Media;
+      /**
+       * Flow 上半区 hover 时切换的文本图
+       */
+      textImage?: (number | null) | Media;
+      /**
+       * Flow 卡片下半区的静态图片
+       */
+      bottomImage?: (number | null) | Media;
+    };
+    flow4?: {
+      /**
+       * Flow 上半区的默认图（hover 前）
+       */
+      image?: (number | null) | Media;
+      /**
+       * Flow 上半区 hover 时切换的文本图
+       */
+      textImage?: (number | null) | Media;
+      /**
+       * Flow 卡片下半区的静态图片
+       */
+      bottomImage?: (number | null) | Media;
+    };
+    flow5?: {
+      /**
+       * Flow 上半区的默认图（hover 前）
+       */
+      image?: (number | null) | Media;
+      /**
+       * Flow 上半区 hover 时切换的文本图
+       */
+      textImage?: (number | null) | Media;
+      /**
+       * Flow 卡片下半区的静态图片
+       */
+      bottomImage?: (number | null) | Media;
+    };
+    flow6?: {
+      /**
+       * Flow 上半区的默认图（hover 前）
+       */
+      image?: (number | null) | Media;
+      /**
+       * Flow 上半区 hover 时切换的文本图
+       */
+      textImage?: (number | null) | Media;
+      /**
+       * Flow 卡片下半区的静态图片
+       */
+      bottomImage?: (number | null) | Media;
+    };
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projectDetailPageIntro".
+ */
+export interface ProjectDetailPageIntro {
+  id: number;
+  /**
+   * Display this image below the project intro as the global scroll hint.
+   */
+  scrollHintImage?: (number | null) | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "aboutMobileHero".
+ */
+export interface AboutMobileHero {
+  id: number;
+  /**
+   * 移动端 About Intro 用的大图（导出的那一张）
+   */
+  image?: (number | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1609,6 +2614,7 @@ export interface Footer {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  logo?: T;
   navItems?:
     | T
     | {
@@ -1646,6 +2652,169 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  identitySection?:
+    | T
+    | {
+        title?: T;
+        icon?: T;
+        description?: T;
+      };
+  exploreSection?:
+    | T
+    | {
+        title?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+      };
+  contactSection?:
+    | T
+    | {
+        title?: T;
+        socialLinks?:
+          | T
+          | {
+              platform?: T;
+              icon?: T;
+              url?: T;
+              label?: T;
+              id?: T;
+            };
+      };
+  copyright?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "aboutPageDecorations_select".
+ */
+export interface AboutPageDecorationsSelect<T extends boolean = true> {
+  introSection?:
+    | T
+    | {
+        level3?: T;
+        level1?: T;
+        level4?: T;
+        level2?: T;
+        level5_1?: T;
+        level5_2?: T;
+      };
+  decorationSection1?: T;
+  decorationSection2?: T;
+  decorationSection3?: T;
+  resumeSection?:
+    | T
+    | {
+        title?: T;
+        headline?: T;
+        basicInfoLeft?: T;
+        basicInfoBackground?: T;
+        basicInfoRightClosed?: T;
+        basicInfoRightOpen?: T;
+        resumeIntro?: T;
+        resumeGridBackground?: T;
+        resumeGridLeft?: T;
+        resumeGridRightClosed?: T;
+        resumeGridRightOpen?: T;
+        resumeSection5?: T;
+        resumeSection6?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projectPageIntro_select".
+ */
+export interface ProjectPageIntroSelect<T extends boolean = true> {
+  titleImage?: T;
+  textLine1?: T;
+  placeholder1?: T;
+  placeholder2?: T;
+  placeholder3?: T;
+  placeholder4?: T;
+  textLine2?: T;
+  scrollHint?: T;
+  flowCards?:
+    | T
+    | {
+        flow1?:
+          | T
+          | {
+              image?: T;
+              textImage?: T;
+              bottomImage?: T;
+            };
+        flow2?:
+          | T
+          | {
+              image?: T;
+              textImage?: T;
+              bottomImage?: T;
+            };
+        flow3?:
+          | T
+          | {
+              image?: T;
+              textImage?: T;
+              bottomImage?: T;
+            };
+        flow4?:
+          | T
+          | {
+              image?: T;
+              textImage?: T;
+              bottomImage?: T;
+            };
+        flow5?:
+          | T
+          | {
+              image?: T;
+              textImage?: T;
+              bottomImage?: T;
+            };
+        flow6?:
+          | T
+          | {
+              image?: T;
+              textImage?: T;
+              bottomImage?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projectDetailPageIntro_select".
+ */
+export interface ProjectDetailPageIntroSelect<T extends boolean = true> {
+  scrollHintImage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "aboutMobileHero_select".
+ */
+export interface AboutMobileHeroSelect<T extends boolean = true> {
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
