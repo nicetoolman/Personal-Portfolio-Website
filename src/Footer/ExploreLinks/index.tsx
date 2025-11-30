@@ -6,7 +6,7 @@ import { isLinkActive } from '@/utilities/isLinkActive'
 import type { Footer } from '@/payload-types'
 
 type ExploreLinksProps = {
-  links: Footer['exploreSection']['links']
+  links: NonNullable<Footer['exploreSection']>['links']
 }
 
 export const ExploreLinks: React.FC<ExploreLinksProps> = ({ links }) => {

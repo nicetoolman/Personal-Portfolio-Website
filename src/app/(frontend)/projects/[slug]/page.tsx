@@ -2,13 +2,9 @@ import type { Metadata } from 'next'
 
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import { LayoutViewport } from '@/components/LayoutViewport'
-import configPromise from '@payload-config'
 import { draftMode } from 'next/headers'
-import { getPayload } from 'payload'
 import React from 'react'
 
-import type { Project } from '@/payload-types'
-import { generateMeta } from '@/utilities/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { ProjectIntro } from '@/components/projects/ProjectIntro'
 import { ProjectStepsSection } from '@/components/projects/ProjectSteps'

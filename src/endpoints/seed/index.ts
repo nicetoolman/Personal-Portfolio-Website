@@ -47,7 +47,7 @@ export const seed = async ({
         slug: global,
         data: {
           navItems: [],
-        },
+        } as any, // Type assertion needed because different globals have different fields
         depth: 0,
         context: {
           disableRevalidate: true,
