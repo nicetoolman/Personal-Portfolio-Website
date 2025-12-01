@@ -171,7 +171,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
        * ===================== */}
       <article className="flex flex-col px-md py-sm gap-0 md:hidden">
         {/* Meta：标题 + 年份 + tags + keywords */}
-        <div className="flex flex-col gap-0">
+        <div className="flex flex-col gap-sm">
           {/* 标题 */}
           {title && (
             <h3 className="text-heading-sm font-medium leading-normal">
@@ -180,7 +180,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           )}
 
           {/* 年份 + tags（primary 字体） */}
-          <div className="flex flex-wrap gap-sm text-body">
+          <div className="flex flex-wrap gap-sm text-body leading-normal">
             {year && <span>{year}</span>}
             {tagNames.length > 0 && (
               <>
@@ -197,7 +197,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
           {/* Keywords（secondary 字体） */}
           {keywordValues.length > 0 && (
-            <div className="flex flex-wrap gap-sm text-caption text-secondary">
+            <div className="flex flex-wrap gap-sm text-caption text-secondary leading-normal">
               {keywordValues.map((kw, idx) => (
                 <span key={idx}>
                   {kw}
