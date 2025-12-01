@@ -26,7 +26,7 @@ export function AboutMain({ decorationsData, mobileHero }: AboutMainProps) {
         <div
           className="w-full block md:hidden relative"
           style={{
-            aspectRatio: '3560/2896',
+            aspectRatio: '890/640',
             minHeight: 0, // Ensure container can shrink if needed
           }}
         >
