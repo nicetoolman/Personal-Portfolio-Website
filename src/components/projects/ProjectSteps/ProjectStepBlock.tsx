@@ -101,7 +101,7 @@ function renderVariantContent(step: Step) {
   switch (step.variant) {
     case 'imageRight':
       return (
-        <div className="flex md:grid w-full flex-col md:grid-cols-2 gap-sm">
+        <div className="flex md:grid w-full flex-col md:grid-cols-2 md:items-stretch gap-sm">
           {renderTextStack(step)}
           {renderImagePanel(step.images?.[0])}
         </div>
@@ -109,7 +109,7 @@ function renderVariantContent(step: Step) {
 
     case 'imageLeft':
       return (
-        <div className="flex md:grid w-full flex-col md:flex-row gap-sm" style={{ gridTemplateColumns: 'minmax(0, 550px) minmax(0, 318px)' }}>
+        <div className="flex md:grid w-full flex-col md:items-stretch gap-sm" style={{ gridTemplateColumns: 'minmax(0, 550px) minmax(0, 318px)' }}>
           {/* Mobile: text first, then image. Desktop: image first, then text */}
           <div className="order-2 md:order-1">
             {renderImagePanel(step.images?.[0])}
@@ -183,11 +183,8 @@ function renderImagePanel(image?: StepImage) {
   const caption = getImageEntryCaption(image)
 
   return (
-    <div className="flex h-full min-h-[var(--layout-image-min-height)] w-full flex-col">
-      <div
-        className="relative w-full overflow-hidden"
-        style={{ aspectRatio: '16 / 9', minHeight: 'var(--layout-image-min-height)' }}
-      >
+    <div className="flex h-full min-h-[var(--layout-image-min-height)] md:min-h-0 w-full flex-col">
+      <div className="relative flex-1 w-full overflow-hidden min-h-[var(--layout-image-min-height)] md:min-h-0">
         {image ? (
           <Media
             resource={image.image}
