@@ -85,7 +85,7 @@ export async function ProjectIntro({ intro }: ProjectIntroProps) {
                 data={intro.titleGroup.subtitle}
                 enableProse={false}
                 enableGutter={false}
-                className="text-heading-lg font-black leading-tight tracking-tight font-['Roboto_Condensed']"
+                className="text-heading-lg font-light leading-tight tracking-tight font-['Roboto_Condensed']"
               />
             )}
           </div>
