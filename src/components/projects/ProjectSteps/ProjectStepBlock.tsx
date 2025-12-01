@@ -30,9 +30,12 @@ export function ProjectStepBlock({ step, index }: ProjectStepBlockProps) {
       style={{ rowGap: BODY_GAP }}
     >
       {renderHeader(step, index)}
-      {renderBody(step)}
-      {step.variant === 'standard' && renderImageGallery(step.images)}
-      {renderSidebars(step)}
+      {/* Content container: body + gallery + sidebars (sidebar定位参考点) */}
+      <div className="relative flex w-full flex-col" style={{ rowGap: BODY_GAP }}>
+        {renderBody(step)}
+        {step.variant === 'standard' && renderImageGallery(step.images)}
+        {renderSidebars(step)}
+      </div>
     </article>
   )
 }
