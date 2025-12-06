@@ -5,6 +5,8 @@ import { GeistMono } from 'geist/font/mono'
 import { Noto_Sans_JP, Roboto, Roboto_Condensed } from 'next/font/google'
 import React from 'react'
 
+import { Analytics } from '@vercel/analytics/react'
+
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
@@ -61,6 +63,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           {children}
           <Footer />
         </Providers>
+        {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
   )
