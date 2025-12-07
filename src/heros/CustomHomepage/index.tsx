@@ -43,17 +43,33 @@ export const CustomHomepageHero: React.FC<Page['hero']> = (props) => {
         </div>
       )}
       
-      {/* scroll bar - z=30: 底部对齐，使用相对高度保持比例 */}
+      {/* scroll bar - z=30: 底部对齐，使用相对高度保持比例，循环滚动 */}
       {scrollBar && typeof scrollBar === 'object' && scrollBar !== null && (
         <div className="absolute left-0 top-0 w-full h-full z-30 flex flex-col items-center justify-end gap-[10px] overflow-clip">
-          <div className="w-full h-[14.5508%] relative shrink-0">
-            <Media
-              resource={scrollBar}
-              htmlElement="div"
-              className="absolute inset-0"
-              imgClassName="object-[50%_50%] object-cover w-full h-full pointer-events-none"
-              fill
-            />
+          <div className="w-full h-[14.5508%] relative shrink-0 overflow-hidden">
+            {/* 滚动容器：复制内容实现无缝循环 */}
+            <div className="flex w-[200%] h-full animate-scroll-horizontal">
+              {/* 第一份滚动条内容 */}
+              <div className="relative w-1/2 h-full shrink-0">
+                <Media
+                  resource={scrollBar}
+                  htmlElement="div"
+                  className="absolute inset-0"
+                  imgClassName="object-[50%_50%] object-cover w-full h-full pointer-events-none"
+                  fill
+                />
+              </div>
+              {/* 第二份滚动条内容（用于无缝循环） */}
+              <div className="relative w-1/2 h-full shrink-0">
+                <Media
+                  resource={scrollBar}
+                  htmlElement="div"
+                  className="absolute inset-0"
+                  imgClassName="object-[50%_50%] object-cover w-full h-full pointer-events-none"
+                  fill
+                />
+              </div>
+            </div>
           </div>
         </div>
       )}
